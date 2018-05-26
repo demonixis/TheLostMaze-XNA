@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Data="Maze3D.Data">
+  <Asset Type="Data:Achievement">
+    <Id>1</Id>
+    <TimeToUnlock>6000</TimeToUnlock>
+    <PointsToUnlock>50</PointsToUnlock>
+    <Name>Started !</Name>
+    <Points>20</Points>
+    <Unlocked>false</Unlocked>
+  </Asset>
+</XnaContent>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Data="Maze3D.Data">
+  <Asset Type="Data:GameText">
+    <Lang>fr</Lang>
+    <Name>The Lost Maze</Name>
+    <Version>2.0.0.0</Version>
+    <Menus>
+      <New>Nouvelle partie</New>
+      <Continue>Continue</Continue>
+      <Choose>Choisir un niveau</Choose>
+      <Options>Options</Options>
+      <HowTo>Aide</HowTo>
+      <Credits>Credits</Credits>
+      <Exit>Quitter</Exit>
+    </Menus>
+    <Messages>
+      <GameFinished>
+        <Label>Vous êtes sortie</Label>
+        <Content>Bravo vous avez terminé le jeu, vous avez fait {0} Pourquoi ne pas recommencer avec un mode de difficulté plus élevé ?</Content>
+      </GameFinished>
+      <LevelFinished>
+        <Label>Niveau terminé !</Label>
+        <Content>Vous avez terminé le niveau {0} avec {1} ! Passer au niveau suivant ou revenir au menu ?</Content>
+      </LevelFinished>
+      <ConfirmQuit>
+        <Label>Quitter la partie</Label>
+        <Content>Voulez vous quitter cette partie ?</Content>
+      </ConfirmQuit>
+      <ConfirmAction>Valider</ConfirmAction>
+      <CancelAction>Annuler</CancelAction>
+      <MenuAction>Menu</MenuAction>
+      <NewPlusAction>Nouveau +</NewPlusAction>
+      <NextAction>Suivant</NextAction>
+    </Messages>
+    <Credits>
+      <Title>A propos</Title>
+      <Description>
+        <Label>A propos du jeu</Label>
+        <Content>The Lost Maze est un jeu d'exploration qui place le joueur dans une série de labyrinthe comportant des trésors à ramasser. Votre objectif est double vous devez d'une part ramasser un maximum de cristaux afin d'avoir le meilleur score possible mais vous devez aussi faire attention à ne pas prendre trop de temps pour sortir car cela va influancer votre score final.</Content>
+      </Description>
+      <Greeting>
+        <Label>Remerciements</Label>
+        <Content>Un grand merci à toutes les personnes qui nous ont encouragé et soutenus durant la création de The Lost Maze.</Content>
+      </Greeting>
+    </Credits>
+  </Asset>
+</XnaContent>

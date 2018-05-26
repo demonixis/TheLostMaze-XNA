@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Data="Maze3D.Data">
+  <Asset Type="Data:Level">
+    <Id>7</Id>
+    <BlockSizes>
+      <Width>10</Width>
+      <Height>10</Height>
+      <Depth>10</Depth>
+    </BlockSizes>
+    <WallTexture>Textures/algbrick</WallTexture>
+    <GroundTexture>Textures/tarmac02</GroundTexture>
+    <TopTexture>Textures/slab03</TopTexture>
+    <FinishTexture>Textures/tarmac02</FinishTexture>
+    <BorderWallTexture>Textures/stone_diff</BorderWallTexture>
+    <Width>16</Width>
+    <Height>0</Height>
+    <Depth>16</Depth>
+    <Tiles>2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 5 5 2 1 6 6 2 6 6 2 5 5 5 5 2 2 5 5 2 1 2 5 2 6 6 2 5 2 2 5 2 2 5 5 2 1 2 5 5 2 6 2 5 2 2 2 2 2 2 5 2 1 2 5 2 1 1 2 5 1 1 1 2 2 6 6 2 1 2 2 2 1 2 2 2 2 2 1 2 2 6 2 2 1 1 1 1 1 1 1 1 1 1 1 2 2 6 6 2 6 2 1 1 2 6 2 2 2 1 2 2 2 2 6 2 2 2 1 2 6 2 2 1 2 1 1 2 2 1 1 2 1 1 1 2 6 2 1 1 1 1 2 2 2 1 1 1 1 2 1 1 1 2 1 2 2 2 1 2 2 1 2 2 2 2 2 1 1 2 1 2 1 9 1 2 2 1 1 1 1 1 2 1 2 2 1 2 1 2 1 2 2 2 2 2 2 1 2 6 6 2 1 2 2 2 1 2 2 8 1 1 1 1 2 6 6 2 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2</Tiles>
+    <TilesStr>2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 5 5 2 1 6 6 2 6 6 2 5 5 5 5 2 2 5 5 2 1 2 5 2 6 6 2 5 2 2 5 2 2 5 5 2 1 2 5 5 2 6 2 5 2 2 2 2 2 2 5 2 1 2 5 2 1 1 2 5 1 1 1 2 2 6 6 2 1 2 2 2 1 2 2 2 2 2 1 2 2 6 2 2 1 1 1 1 1 1 1 1 1 1 1 2 2 6 6 2 6 2 1 1 2 6 2 2 2 1 2 2 2 2 6 2 2 2 1 2 6 2 2 1 2 1 1 2 2 1 1 2 1 1 1 2 6 2 1 1 1 1 2 2 2 1 1 1 1 2 1 1 1 2 1 2 2 2 1 2 2 1 2 2 2 2 2 1 1 2 1 2 1 9 1 2 2 1 1 1 1 1 2 1 2 2 1 2 1 2 1 2 2 2 2 2 2 1 2 6 6 2 1 2 2 2 1 2 2 8 1 1 1 1 2 6 6 2 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2</TilesStr>
+    <SkyboxType>Night</SkyboxType>
+    <AchievementID>-1</AchievementID>
+  </Asset>
+</XnaContent>
