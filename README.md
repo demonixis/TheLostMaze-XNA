@@ -2,7 +2,7 @@
 
 The Lost Maze is an exploration game that takes place in many mazes. You've to get all crystals to make the best score.
 
-![Preview](https://github.com/demonixis/TheLostMaze-XNA/blob/master/images/preview.png)
+![Preview](https://github.com/demonixis/TheLostMaze-XNA/blob/master/Images/preview.png)
 
 This is the XNA version adapted to work with MonoGame. Sources can contains references to Windows Phone 7, 8 and Windows Metro.
 
