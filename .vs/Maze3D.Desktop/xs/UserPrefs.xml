@@ -1,10 +1,24 @@
 ﻿<Properties StartupConfiguration="{905B6B3B-33B1-49FB-B691-AE30F88CB4F5}|Default">
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Maze3D/Control/MazeController.cs">
+    <Files>
+      <File FileName="Maze3D/Screen/LevelState.cs" Line="154" Column="48" />
+      <File FileName="Maze3D/MazeGame.cs" Line="245" Column="1" />
+      <File FileName="Maze3D/Screen/PopupState.cs" Line="86" Column="1" />
+      <File FileName="YnaEngine/State/YnState.cs" Line="110" Column="60" />
+      <File FileName="YnaEngine/Graphics/YnState2D.cs" Line="205" Column="1" />
+      <File FileName="YnaEngine/Graphics/YnCamera2D.cs" Line="100" Column="1" />
+      <File FileName="YnaEngine/Graphics/YnScene.cs" Line="66" Column="1" />
+      <File FileName="YnaEngine/YnGameEntityCollection.cs" Line="64" Column="1" />
+      <File FileName="YnaEngine/Graphics/YnSprite.cs" Line="514" Column="1" />
+      <File FileName="Maze3D/Control/MazeController.cs" Line="145" Column="23" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.ItemProperties.TheLostMaze.Desktop PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.ItemProperties.Maze3D.Desktop PreferredExecutionTarget="MonoDevelop.Default" />
   <MultiItemStartupConfigurations />
 </Properties>

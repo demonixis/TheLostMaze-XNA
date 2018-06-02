@@ -37,6 +37,10 @@ namespace Maze3D.Control
 
         private bool _waitForUp;
 
+#if DEBUG
+        public bool Wallthrough { get; set; } = false;
+#endif
+
         public MazeController(BaseCamera camera)
             : base(camera)
         {
@@ -52,7 +56,7 @@ namespace Maze3D.Control
             EnableGamepad = GameConfiguration.EnabledGamePad;
             EnableMouse = false;// GameConfiguration.EnabledMouse;
             EnableVirtualPad = GameConfiguration.EnabledVirtualPad;
-            
+
             if (GameConfiguration.ControlMode == ControlMode.New)
             {
                 _moveSpeed = 0.05f;
@@ -166,11 +170,13 @@ namespace Maze3D.Control
                 i++;
             }
 
+            var valid = _colliderName == string.Empty;
+
 #if DEBUG
-            if (_colliderName == String.Empty || _colliderName == "WALL")
-#else
-            if (_colliderName == String.Empty)
+            if (Wallthrough)
+                valid = true;
 #endif
+            if (valid)
                 Camera.Position = _nextPosition;
 
             return _colliderName;
@@ -222,7 +228,7 @@ namespace Maze3D.Control
             Vector2 rightStickValue = YnG.Gamepad.RightStickValue(_playerIndex);
 
             // Translate/Rotate/Picth
-            _nextDirection.X += -leftStickValue.X * _moveSpeed * gameTime.ElapsedGameTime.Milliseconds; 
+            _nextDirection.X += -leftStickValue.X * _moveSpeed * gameTime.ElapsedGameTime.Milliseconds;
             _nextDirection.Z += leftStickValue.Y * _moveSpeed * gameTime.ElapsedGameTime.Milliseconds;
 
             Camera.RotateY(-rightStickValue.X * _rotationSpeed * gameTime.ElapsedGameTime.Milliseconds);

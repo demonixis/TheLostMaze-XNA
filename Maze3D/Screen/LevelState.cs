@@ -35,17 +35,9 @@ namespace Maze3D.Screen
         public event EventHandler<LevelFinishEventArgs> LevelFinished = null;
         public event EventHandler<EventArgs> ExitRequest = null;
 
-        private void OnLevelFinished(LevelFinishEventArgs e)
-        {
-            if (LevelFinished != null)
-                LevelFinished(this, e);
-        }
+        private void OnLevelFinished(LevelFinishEventArgs e) => LevelFinished?.Invoke(this, e);
 
-        public void OnExitRequest(EventArgs e)
-        {
-            if (ExitRequest != null)
-                ExitRequest(this, e);
-        }
+        public void OnExitRequest(EventArgs e) => ExitRequest?.Invoke(this, e);
 
         public LevelState(string name, int startLevel)
             : base(name)
@@ -73,7 +65,7 @@ namespace Maze3D.Screen
             elapsedPartyTime = 0;
 
             soundTimer = new YnTimer(1000, 0);
-            
+
             if (YnG.AudioManager.SoundEnabled)
                 soundTimer.Completed += (s, e) => YnG.AudioManager.SoundEnabled = true;
             else
@@ -150,7 +142,7 @@ namespace Maze3D.Screen
                 elapsedPartyTime += gameTime.ElapsedGameTime.Milliseconds;
 
                 timeTimer.Update(gameTime.ElapsedGameTime.Milliseconds);
-                
+
                 _gameHUD.Update(gameTime);
                 _gameHUD.Time = timeTimer.ToString();
 
@@ -196,8 +188,8 @@ namespace Maze3D.Screen
                 if (_gameHUD.MiniMap.Enabled)
                     _gameHUD.MiniMap.UpdatePlayerPosition(Camera.X, Camera.Z);
 
-				if (virtualPad.Enabled)
-					virtualPad.Update(gameTime);
+                if (virtualPad.Enabled)
+                    virtualPad.Update(gameTime);
             }
             else if (gameState == MazeGameState.Ending)
             {
