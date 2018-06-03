@@ -30,7 +30,7 @@ namespace Yna.Engine
         public bool AssetLoaded
         {
             get { return _assetLoaded; }
-            set { _assetLoaded = value ;}
+            set { _assetLoaded = value; }
         }
 
         /// <summary>
@@ -108,27 +108,18 @@ namespace Yna.Engine
         /// <summary>
         /// Initialize the logic.
         /// </summary>
-        public virtual void Initialize()
-        {
-            _initialized = true;
-        }
+        public abstract void Initialize();
 
         /// <summary>
         /// Load assets
         /// </summary>
         /// <param name="content">The content manager.</param>
-        public virtual void LoadContent()
-        {
-            _assetLoaded = true;
-        }
+        public abstract void LoadContent();
 
         /// <summary>
         /// Unload assets and free memory.
         /// </summary>
-        public virtual void UnloadContent()
-        {
-            _assetLoaded = false;
-        }
+        public abstract void UnloadContent();
 
         /// <summary>
         /// Draw entity on screen.

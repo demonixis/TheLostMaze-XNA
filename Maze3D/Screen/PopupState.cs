@@ -47,10 +47,7 @@ namespace Maze3D.Screen
             : base(name, false)
         {
             int y = YnG.Height / 2 - ((YnG.Height / 4) / 2);
-            _background = new YnSprite(
-                new Rectangle(0, y, YnG.Width, (int)(ScreenHelper.GetScaleY(300))),
-                Color.WhiteSmoke);
-
+            _background = new YnSprite(new Rectangle(0, y, YnG.Width, (int)(ScreenHelper.GetScaleY(300))), Color.WhiteSmoke);
             _background.Alpha = 0.9f;
             Add(_background);
 
@@ -125,15 +122,28 @@ namespace Maze3D.Screen
             _waitMessage.Position = new Vector2(YnG.Width / 2 - _waitMessage.Width / 2, _background.Y + _background.Height + ScreenHelper.GetScaleY(25));
         }
 
+        public override void LoadContent()
+        {
+            base.LoadContent();
+        }
+
         public override void Update(GameTime gameTime)
         {
-            if (_enabled)
-            {
-                base.Update(gameTime);
+            if (!_enabled)
+                return;
 
-                if (YnG.Keys.JustPressed(Keys.Escape) || YnG.Gamepad.JustPressed(PlayerIndex.One, Buttons.Back) || YnG.Gamepad.JustPressed(PlayerIndex.One, Buttons.B))
-                    OnActionMenu(new MessageBoxEventArgs(false, true));
-            }
+            base.Update(gameTime);
+
+            if (YnG.Keys.JustPressed(Keys.Escape) || YnG.Gamepad.JustPressed(PlayerIndex.One, Buttons.Back) || YnG.Gamepad.JustPressed(PlayerIndex.One, Buttons.B))
+                OnActionMenu(new MessageBoxEventArgs(false, true));
+        }
+
+        public override void Draw(GameTime gameTime)
+        {
+            if (spriteBatch == null)
+                spriteBatch = new Microsoft.Xna.Framework.Graphics.SpriteBatch(YnG.GraphicsDevice);
+
+            base.Draw(gameTime);
         }
     }
 }

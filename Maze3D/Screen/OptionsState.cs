@@ -14,7 +14,7 @@ namespace Maze3D.Screen
 
         public override void Update(GameTime gameTime)
         {
-			base.Update(gameTime);
+            base.Update(gameTime);
 
             if (YnG.Gamepad.JustPressed(PlayerIndex.One, Microsoft.Xna.Framework.Input.Buttons.Back) || YnG.Keys.JustPressed(Microsoft.Xna.Framework.Input.Keys.Escape))
                 YnG.StateManager.SetActive("menu", true);

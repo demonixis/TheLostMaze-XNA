@@ -93,24 +93,13 @@ namespace Yna.Engine.State
 
         #endregion
 
-        public override void Initialize()
-        {
-            base.Initialize();
-            if (!_initialized)
-                _initialized = true;
-        }
-
         /// <summary>
         /// Load state content.
         /// </summary>
         public override void LoadContent()
         {
-            if (!_assetLoaded)
-            {
+            if (spriteBatch == null)
                 spriteBatch = new SpriteBatch(stateManager.Game.GraphicsDevice);
-                _assetLoaded = true;
-
-            }
         }
 
         /// <summary>
@@ -118,11 +107,7 @@ namespace Yna.Engine.State
         /// </summary>
         public override void UnloadContent()
         {
-            if (_assetLoaded)
-            {
-                spriteBatch.Dispose();
-                _assetLoaded = false;
-            }
+            spriteBatch?.Dispose();
         }
 
         /// <summary>

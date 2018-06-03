@@ -535,6 +535,10 @@ namespace Yna.Engine.Graphics
 
         #region GameState pattern
 
+        public override void Initialize()
+        {
+        }
+
         /// <summary>
         /// Load asset.
         /// </summary>

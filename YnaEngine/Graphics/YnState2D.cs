@@ -138,7 +138,6 @@ namespace Yna.Engine.Graphics
         /// </summary>
         public override void Initialize()
         {
-            base.Initialize();
             if (!_initialized)
                 _scene.Initialize();
         }
@@ -148,17 +147,16 @@ namespace Yna.Engine.Graphics
         /// </summary>
         public override void LoadContent()
         {
-            if (!_assetLoaded)
-            {
-                OnContentLoadingStarted(EventArgs.Empty);
+            if (_assetLoaded)
+                return;
+            OnContentLoadingStarted(EventArgs.Empty);
 
-                base.LoadContent();
-                _scene.LoadContent();
+            base.LoadContent();
+            _scene.LoadContent();
 
-                OnContentLoadingFinished(EventArgs.Empty);
+            OnContentLoadingFinished(EventArgs.Empty);
 
-                _assetLoaded = true;
-            }
+            _assetLoaded = true;
         }
 
         /// <summary>
@@ -230,8 +228,8 @@ namespace Yna.Engine.Graphics
                 entity.Initialize();
 
             if (AssetLoaded && !entity.AssetLoaded)
-                    entity.LoadContent();
-       
+                entity.LoadContent();
+
             _scene.Add(entity);
         }
 

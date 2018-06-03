@@ -94,7 +94,7 @@ namespace Yna.Engine.Graphics3D.Terrain
                 new Vector3(X + Width, Y, Z),
                 new Vector3(X, Y - (Height), Z),
                 new Vector3(X, Y + (Height), Z),
-                
+
                 new Vector3(X, Y, Z - Depth),
                 new Vector3(X, Y, Z + Depth),
             };
@@ -103,16 +103,20 @@ namespace Yna.Engine.Graphics3D.Terrain
             {
                 new Vector3(-MathHelper.PiOver2, 0.0f, -MathHelper.PiOver2),
                 new Vector3(-MathHelper.PiOver2, 0.0f, MathHelper.PiOver2),
-                
+
                 new Vector3(0.0f),
                 new Vector3(MathHelper.Pi, 0, 0.0f),
                 new Vector3(-MathHelper.PiOver2, MathHelper.Pi, 0.0f),
                 new Vector3(-MathHelper.PiOver2, 0.0f, 0.0f),
             };
 
+            BasicMaterial material;
+
             for (int i = 0; i < 6; i++)
             {
-                _walls[i] = new YnMeshGeometry(new PlaneGeometry(sizes), new BasicMaterial(_textureNames[i]));
+                material = new BasicMaterial(_textureNames[i]);
+                material.EnableDefaultLighting = true;
+                _walls[i] = new YnMeshGeometry(new PlaneGeometry(sizes), material);
                 _walls[i].Rotation = rotations[i];
                 _walls[i].Position = positions[i];
                 Add(_walls[i]);

@@ -1,9 +1,7 @@
 using Maze3D.Data;
 using Maze3D.Screen;
-using Microsoft.Xna.Framework;
 using System;
 using System.Globalization;
-using System.Threading;
 using Yna.Engine;
 using Yna.Engine.Content;
 using Yna.Engine.Helpers;
@@ -16,16 +14,9 @@ namespace Maze3D
         private int _nextLevel;
         private PlayerManager _playerManager;
 
-        private SplashState splashState;
-        private MenuState menuState;
-        private SelectionState selectionState;
-        private OptionsState optionsState;
-        private AboutState aboutState;
-        private PopupState popupState;
-
         public int NextLevel
         {
-            get { return _nextLevel; }
+            get => _nextLevel;
             set
             {
                 if (value < 1)
@@ -41,18 +32,6 @@ namespace Maze3D
 
         public event EventHandler<EventArgs> QuitRequested = null;
         public event EventHandler<LevelFinishEventArgs> LevelFinished = null;
-
-        public void OnQuitRequested(EventArgs e)
-        {
-            if (QuitRequested != null)
-                QuitRequested(this, e);
-        }
-
-        public void OnLevelFinished(LevelFinishEventArgs e)
-        {
-            if (LevelFinished != null)
-                LevelFinished(this, e);
-        }
 
         #endregion
 
@@ -79,147 +58,17 @@ namespace Maze3D
             _playerManager = new PlayerManager();
         }
 
-        private void InitializeLanguage(string useLang)
-        {
-            string userLanguage = String.Empty;
-
-            if (useLang == String.Empty)
-                userLanguage = CultureInfo.CurrentCulture.Name.Split(new char[] { '-' })[0];
-
-            // Français par défaut
-            string selectedLanguage = "fr";
-
-            if (userLanguage == "fr")
-                selectedLanguage = "fr";
-            else
-                selectedLanguage = "en";
-
-            var path = String.Format("Data/Translations/translation.{0}", selectedLanguage);
-            MazeLang.Text = ContentHelper.LoadXMLFromXna<GameText>(path);
-        }
-
-        private void InitializeScreenStates()
-        {
-            splashState = new SplashState("splash");
-            menuState = new MenuState("menu");
-            selectionState = new SelectionState("selection");
-            optionsState = new OptionsState("options");
-            aboutState = new AboutState("about");
-
-            popupState = new PopupState("popup");
-            popupState.ActionMenu += popupState_Action;
-            popupState.ActionNext += popupState_Action;
-            popupState.StateManager = YnG.StateManager;
-            popupState.LoadContent();
-            popupState.Initialize();
-            popupState.Active = false;
-        }
-
-        private void popupState_Action(object sender, MessageBoxEventArgs e)
-        {
-            PopupState popupState = sender as PopupState;
-            LevelState level = stateManager.Get("level") as LevelState;
-
-            level.Active = false;
-
-            if (e.CancelAction)
-            {
-                NextLevel--;
-                popupState.Active = false;
-                stateManager.SetActive("menu", true);
-            }
-            else
-            {
-                if (popupState.MessageBoxLabelB == MazeLang.Text.Messages.NewPlusAction)
-                    GameConfiguration.SetNextDifficulty();
-
-                popupState.ShowWaitMessage();
-                popupState.Enabled = false;
-                Thread prepareLevelThread = new Thread(new ParameterizedThreadStart((o) =>
-                {
-                    PrepareNewLevel(_nextLevel, true);
-                    popupState.HideWaitMessage();
-                    popupState.Active = false;
-                }));
-
-                prepareLevelThread.Start();
-            }
-        }
-
-        public void PrepareNewLevel(int levelId, bool isStarted)
-        {
-            LevelState level = stateManager.Get("level") as LevelState;
-
-            int launchLevelId = GameConfiguration.LevelStart;
-
-            if (level != null)
-            {
-                stateManager.Remove(level);
-
-                level.ExitRequest -= level_ExitRequest;
-                level.LevelFinished -= level_LevelFinished;
-                level = null;
-                launchLevelId = levelId;
-            }
-
-            level = new LevelState("level", launchLevelId);
-            level.ExitRequest += new EventHandler<EventArgs>(level_ExitRequest);
-            level.LevelFinished += new EventHandler<LevelFinishEventArgs>(level_LevelFinished);
-
-            stateManager.Add(level, isStarted);
-            stateManager.SetActive("level", true);
-        }
-
-        private void level_LevelFinished(object sender, LevelFinishEventArgs e)
-        {
-            YnG.AudioManager.StopMusic();
-
-            int score = e.Score.PartyScore;
-            string wPoint = score > 0 ? score + " points" : "0 point";
-
-            if (e.GameFinished)
-            {
-                popupState.SetMessage(MazeLang.Text.Messages.GameFinished.Label, String.Format(MazeLang.Text.Messages.GameFinished.Content, (e.NextLevel - 1).ToString(), wPoint));
-                popupState.SetActions(MazeLang.Text.Messages.MenuAction, MazeLang.Text.Messages.NewPlusAction);
-                NextLevel = 1;
-
-                // Le jouer peut jouer à tous les niveaux
-                GameConfiguration.LevelsUnlocked = GameConfiguration.LevelCount;
-            }
-            else
-            {
-                popupState.SetMessage(MazeLang.Text.Messages.LevelFinished.Label, String.Format(MazeLang.Text.Messages.LevelFinished.Content, (e.NextLevel - 1).ToString(), wPoint));
-                popupState.SetActions(MazeLang.Text.Messages.MenuAction, MazeLang.Text.Messages.NextAction);
-                NextLevel = e.NextLevel;
-
-                // Le niveau que le joueur vient de terminer est disponible dans le menu de selection
-                GameConfiguration.LevelsUnlocked = NextLevel;
-            }
-
-            _gameFinished = e.GameFinished;
-            popupState.Active = true;
-
-            _playerManager.AddScore(e.Score);
-            _playerManager.Save();
-        }
-
-        private void level_ExitRequest(object sender, EventArgs e)
-        {
-            YnG.AudioManager.StopMusic();
-            stateManager.SetActive("menu", true);
-            popupState.Active = false;
-        }
-
         protected override void Initialize()
         {
             _playerManager.Load();
             _nextLevel = GameConfiguration.LevelStart;
-            InitializeScreenStates();
-            stateManager.Add(splashState, true);
-            stateManager.Add(menuState, false);
-            stateManager.Add(selectionState, false);
-            stateManager.Add(optionsState, false);
-            stateManager.Add(aboutState, false);
+
+            stateManager.Add(new SplashState("splash"), true);
+            stateManager.Add(new MenuState("menu"), false);
+            stateManager.Add(new SelectionState("selection"), false);
+            stateManager.Add(new OptionsState("options"), false);
+            stateManager.Add(new AboutState("about"), false);
+
             base.Initialize();
         }
 
@@ -229,20 +78,87 @@ namespace Maze3D
             base.UnloadContent();
         }
 
-        protected override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
 
-            if (popupState.Enabled)
-                popupState.Update(gameTime);
+        private void InitializeLanguage(string useLang)
+        {
+            var userLanguage = String.Empty;
+            var selectedLanguage = "fr";
+
+            if (useLang == String.Empty)
+                userLanguage = CultureInfo.CurrentCulture.Name.Split('-')[0];
+
+            if (userLanguage == "fr")
+                selectedLanguage = "fr";
+            else
+                selectedLanguage = "en";
+
+            var path = String.Format("Data/Translations/translation.{0}", selectedLanguage);
+
+            MazeLang.Text = ContentHelper.LoadXMLFromXna<GameText>(path);
         }
 
-        protected override void Draw(GameTime gameTime)
+        public void PrepareNewLevel(int levelId, bool isStarted)
         {
-            base.Draw(gameTime);
+            var level = (LevelState)stateManager.Get("level");
+            var launchLevelId = GameConfiguration.LevelStart;
 
-            if (popupState.Visible)
-                popupState.Draw(gameTime);
+            if (level != null)
+            {
+                stateManager.Remove(level);
+
+                level.ExitRequest -= OnExitRequest;
+                level.LevelFinished -= OnLevelFinished;
+                level = null;
+                launchLevelId = levelId;
+            }
+
+            level = new LevelState("level", launchLevelId);
+            level.ExitRequest += OnExitRequest;
+            level.LevelFinished += OnLevelFinished;
+
+            stateManager.Add(level, isStarted);
+            stateManager.SetActive("level", true);
         }
+
+        #region Event Management
+
+        private void OnLevelFinished(object sender, LevelFinishEventArgs e)
+        {
+            YnG.AudioManager.StopMusic();
+
+            var score = e.Score.PartyScore;
+            var points = score > 0 ? score + " points" : "0 point";
+
+            if (e.GameFinished)
+            {
+                NextLevel = 1;
+                GameConfiguration.LevelsUnlocked = GameConfiguration.LevelCount;
+                YnG.StateManager.SetActive("menu", true);
+            }
+            else
+            {
+                NextLevel = e.NextLevel;
+                GameConfiguration.LevelsUnlocked = NextLevel;
+
+                var level = (LevelState)stateManager.Get("level");
+                level.Active = false;
+                PrepareNewLevel(_nextLevel, true);
+            }
+
+            _gameFinished = e.GameFinished;
+            _playerManager.AddScore(e.Score);
+            _playerManager.Save();
+        }
+
+        private void OnExitRequest(object sender, EventArgs e)
+        {
+            YnG.AudioManager.StopMusic();
+            YnG.StateManager.SetActive("menu", true);
+        }
+
+        public void OnQuitRequested(EventArgs e) => QuitRequested?.Invoke(this, e);
+        public void OnLevelFinished(LevelFinishEventArgs e) => LevelFinished(this, e);
+
+        #endregion
     }
 }

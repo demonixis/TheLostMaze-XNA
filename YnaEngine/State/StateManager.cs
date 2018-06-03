@@ -237,7 +237,7 @@ namespace Yna.Engine.State
         {
             if (_statesDictionary.ContainsKey(name))
             {
-                YnState activableState = _states[_statesDictionary[name]] as YnState;
+                var activableState = _states[_statesDictionary[name]] as YnState;
                 activableState.Active = true;
 
                 if (desactiveOtherScreens)

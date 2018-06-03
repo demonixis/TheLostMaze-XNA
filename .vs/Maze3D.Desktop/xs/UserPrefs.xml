@@ -1,16 +1,32 @@
 ﻿<Properties StartupConfiguration="{905B6B3B-33B1-49FB-B691-AE30F88CB4F5}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Maze3D/Control/MazeController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="YnaEngine/Graphics3D/Material/BaseMaterial.cs">
     <Files>
-      <File FileName="Maze3D/Screen/LevelState.cs" Line="154" Column="48" />
-      <File FileName="Maze3D/MazeGame.cs" Line="245" Column="1" />
-      <File FileName="Maze3D/Screen/PopupState.cs" Line="86" Column="1" />
-      <File FileName="YnaEngine/State/YnState.cs" Line="110" Column="60" />
-      <File FileName="YnaEngine/Graphics/YnState2D.cs" Line="205" Column="1" />
-      <File FileName="YnaEngine/Graphics/YnCamera2D.cs" Line="100" Column="1" />
-      <File FileName="YnaEngine/Graphics/YnScene.cs" Line="66" Column="1" />
-      <File FileName="YnaEngine/YnGameEntityCollection.cs" Line="64" Column="1" />
-      <File FileName="YnaEngine/Graphics/YnSprite.cs" Line="514" Column="1" />
-      <File FileName="Maze3D/Control/MazeController.cs" Line="145" Column="23" />
+      <File FileName="Maze3D/Screen/LevelState.cs" Line="86" Column="1" />
+      <File FileName="Maze3D/MazeLevel.cs" Line="97" Column="1" />
+      <File FileName="YnaEngine/Graphics/YnState2D.cs" Line="195" Column="17" />
+      <File FileName="YnaEngine/State/StateManager.cs" Line="310" Column="1" />
+      <File FileName="YnaEngine/YnGameEntityCollection.cs" Line="19" Column="1" />
+      <File FileName="YnaEngine/Graphics/YnScene.cs" Line="42" Column="1" />
+      <File FileName="YnaEngine/Graphics/YnSprite.cs" Line="396" Column="24" />
+      <File FileName="Maze3D/Screen/PopupState.cs" Line="144" Column="1" />
+      <File FileName="YnaEngine/State/YnState.cs" Line="103" Column="1" />
+      <File FileName="YnaEngine/YnGameEntity.cs" Line="111" Column="43" />
+      <File FileName="YnaEngine/Graphics/YnEntity.cs" Line="539" Column="10" />
+      <File FileName="Maze3D/Screen/OptionsState.cs" Line="12" Column="13" />
+      <File FileName="Maze3D/Screen/MenuState.cs" Line="35" Column="17" />
+      <File FileName="Maze3D/MazeEvents.cs" Line="19" Column="16" />
+      <File FileName="Maze3D/Control/MazeController.cs" Line="220" Column="80" />
+      <File FileName="YnaEngine/Graphics3D/YnState3D.cs" Line="128" Column="1" />
+      <File FileName="YnaEngine/Graphics3D/YnGroup3D.cs" Line="207" Column="1" />
+      <File FileName="YnaEngine/Graphics3D/YnEntity3DList.cs" Line="42" Column="1" />
+      <File FileName="Maze3D/Screen/AboutState.cs" Line="25" Column="9" />
+      <File FileName="Maze3D/MazeGame.cs" Line="21" Column="14" />
+      <File FileName="YnaEngine/Graphics3D/Terrain/Skybox.cs" Line="113" Column="20" />
+      <File FileName="YnaEngine/Graphics3D/Terrain/SkySphere.cs" Line="1" Column="1" />
+      <File FileName="YnaEngine/Graphics3D/Material/BasicMaterial.cs" Line="73" Column="25" />
+      <File FileName="YnaEngine/Graphics3D/Lighting/BaseLight.cs" Line="17" Column="21" />
+      <File FileName="YnaEngine/Graphics3D/Material/StockMaterial.cs" Line="228" Column="39" />
+      <File FileName="YnaEngine/Graphics3D/Material/BaseMaterial.cs" Line="16" Column="27" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

@@ -28,13 +28,13 @@ namespace Maze3D.Screen
             menuItemSelector = new YnEntity("UI/menuItemBar");
             Add(menuItemSelector);
 
-            string[] itemNames = new string[5] 
-            { 
-                MazeLang.Text.Menus.New, 
-                MazeLang.Text.Menus.Choose, 
-                MazeLang.Text.Menus.Options, 
-                MazeLang.Text.Menus.Credits, 
-                MazeLang.Text.Menus.Exit 
+            string[] itemNames = new string[5]
+            {
+                MazeLang.Text.Menus.New,
+                MazeLang.Text.Menus.Choose,
+                MazeLang.Text.Menus.Options,
+                MazeLang.Text.Menus.Credits,
+                MazeLang.Text.Menus.Exit
             };
 
             menuItems = new YnText[5];
@@ -48,7 +48,7 @@ namespace Maze3D.Screen
 
                 if (i > 2)
                     menuItems[i].Scale = new Vector2(0.75f);
-                
+
                 Add(menuItems[i]);
             }
 

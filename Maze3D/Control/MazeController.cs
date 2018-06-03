@@ -184,9 +184,8 @@ namespace Maze3D.Control
 
         private void ApplyTransformToNextPosition(Vector3 position, float rotation, ref Vector3 direction, ref Vector3 nextPositionVector)
         {
-            Matrix forwardMovement = Matrix.CreateRotationY(rotation);
-
-            Vector3 transformedPosition = Vector3.Add(position, Vector3.Transform(direction, forwardMovement));
+            var forwardMovement = Matrix.CreateRotationY(rotation);
+            var transformedPosition = Vector3.Add(position, Vector3.Transform(direction, forwardMovement));
 
             nextPositionVector.X = transformedPosition.X;
             nextPositionVector.Y = transformedPosition.Y;
@@ -216,9 +215,9 @@ namespace Maze3D.Control
                 Camera.RotateY(-_rotationSpeed * gameTime.ElapsedGameTime.Milliseconds);
 
             // Look Up/Down
-            if (YnG.Keys.Pressed(Keys.PageUp))
+            if (YnG.Keys.Pressed(Keys.PageUp) || YnG.Keys.Pressed(Keys.R))
                 Camera.RotateX(-_pitchSpeed * gameTime.ElapsedGameTime.Milliseconds);
-            else if (YnG.Keys.Pressed(Keys.PageDown))
+            else if (YnG.Keys.Pressed(Keys.PageDown) || YnG.Keys.Pressed(Keys.F))
                 Camera.RotateX(_pitchSpeed * gameTime.ElapsedGameTime.Milliseconds);
         }
 
