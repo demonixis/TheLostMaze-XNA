@@ -63,11 +63,11 @@ namespace Maze3D
             _playerManager.Load();
             _nextLevel = GameConfiguration.LevelStart;
 
-            stateManager.Add(new SplashState("splash"), true);
-            stateManager.Add(new MenuState("menu"), false);
-            stateManager.Add(new SelectionState("selection"), false);
-            stateManager.Add(new OptionsState("options"), false);
-            stateManager.Add(new AboutState("about"), false);
+            m_StateManager.Add(new SplashState("splash"), true);
+            m_StateManager.Add(new MenuState("menu"), false);
+            m_StateManager.Add(new SelectionState("selection"), false);
+            m_StateManager.Add(new OptionsState("options"), false);
+            m_StateManager.Add(new AboutState("about"), false);
 
             base.Initialize();
         }
@@ -77,7 +77,6 @@ namespace Maze3D
             _playerManager.Save();
             base.UnloadContent();
         }
-
 
         private void InitializeLanguage(string useLang)
         {
@@ -99,12 +98,12 @@ namespace Maze3D
 
         public void PrepareNewLevel(int levelId, bool isStarted)
         {
-            var level = (LevelState)stateManager.Get("level");
+            var level = (LevelState)m_StateManager.Get("level");
             var launchLevelId = GameConfiguration.LevelStart;
 
             if (level != null)
             {
-                stateManager.Remove(level);
+                m_StateManager.Remove(level);
 
                 level.ExitRequest -= OnExitRequest;
                 level.LevelFinished -= OnLevelFinished;
@@ -116,8 +115,8 @@ namespace Maze3D
             level.ExitRequest += OnExitRequest;
             level.LevelFinished += OnLevelFinished;
 
-            stateManager.Add(level, isStarted);
-            stateManager.SetActive("level", true);
+            m_StateManager.Add(level, isStarted);
+            m_StateManager.SetActive("level", true);
         }
 
         #region Event Management
@@ -140,7 +139,7 @@ namespace Maze3D
                 NextLevel = e.NextLevel;
                 GameConfiguration.LevelsUnlocked = NextLevel;
 
-                var level = (LevelState)stateManager.Get("level");
+                var level = (LevelState)m_StateManager.Get("level");
                 level.Active = false;
                 PrepareNewLevel(_nextLevel, true);
             }

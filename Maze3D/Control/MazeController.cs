@@ -1,4 +1,5 @@
-﻿using Maze3D.Data;
+﻿using C3DE.VR;
+using Maze3D.Data;
 using Maze3D.VR;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;

@@ -33,10 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Audio\AudioAdapter.cs" />
     <Compile Include="Audio\AudioManager.cs" />
-    <Compile Include="Audio\DummyAudioAdapter.cs" />
-    <Compile Include="Audio\XnaAudioAdapter.cs" />
     <Compile Include="Extensions\BoundingFrustrumExtension.cs" />
     <Compile Include="Graphics\Component\YnVirtualStick.cs" />
     <Compile Include="Graphics\ICollidable.cs" />
@@ -84,8 +81,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="State\StateManager.cs" />
     <Compile Include="State\YnState.cs" />
-    <Compile Include="Storage\BasicStorageDevice.cs" />
-    <Compile Include="Storage\IStorageDevice.cs" />
     <Compile Include="Storage\StorageManager.cs" />
     <Compile Include="Graphics\YnState2D.cs" />
     <Compile Include="YnBasicEntity.cs" />
@@ -164,10 +159,6 @@
     <Compile Include="Graphics\GUI\Widgets\YnWidget.cs" />
     <Compile Include="Graphics\GUI\Widgets\YnWindow.cs" />
     <Compile Include="Graphics\GUI\YnWidgetProperties.cs" />
-    <Compile Include="Script\BaseScriptNode.cs" />
-    <Compile Include="Script\MoveScript.cs" />
-    <Compile Include="Script\ScriptAnimator.cs" />
-    <Compile Include="Script\WaitScript.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Graphics3D\Material\Resources\NormalMapEffect.dx11.mgfxo" />

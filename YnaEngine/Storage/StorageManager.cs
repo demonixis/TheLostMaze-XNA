@@ -1,6 +1,11 @@
 ﻿// YnaEngine - Copyright (C) YnaEngine team
 // This file is subject to the terms and conditions defined in
 // file 'LICENSE', which is part of this source code package.
+using System;
+using System.IO;
+using System.Text;
+using System.Xml.Serialization;
+
 namespace Yna.Engine.Storage
 {
     /// <summary>
@@ -8,24 +13,33 @@ namespace Yna.Engine.Storage
     /// </summary>
     public class StorageManager
     {
-        private IStorageDevice _storageDevice;
+        private string _saveFolder;
 
         public StorageManager()
         {
-#if WINDOWS_PHONE_7
-            _storageDevice = new XnaPhoneStorageDevice();
-#elif WINDOWS_STOREAPP || WINDOWS_PHONE_8
-            _storageDevice = new XnaStorageDevice();
-#elif UNSUPPORTED
-			_storageDevice = new DummyStorageDevice();
-#else
-            _storageDevice = new BasicStorageDevice();
-#endif
+            _saveFolder = GetSaveContainer();
         }
 
-        public StorageManager(IStorageDevice storageDevice)
+        private string GetSaveContainer()
         {
-            _storageDevice = storageDevice;
+            var builder = new StringBuilder();
+            builder.Append(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
+            builder.Append(Path.DirectorySeparatorChar);
+            builder.Append("my games");
+            builder.Append(Path.DirectorySeparatorChar);
+            builder.Append(YnGame.GameTitle);
+            builder.Append(Path.DirectorySeparatorChar);
+            return builder.ToString();
+        }
+
+        private string GetContainer(string containerName)
+        {
+            string containerTarget = _saveFolder + containerName;
+
+            if (!Directory.Exists(containerTarget))
+                Directory.CreateDirectory(containerTarget);
+
+            return containerTarget;
         }
 
         /// <summary>
@@ -37,7 +51,17 @@ namespace Yna.Engine.Storage
         /// <param name="obj">Serializable object</param>
         public virtual void Save<T>(string containerName, string fileName, T obj)
         {
-            _storageDevice.Save<T>(containerName, fileName, obj);
+            string container = GetContainer(containerName);
+            string filePath = GetFilePath(container, containerName, fileName);
+
+            if (File.Exists(filePath))
+                File.Delete(filePath); // TODO : backup file
+
+            StreamWriter writer = new StreamWriter(filePath);
+            XmlSerializer serializer = new XmlSerializer(typeof(T));
+
+            serializer.Serialize(writer, obj);
+            writer.Dispose();
         }
 
         /// <summary>
@@ -49,12 +73,34 @@ namespace Yna.Engine.Storage
         /// <returns>Instance of the object type with previous saved datas</returns>
         public virtual T Load<T>(string containerName, string fileName)
         {
-            return _storageDevice.Load<T>(containerName, fileName);
+            T datas = default(T);
+
+            string container = GetContainer(containerName);
+            string filePath = GetFilePath(container, containerName, fileName);
+
+            if (File.Exists(filePath))
+            {
+                Stream stream = File.Open(filePath, FileMode.Open);
+                XmlSerializer serializer = new XmlSerializer(typeof(T));
+
+                datas = (T)serializer.Deserialize(stream);
+                stream.Dispose();
+            }
+
+            return datas;
         }
 
-        public virtual void Clear()
+        private string GetFilePath(string container, string containerName, string fileName)
         {
-            _storageDevice.Clear();
+            StringBuilder pathBuilder = new StringBuilder();
+            pathBuilder.Append(container);
+
+            if (containerName != String.Empty)
+                pathBuilder.Append(Path.DirectorySeparatorChar);
+
+            pathBuilder.Append(fileName);
+
+            return pathBuilder.ToString();
         }
     }
 }

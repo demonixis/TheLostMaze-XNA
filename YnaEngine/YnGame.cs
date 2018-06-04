@@ -18,8 +18,8 @@ namespace Yna.Engine
     public class YnGame : Game
     {
         protected GraphicsDeviceManager graphics = null;
-        protected SpriteBatch spriteBatch = null;
-        protected StateManager stateManager = null;
+        protected SpriteBatch m_SpriteBatch = null;
+        protected StateManager m_StateManager = null;
         public static string GameTitle = "Yna Game";
         public static string GameVersion = "1.0.0.0";
 
@@ -34,7 +34,7 @@ namespace Yna.Engine
         {
             this.graphics = new GraphicsDeviceManager(this);
             this.Content.RootDirectory = "Content";
-            this.stateManager = new StateManager(this);
+            this.m_StateManager = new StateManager(this);
 
             YnKeyboard keyboardComponent = new YnKeyboard(this);
             YnMouse mouseComponent = new YnMouse(this);
@@ -45,7 +45,7 @@ namespace Yna.Engine
             Components.Add(mouseComponent);
             Components.Add(gamepadComponent);
             Components.Add(touchComponent);
-            Components.Add(stateManager);
+            Components.Add(m_StateManager);
 
             // Registry globals objects
             YnG.Game = this;
@@ -54,46 +54,13 @@ namespace Yna.Engine
             YnG.Mouse = mouseComponent;
             YnG.Gamepad = gamepadComponent;
             YnG.Touch = touchComponent;
-            YnG.StateManager = stateManager;
+            YnG.StateManager = m_StateManager;
             YnG.StorageManager = new StorageManager();
             YnG.AudioManager = new AudioManager();
 
-#if !ANDROID
-            this.Window.Title = String.Format("{0} - v{1}", GameTitle, GameVersion);
-#endif
+            Window.Title = String.Format("{0} - v{1}", GameTitle, GameVersion);
             ScreenHelper.ScreenWidthReference = graphics.PreferredBackBufferWidth;
             ScreenHelper.ScreenHeightReference = graphics.PreferredBackBufferHeight;
-
-#if WINDOWS_PHONE_7
-            // 30 FPS for Windows Phone 7
-            TargetElapsedTime = TimeSpan.FromTicks(333333);
-
-            // Battery saving when screen suspended
-            InactiveSleepTime = TimeSpan.FromSeconds(1);
-#endif
-        }
-
-        public YnGame(int width, int height, string title)
-            : this()
-        {
-#if XNA || MONOGAME && (OPENGL || DIRECTX || LINUX || MACOSX) ||SDL2
-            SetScreenResolution(width, height);
-          
-            this.Window.Title = title;
-
-            ScreenHelper.ScreenWidthReference = width;
-            ScreenHelper.ScreenHeightReference = height;
-#endif
-        }
-
-        public YnGame(int width, int height, string title, bool useStateManager)
-            : this(width, height, title)
-        {
-            if (!useStateManager)
-            {
-                this.stateManager.Enabled = false;
-                this.Components.Remove(this.stateManager);
-            }
         }
 
         #endregion
@@ -106,7 +73,7 @@ namespace Yna.Engine
         protected override void LoadContent()
         {
             base.LoadContent();
-            this.spriteBatch = new SpriteBatch(GraphicsDevice);
+            m_SpriteBatch = new SpriteBatch(GraphicsDevice);
             GraphicsDevice.Viewport = new Viewport(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
         }
 
@@ -116,13 +83,7 @@ namespace Yna.Engine
         protected override void UnloadContent()
         {
             base.UnloadContent();
-
             YnG.AudioManager.Dispose();
-        }
-
-        protected override void Draw(GameTime gameTime)
-        {
-            base.Draw(gameTime);
         }
 
         #endregion

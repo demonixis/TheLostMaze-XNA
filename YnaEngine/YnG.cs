@@ -25,10 +25,7 @@ namespace Yna.Engine
         /// <summary>
         /// Gets the GraphicsDevice instance relative to the Game object
         /// </summary>
-        public static GraphicsDevice GraphicsDevice
-        {
-            get { return Game.GraphicsDevice; }
-        }
+        public static GraphicsDevice GraphicsDevice => Game.GraphicsDevice;
 
         #region Managers
 
@@ -191,9 +188,6 @@ namespace Yna.Engine
         /// <summary>
         /// Close the game
         /// </summary>
-        public static void Exit()
-        {
-            Game.Exit();
-        }
+        public static void Exit() => Game.Exit();
     }
 }

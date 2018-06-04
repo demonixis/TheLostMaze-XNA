@@ -36,12 +36,21 @@
     <Reference Include="3DRudderSDK.net">
       <HintPath>Libs\3DRudderSDK.net.dll</HintPath>
     </Reference>
+    <Reference Include="SharpDX, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL" />
+    <Reference Include="SharpDX.Direct3D11, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="MonoGame.Framework">
       <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="C3DE\OpenVR\OpenVRController.cs" />
+    <Compile Include="C3DE\OpenVR\OpenVRExtensions.cs" />
+    <Compile Include="C3DE\OpenVR\OpenVRService.cs" />
+    <Compile Include="C3DE\OpenVR\openvr_api.cs" />
+    <Compile Include="C3DE\VRDriver.cs" />
+    <Compile Include="C3DE\VRManager.cs" />
+    <Compile Include="C3DE\VRService.cs" />
     <Compile Include="NS3Rudder\3DRudderManager.cs" />
     <Compile Include="NS3Rudder\CurveRudder.cs" />
     <Compile Include="NS3Rudder\EventRudder.cs" />
