@@ -1,4 +1,5 @@
 ﻿using Maze3D.Data;
+using Maze3D.VR;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -29,6 +30,7 @@ namespace Maze3D.Control
         private float _vpMoveSpeed;
         private float _vpRotateSpeed;
         private float _vpStrafeSpeed;
+        private RudderController m_RudderController;
 
         // Prevention du garbage collector
         private string _colliderName;
@@ -79,6 +81,8 @@ namespace Maze3D.Control
                 _vpRotateSpeed = 90.0f;
                 _vpStrafeSpeed = 15.0f;
             }
+
+            m_RudderController = new RudderController();
         }
 
         public override void Update(GameTime gameTime)
@@ -114,6 +118,10 @@ namespace Maze3D.Control
             else if (YnG.Keys.Pressed(Keys.E))
                 Camera.Y++;
 #endif
+
+            var rotation = Vector3.Zero;
+            m_RudderController.UpdateTransform(ref _nextDirection, ref rotation, false);
+            Camera.RotateY(rotation.Y * _rotationSpeed * gameTime.ElapsedGameTime.Milliseconds);
         }
 
         private bool InputHackChecker()
