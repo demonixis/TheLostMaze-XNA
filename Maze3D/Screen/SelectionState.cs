@@ -8,7 +8,7 @@ namespace Maze3D.Screen
 {
     public class SelectionState : BaseMenu
     {
-        private YnEntity[] _levelTiles;
+        private Yna.Engine.Graphics.YnEntity[] _levelTiles;
 
         public SelectionState(string name)
             : base(name, "Choix du niveau", 0)
@@ -19,7 +19,7 @@ namespace Maze3D.Screen
         public override void LoadContent()
         {
             base.LoadContent();
-            _levelTiles = new YnEntity[GameConfiguration.LevelCount];
+            _levelTiles = new Yna.Engine.Graphics.YnEntity[GameConfiguration.LevelCount];
 
             YnText levelText = null;
             int cursor = 0;
@@ -33,7 +33,7 @@ namespace Maze3D.Screen
 
             for (int i = 0; i < GameConfiguration.LevelCount; i++)
             {
-                _levelTiles[i] = new YnEntity("Misc/mapPreview");
+                _levelTiles[i] = new Yna.Engine.Graphics.YnEntity("Misc/mapPreview");
                 _levelTiles[i].LoadContent();
 
                 if (i == 4)
@@ -80,7 +80,7 @@ namespace Maze3D.Screen
 
         protected override void item_MouseJustClicked(object sender, MouseClickEntityEventArgs e)
         {
-            YnEntity levelScreen = sender as YnEntity;
+            Yna.Engine.Graphics.YnEntity levelScreen = sender as Yna.Engine.Graphics.YnEntity;
 
             if (levelScreen != null)
             {

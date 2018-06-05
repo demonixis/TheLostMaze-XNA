@@ -4,7 +4,7 @@ using System;
 using Yna.Engine.Content;
 using Yna.Engine.Graphics3D;
 using Yna.Engine.Graphics3D.Geometry;
-using Yna.Engine.Graphics3D.Material;
+using Yna.Engine.Graphics3D.Materials;
 using Yna.Engine.Graphics3D.Terrain;
 
 namespace Maze3D

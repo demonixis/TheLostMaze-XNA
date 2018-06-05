@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Yna.Engine.Graphics3D.Lighting;
 using Yna.Engine.Graphics3D.Camera;
 
-namespace Yna.Engine.Graphics3D.Material
+namespace Yna.Engine.Graphics3D.Materials
 {
     public class DualTextureMaterial : StockMaterial
     {

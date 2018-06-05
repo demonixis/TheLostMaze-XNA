@@ -8,12 +8,12 @@ using Microsoft.Xna.Framework.Graphics;
 using Yna.Engine.Graphics3D.Lighting;
 using Yna.Engine.Graphics3D.Camera;
 
-namespace Yna.Engine.Graphics3D.Material
+namespace Yna.Engine.Graphics3D.Materials
 {
     /// <summary>
     /// Base class for define a Material
     /// </summary>
-    public abstract class BaseMaterial
+    public abstract class Material
     {
         // The effect to use
         protected Effect _effect;
@@ -105,7 +105,7 @@ namespace Yna.Engine.Graphics3D.Material
 
         #endregion
 
-        public BaseMaterial()
+        public Material()
         {
             _ambientColor = Color.White.ToVector3();
             _ambientIntensity = 0.75f;

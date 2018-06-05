@@ -27,7 +27,7 @@ namespace Yna.Engine.Content
         private static string NormalizePath(string path)
         {
             return path;
-            string[] temp = path.Split(new char[] { '/' });
+            /*string[] temp = path.Split(new char[] { '/' });
 
             string final = String.Empty;
             int size = temp.Length;
@@ -40,7 +40,7 @@ namespace Yna.Engine.Content
                     final += "\\";
             }
 
-            return final;
+            return final;*/
         }
 
         /// <summary>
@@ -53,13 +53,13 @@ namespace Yna.Engine.Content
         {
             T dataObject = default(T);
 
-            string path = GetContentDirectory() + NormalizePath(assetName) + ".xml";
+            var path = GetContentDirectory() + NormalizePath(assetName) + ".xml";
 
             // Read the xml
-            FileStream file = File.Open(path, FileMode.Open);
-            StreamReader stream = new StreamReader(file);
+            var file = File.Open(path, FileMode.Open);
+            var stream = new StreamReader(file);
 
-            List<string> lines = new List<string>();
+            var lines = new List<string>();
 
             while (!stream.EndOfStream)
             {
@@ -78,7 +78,7 @@ namespace Yna.Engine.Content
             stream.Dispose();
 
             // Create a string XML
-            string finalXml = String.Empty;
+            var finalXml = String.Empty;
 
             foreach (string line in lines)
                 finalXml += line;
@@ -104,28 +104,22 @@ namespace Yna.Engine.Content
         /// <returns>An instance of Song</returns>
         public static SoundEffect LoadSoundEffect(string assetName)
         {
-            SoundEffect sound = null;
-#if WINDOWS_PHONE_7 || XNA || MONOGAME 
-            using (StreamReader reader = new StreamReader(GetContentDirectory() + assetName))
-            {
-                sound = SoundEffect.FromStream(reader.BaseStream);
-            }
-#else
+            var sound = (SoundEffect)null;
             byte[] buffer;
-            string path = GetContentDirectory() + assetName + ".wav";
+            var path = GetContentDirectory() + assetName + ".wav";
 
             if (File.Exists(path))
             {
                 using (BinaryReader b = new BinaryReader(File.Open(path, FileMode.Open)))
                 {
-                    int length = (int)b.BaseStream.Length;
+                    var length = (int)b.BaseStream.Length;
                     buffer = new byte[length];
                     buffer = b.ReadBytes(length);
 
                     sound = new SoundEffect(buffer, 1, AudioChannels.Stereo);
                 }
             }
-#endif
+
             return sound;
         }
 
@@ -137,13 +131,11 @@ namespace Yna.Engine.Content
         /// <returns>An instance of Texture2D</returns>
         public static Texture2D LoadTexture2D(string textureName, string ext)
         {
-            Texture2D texture = null;
-            string path = GetContentDirectory() + textureName + "." + ext; // TODO determine extension
+            var texture = (Texture2D)null;
+            var path = GetContentDirectory() + textureName + "." + ext; // TODO determine extension
 
             using (StreamReader reader = new StreamReader(path))
-            {
                 texture = Texture2D.FromStream(YnG.GraphicsDevice, reader.BaseStream);
-            }
 
             return texture;
         }

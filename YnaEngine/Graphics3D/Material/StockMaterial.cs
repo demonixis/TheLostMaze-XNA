@@ -7,12 +7,12 @@ using Microsoft.Xna.Framework.Graphics;
 using Yna.Engine.Graphics3D.Lighting;
 using Yna.Engine.Graphics3D.Camera;
 
-namespace Yna.Engine.Graphics3D.Material
+namespace Yna.Engine.Graphics3D.Materials
 {
     /// <summary>
     /// Define a base class for all XNA stock effects
     /// </summary>
-    public abstract class StockMaterial : BaseMaterial
+    public abstract class StockMaterial : Material
     {
         #region Protected declarations
 

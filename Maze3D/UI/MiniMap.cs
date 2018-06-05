@@ -111,7 +111,7 @@ namespace Maze3D.UI
             _player = new YnSprite(rectanglePlayer, Color.Green);
             Add(_player);
 
-            foreach (YnEntity sceneObject in Members)
+            foreach (Yna.Engine.Graphics.YnEntity sceneObject in Members)
                 sceneObject.Alpha = 0.6f;
         }
 

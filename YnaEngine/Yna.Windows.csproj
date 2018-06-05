@@ -46,7 +46,6 @@
     <Compile Include="Extensions\ViewportExtension.cs" />
     <Compile Include="Graphics\YnScene.cs" />
     <Compile Include="State\StateManagerException.cs" />
-    <Compile Include="YnBasicCollection.cs" />
     <Compile Include="YnGameEntityCollection.cs" />
     <Compile Include="YnGameEntity.cs" />
     <Compile Include="Graphics\Animation\AnimationEventArgs.cs" />
@@ -60,7 +59,6 @@
     <Compile Include="Graphics\Animation\YnInterpolator.cs" />
     <Compile Include="Graphics\Event\VirtualPadEventArgs.cs" />
     <Compile Include="Graphics\Component\YnVirtualPad.cs" />
-    <Compile Include="Content\ContentEventArgs.cs" />
     <Compile Include="Graphics\YnGraphics.cs" />
     <Compile Include="Graphics\YnPool.cs" />
     <Compile Include="Graphics\YnText.cs" />
@@ -83,7 +81,7 @@
     <Compile Include="State\YnState.cs" />
     <Compile Include="Storage\StorageManager.cs" />
     <Compile Include="Graphics\YnState2D.cs" />
-    <Compile Include="YnBasicEntity.cs" />
+    <Compile Include="YnEntity.cs" />
     <Compile Include="YnG.cs" />
     <Compile Include="YnGame.cs" />
     <Compile Include="Graphics\YnGroup.cs" />
@@ -107,12 +105,9 @@
     <Compile Include="Graphics3D\Terrain\Geometry\SimpleTerrainGeometry.cs" />
     <Compile Include="Graphics3D\Terrain\SkySphere.cs" />
     <Compile Include="Graphics3D\YnBillboard.cs" />
-    <Compile Include="Graphics3D\YnEntity3DList.cs" />
     <Compile Include="Graphics3D\YnMesh.cs" />
     <Compile Include="Graphics3D\YnMeshGeometry.cs" />
     <Compile Include="Graphics3D\YnMeshModel.cs" />
-    <Compile Include="Graphics3D\YnScene3D.cs" />
-    <Compile Include="Graphics3D\YnTransform.cs" />
     <Compile Include="Graphics3D\Renderer\QuadRenderer.cs" />
     <Compile Include="Graphics3D\Terrain\SkyBox.cs" />
     <Compile Include="Graphics3D\Camera\BaseCamera.cs" />
@@ -124,9 +119,8 @@
     <Compile Include="Graphics3D\Material\DualTextureMaterial.cs" />
     <Compile Include="Graphics3D\Material\EnvironmentMapMaterial.cs" />
     <Compile Include="Graphics3D\Material\StockMaterial.cs" />
-    <Compile Include="Graphics3D\Material\BaseMaterial.cs" />
+    <Compile Include="Graphics3D\Material\Material.cs" />
     <Compile Include="Graphics3D\Material\BasicMaterial.cs" />
-    <Compile Include="Graphics3D\Material\NormalMapMaterial.cs" />
     <Compile Include="Graphics3D\Geometry\IcoSphereShape.cs" />
     <Compile Include="Graphics3D\Geometry\PlaneGeometry.cs" />
     <Compile Include="Graphics3D\Geometry\BaseGeometry.cs" />
@@ -161,7 +155,6 @@
     <Compile Include="Graphics\GUI\YnWidgetProperties.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Graphics3D\Material\Resources\NormalMapEffect.dx11.mgfxo" />
     <EmbeddedResource Include="Graphics\Component\Resources\gamepad_bg.png" />
     <EmbeddedResource Include="Graphics\Component\Resources\gamepad_fg.png" />
   </ItemGroup>

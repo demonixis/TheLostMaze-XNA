@@ -114,9 +114,9 @@ namespace Yna.Engine.Graphics.Scene
             _guiManager.Clear();
         }
 
-        public override YnBasicEntity GetMemberByName(string name)
+        public override YnEntity GetMemberByName(string name)
         {
-            YnBasicEntity basicEntity = base.GetMemberByName(name);
+            var basicEntity = base.GetMemberByName(name);
 
             if (basicEntity == null)
                 basicEntity = _guiManager.GetWidgetByName(name);

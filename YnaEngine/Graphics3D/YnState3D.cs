@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Yna.Engine.State;
 using Yna.Engine.Graphics3D.Camera;
+using Yna.Engine.Graphics3D.Lighting;
 
 namespace Yna.Engine.Graphics3D
 {
@@ -14,23 +15,24 @@ namespace Yna.Engine.Graphics3D
     /// </summary>
     public class YnState3D : YnState
     {
+        protected SceneLight _sceneLight;
         private CameraManager _cameraManager;
-        private YnScene3D _scene;
-        private YnBasicCollection _basicObjects;
+        private YnGroup3D _scene;
+        private List<YnEntity> _basicObjects;
 
         /// <summary>
         /// Gets (protected sets) the collection of basic objects.
         /// </summary>
-        public List<YnBasicEntity> BasicObjects
+        public List<YnEntity> BasicObjects
         {
-            get { return _basicObjects.Members; }
-            protected set { _basicObjects.Members = value; }
+            get { return _basicObjects; }
+            protected set { _basicObjects = value; }
         }
 
         /// <summary>
         /// Gets (protected sets) the scene.
         /// </summary>
-        public YnScene3D Scene
+        public YnGroup3D Scene
         {
             get { return _scene; }
             protected set { _scene = value; }
@@ -54,22 +56,22 @@ namespace Yna.Engine.Graphics3D
             protected set { _cameraManager = value; }
         }
 
-        #region Constructors
-
         /// <summary>
-        /// Create a state with a 3D scene and a fixed camera.
+        /// Gets or sets the basic light of the scene.
         /// </summary>
-        public YnState3D()
-            : this((BaseCamera)null)
+        public SceneLight SceneLight
         {
-            
+            get { return _sceneLight; }
+            set { _sceneLight = value; }
         }
+
+        #region Constructors
 
         /// <summary>
         /// Create a state with a 3D scene and a camera.
         /// </summary>
         /// <param name="camera">Camera to use on this scene.</param>
-        public YnState3D(BaseCamera camera)
+        public YnState3D(BaseCamera camera = null)
             : base()
         {
             if (camera != null)
@@ -77,8 +79,10 @@ namespace Yna.Engine.Graphics3D
             else
                 _cameraManager = new CameraManager();
 
-            _scene = new YnScene3D();
-            _basicObjects = new YnBasicCollection();
+            _scene = new YnGroup3D();
+            _basicObjects = new List<YnEntity>();
+            _sceneLight = new SceneLight();
+            _sceneLight.AmbientIntensity = 1f;
         }
 
         /// <summary>
@@ -152,13 +156,16 @@ namespace Yna.Engine.Graphics3D
         public override void Update(GameTime gameTime)
         {
             _cameraManager.Update(gameTime);
-            _basicObjects.Update(gameTime);
+
+            foreach (var basic in _basicObjects)
+                basic.Update(gameTime);
+
             _scene.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
         {
-            _scene.Draw(gameTime, YnG.GraphicsDevice, _cameraManager.GetActiveCamera());
+            _scene.Draw(gameTime, YnG.GraphicsDevice, _cameraManager.GetActiveCamera(), _sceneLight);
         }
 
         #endregion
@@ -170,9 +177,10 @@ namespace Yna.Engine.Graphics3D
         /// </summary>
         /// <param name="basicObject">A basic object like Timer, Camera, etc...</param>
         /// <returns>Return true if the object has been added, otherwise return false.</returns>
-        public bool Add(YnBasicEntity basicObject)
+        public bool Add(YnEntity basicObject)
         {
-            return _basicObjects.Add(basicObject);
+            _basicObjects.Add(basicObject);
+            return true;
         }
 
         /// <summary>
@@ -200,7 +208,7 @@ namespace Yna.Engine.Graphics3D
         /// </summary>
         /// <param name="basicObject">Basic object to remove.</param>
         /// <returns>Return true if the object has been succefully removed, otherwise return false.</returns>
-        public bool Remove(YnBasicEntity basicObject)
+        public bool Remove(YnEntity basicObject)
         {
             return _basicObjects.Remove(basicObject);
         }

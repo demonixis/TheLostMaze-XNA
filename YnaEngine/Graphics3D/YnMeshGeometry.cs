@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Yna.Engine.Graphics3D.Geometry;
 using Yna.Engine.Graphics3D.Lighting;
-using Yna.Engine.Graphics3D.Material;
+using Yna.Engine.Graphics3D.Materials;
 using Yna.Engine.Graphics3D.Camera;
 
 namespace Yna.Engine.Graphics3D
@@ -84,7 +84,7 @@ namespace Yna.Engine.Graphics3D
         /// </summary>
         /// <param name="geometry">Geometry to use.</param>
         /// <param name="material">Material to use with geometry.</param>
-        public YnMeshGeometry(BaseGeometry<VertexPositionNormalTexture> geometry, BaseMaterial material)
+        public YnMeshGeometry(BaseGeometry<VertexPositionNormalTexture> geometry, Materials.Material material)
             : base()
         {
             _geometry = geometry;

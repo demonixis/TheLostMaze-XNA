@@ -16,7 +16,7 @@ namespace Yna.Engine.Graphics3D
     /// </summary>
     public class YnGroup3D : YnEntity3D
     {
-        protected YnEntity3DList _members;
+        protected List<YnEntity3D> _members;
 
         #region Properties
 
@@ -51,7 +51,7 @@ namespace Yna.Engine.Graphics3D
         /// </summary>
         public List<YnEntity3D> SceneObjects
         {
-            get { return _members.Members; }
+            get { return _members; }
         }
 
         public YnEntity3D this[int index]
@@ -107,9 +107,9 @@ namespace Yna.Engine.Graphics3D
 
         #endregion
 
-        public YnGroup3D(YnEntity3D parent)
+        public YnGroup3D(YnEntity3D parent = null)
         {
-            _members = new YnEntity3DList();
+            _members = new List<YnEntity3D>();
             _initialized = false;
             _parent = parent;
         }
@@ -187,11 +187,13 @@ namespace Yna.Engine.Graphics3D
         /// </summary>
         public override void Initialize()
         {
-            if (!_initialized)
-            {
-                _members.Initialize();
-                _initialized = true;
-            }
+            if (_initialized)
+                return;
+
+            foreach (var member in _members)
+                member.Initialize();
+
+            _initialized = true;
         }
 
         /// <summary>
@@ -199,11 +201,13 @@ namespace Yna.Engine.Graphics3D
         /// </summary>
         public override void LoadContent()
         {
-            if (!_assetLoaded)
-            {
-                _members.LoadContent();
-                _assetLoaded = true;
-            }
+            if (_assetLoaded)
+                return;
+
+            foreach (var member in _members)
+                member.LoadContent();
+
+            _assetLoaded = true;
         }
 
         /// <summary>
@@ -211,11 +215,13 @@ namespace Yna.Engine.Graphics3D
         /// </summary>
         public override void UnloadContent()
         {
-            if (_assetLoaded)
-            {
-                _members.UnloadContent();
-                _assetLoaded = false;
-            }
+            if (!_assetLoaded)
+                return;
+
+            foreach (var member in _members)
+                member.UnloadContent();
+
+            _assetLoaded = false;
         }
 
         /// <summary>
@@ -224,8 +230,12 @@ namespace Yna.Engine.Graphics3D
         /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
-            if (Enabled)
-                _members.Update(gameTime);
+            if (!Enabled)
+                return;
+
+            foreach (var member in _members)
+                if (member.Enabled)
+                    member.Update(gameTime);
         }
 
         /// <summary>
@@ -235,8 +245,29 @@ namespace Yna.Engine.Graphics3D
         /// <param name="device">GraphicsDevice object</param>
         public override void Draw(GameTime gameTime, GraphicsDevice device, BaseCamera camera)
         {
-            if (Visible)
-                _members.Draw(gameTime, device, camera, null);
+            if (!Visible)
+                return;
+
+            foreach (var member in _members)
+                if (member.Visible)
+                    member.Draw(gameTime, device, camera);
+        }
+
+        public void Draw(GameTime gameTime, GraphicsDevice device, BaseCamera camera, SceneLight light)
+        {
+            if (!Visible)
+                return;
+
+            foreach (var member in _members)
+            {
+                if (!member.Visible)
+                    continue;
+
+                if (light != null)
+                    member.UpdateLighting(light);
+
+                member.Draw(gameTime, device, camera);
+            }
         }
 
         #endregion
@@ -249,9 +280,6 @@ namespace Yna.Engine.Graphics3D
         /// <param name="sceneObject">An object3D</param>
         public virtual bool Add(YnEntity3D sceneObject)
         {
-            if (sceneObject is YnScene3D)
-                throw new Exception("[YnGroup3D] You can't add a scene on a group, use an YnGroup3D instead");
-
             if (sceneObject == this)
                 throw new Exception("[YnGroup3D] You can't add this group");
 
@@ -263,25 +291,21 @@ namespace Yna.Engine.Graphics3D
             if (_initialized)
                 sceneObject.Initialize();
 
-            return _members.Add(sceneObject);
+            _members.Add(sceneObject);
+
+            return true;
         }
 
         /// <summary>
         /// Remove an object of the group
         /// </summary>
         /// <param name="sceneObject"></param>
-        public virtual bool Remove(YnEntity3D sceneObject)
-        {
-            return _members.Remove(sceneObject);
-        }
+        public virtual bool Remove(YnEntity3D sceneObject) => _members.Remove(sceneObject);
 
         /// <summary>
         /// Clear the group
         /// </summary>
-        public virtual void Clear()
-        {
-            _members.Clear();
-        }
+        public virtual void Clear() => _members.Clear();
 
         public IEnumerator GetEnumerator()
         {

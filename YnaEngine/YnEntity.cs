@@ -9,7 +9,7 @@ namespace Yna.Engine
     /// <summary>
     /// Base class for all object on the Framework. A basic object is updateable
     /// </summary>
-    public abstract class YnBasicEntity
+    public abstract class YnEntity
     {
         #region private declarations
 
@@ -61,7 +61,7 @@ namespace Yna.Engine
 
         #endregion
 
-        public YnBasicEntity()
+        public YnEntity()
         {
             _id = counterId++;
             _name = String.Format("YnBase_{0}", Id.ToString());

@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Yna.Engine.Graphics3D.Camera;
 using Yna.Engine.Graphics3D.Geometry;
-using Yna.Engine.Graphics3D.Material;
+using Yna.Engine.Graphics3D.Materials;
 
 namespace Yna.Engine.Graphics3D.Terrain
 {
@@ -125,9 +125,9 @@ namespace Yna.Engine.Graphics3D.Terrain
             base.LoadContent();
         }
 
-        public BaseMaterial[] GetMaterials()
+        public Materials.Material[] GetMaterials()
         {
-            BaseMaterial[] materials = new BaseMaterial[6];
+            Materials.Material[] materials = new Materials.Material[6];
 
             for (int i = 0; i < 6; i++)
                 materials[i] = (this[i] as YnMesh).Material;

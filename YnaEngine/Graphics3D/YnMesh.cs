@@ -3,7 +3,7 @@
 // file 'LICENSE', which is part of this source code package.
 using System;
 using Microsoft.Xna.Framework;
-using Yna.Engine.Graphics3D.Material;
+using Yna.Engine.Graphics3D.Materials;
 using Yna.Engine.Graphics3D.Camera;
 
 namespace Yna.Engine.Graphics3D
@@ -13,12 +13,12 @@ namespace Yna.Engine.Graphics3D
     /// </summary>
     public abstract class YnMesh : YnEntity3D
     {
-        protected BaseMaterial _material;
+        protected Materials.Material _material;
 
         /// <summary>
         /// Gets or sets the material for this object
         /// </summary>
-        public BaseMaterial Material
+        public Material Material
         {
             get { return _material; }
             set

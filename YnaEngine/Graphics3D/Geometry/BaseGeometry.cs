@@ -4,7 +4,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Yna.Engine.Graphics3D.Material;
+using Yna.Engine.Graphics3D.Materials;
 using Yna.Engine.Graphics3D.Lighting;
 
 namespace Yna.Engine.Graphics3D.Geometry
@@ -262,12 +262,12 @@ namespace Yna.Engine.Graphics3D.Geometry
         /// Draw the shape
         /// </summary>
         /// <param name="device">Graphics device</param>
-        public virtual void Draw(GraphicsDevice device, BaseMaterial material)
+        public virtual void Draw(GraphicsDevice device, Materials.Material material)
         {
             DrawPrimitives(device, material);
         }
 
-        protected virtual void DrawPrimitives(GraphicsDevice device, BaseMaterial material)
+        protected virtual void DrawPrimitives(GraphicsDevice device, Materials.Material material)
         {
             PreDraw(device);
 
@@ -286,7 +286,7 @@ namespace Yna.Engine.Graphics3D.Geometry
             PostDraw(device);
         }
 
-        protected virtual void DrawUserIndexedPrimitives(GraphicsDevice device, BaseMaterial material)
+        protected virtual void DrawUserIndexedPrimitives(GraphicsDevice device, Materials.Material material)
         {
             PreDraw(device);
 

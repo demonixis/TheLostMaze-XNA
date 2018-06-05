@@ -81,7 +81,6 @@ namespace NS3DRudder
         public override void Dispose()
         {
             m_Quit = true;
-            m_Thread.Join();
 
             ClearEvents();
         

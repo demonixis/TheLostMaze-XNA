@@ -73,12 +73,12 @@ namespace Maze3D.Screen
 
             control = new MazeController(Camera);
 
-            Scene.SceneLight.AmbientIntensity = 0.85f;
-            Scene.SceneLight.DirectionalLights[0].Enabled = true;
-            Scene.SceneLight.DirectionalLights[0].Direction = new Vector3(-1, 0.75f, -1);
-            Scene.SceneLight.DirectionalLights[0].DiffuseColor = Color.WhiteSmoke.ToVector3();
-            Scene.SceneLight.DirectionalLights[0].DiffuseIntensity = 1.0f;
-            Scene.SceneLight.DirectionalLights[0].SpecularColor = new Vector3(233, 33, 33);
+            SceneLight.AmbientIntensity = 0.85f;
+            SceneLight.DirectionalLights[0].Enabled = true;
+            SceneLight.DirectionalLights[0].Direction = new Vector3(-1, 0.75f, -1);
+            SceneLight.DirectionalLights[0].DiffuseColor = Color.WhiteSmoke.ToVector3();
+            SceneLight.DirectionalLights[0].DiffuseIntensity = 1.0f;
+            SceneLight.DirectionalLights[0].SpecularColor = new Vector3(233, 33, 33);
         }
 
         public override void LoadContent()

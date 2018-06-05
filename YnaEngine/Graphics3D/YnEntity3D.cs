@@ -11,7 +11,7 @@ namespace Yna.Engine.Graphics3D
     /// <summary>
     /// This is a base class for all things that can be drawn on the screen
     /// </summary>
-    public abstract class YnEntity3D : YnBasicEntity
+    public abstract class YnEntity3D : YnEntity
     {
         #region Protected & private declarations
 

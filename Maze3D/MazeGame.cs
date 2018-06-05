@@ -36,7 +36,7 @@ namespace Maze3D
         #endregion
 
         public MazeGame()
-            : base(GameConfiguration.ScreenWidth, GameConfiguration.ScreenHeight, "The Lost Maze", true)
+            : base()
         {
             InitializeLanguage(String.Empty);
             GameTitle = "The Lost Maze";
