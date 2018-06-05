@@ -116,7 +116,7 @@ namespace Maze3D.Control
 
         public void UpdateScale(float scale)
         {
-            foreach (YnEntity sceneObject in this)
+            foreach (YnEntity2D sceneObject in this)
             {
                 sceneObject.Scale = new Vector2(scale);
             }

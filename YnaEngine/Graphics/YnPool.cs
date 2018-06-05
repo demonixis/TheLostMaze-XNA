@@ -10,10 +10,10 @@ namespace Yna.Engine.Graphics
     public class YnPool : YnGameEntity
     {
         private readonly int _maximumPoolSize;
-        private YnEntity[] _poolEntities;
-        private YnEntity _tempSearchedEntity;
+        private YnEntity2D[] _poolEntities;
+        private YnEntity2D _tempSearchedEntity;
 
-        public YnEntity[] Entities
+        public YnEntity2D[] Entities
         {
             get { return _poolEntities; }
         }
@@ -26,7 +26,7 @@ namespace Yna.Engine.Graphics
             get { return _maximumPoolSize; }
         }
 
-        public YnEntity this[int index]
+        public YnEntity2D this[int index]
         {
             get { return _poolEntities[index]; }
             set { _poolEntities[index] = value; }
@@ -41,7 +41,7 @@ namespace Yna.Engine.Graphics
         {
             Active = true;
             _maximumPoolSize = maxSize;
-            _poolEntities = new YnEntity[maxSize];
+            _poolEntities = new YnEntity2D[maxSize];
 
             for (int i = 0; i < _maximumPoolSize; i++)
                 _poolEntities[i] = null;
@@ -51,7 +51,7 @@ namespace Yna.Engine.Graphics
         /// Gets the first disabled entity.
         /// </summary>
         /// <returns>Return the first disabled entity, otherwise return null.</returns>
-        protected YnEntity GetFirstDisabledEntity()
+        protected YnEntity2D GetFirstDisabledEntity()
         {
             _tempSearchedEntity = null;
             int i = 0;
@@ -106,7 +106,7 @@ namespace Yna.Engine.Graphics
         /// </summary>
         /// <param name="entity">An entity to add.</param>
         /// <returns>Return true if the entity has been added, otherwise return false.</returns>
-        public bool TryAdd(YnEntity entity)
+        public bool TryAdd(YnEntity2D entity)
         {
             bool result = false;
             int validIndex = GetFirstNullIndex();
@@ -127,7 +127,7 @@ namespace Yna.Engine.Graphics
         /// </summary>
         /// <param name="entity">An entity to remove.</param>
         /// <returns>Return true if the entity has been removed, otherwise return false.</returns>
-        public bool Remove(YnEntity entity)
+        public bool Remove(YnEntity2D entity)
         {
             int index = System.Array.IndexOf(_poolEntities, entity);
 
@@ -145,7 +145,7 @@ namespace Yna.Engine.Graphics
         /// </summary>
         /// <param name="entity">An newer entity to replace.</param>
         /// <returns>Return true if the entity has been replaced, otherwise return false.</returns>
-        public bool TryReplace(YnEntity entity)
+        public bool TryReplace(YnEntity2D entity)
         {
             int index = GetFirstDisabledEntityIndex();
 
@@ -158,7 +158,7 @@ namespace Yna.Engine.Graphics
             return false;
         }
 
-        public YnEntity TryRecycle()
+        public YnEntity2D TryRecycle()
         {
             throw new NotImplementedException();
         }

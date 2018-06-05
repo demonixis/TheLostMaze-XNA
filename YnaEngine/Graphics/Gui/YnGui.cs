@@ -17,7 +17,7 @@ namespace Yna.Engine.Graphics.Gui
     /// This class is a manager for all UI widgets. It can be used as a simple manager handling widgets and 
     /// as a layer for global rendering.
     /// </summary>
-    public class YnGui : YnEntity
+    public class YnGui : YnEntity2D
     {
     	#region Static skin storage
     	

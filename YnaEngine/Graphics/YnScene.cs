@@ -93,7 +93,7 @@ namespace Yna.Engine.Graphics.Scene
             _baseList.Remove(basicObject);
         }
 
-        public virtual void Remove(YnEntity entity)
+        public virtual void Remove(YnEntity2D entity)
         {
             _entities.Remove(entity);
         }
@@ -109,13 +109,13 @@ namespace Yna.Engine.Graphics.Scene
         /// </summary>
         /// <param name="name">Name of the object</param>
         /// <returns>An YnBase object or null if don't exists</returns>
-        public virtual YnEntity GetMemberByName(string name)
+        public virtual YnEntity2D GetMemberByName(string name)
         {
-            foreach (YnEntity entity in _baseList)
+            foreach (YnEntity2D entity in _baseList)
                 if (entity.Name == name)
                     return entity;
 
-            foreach (YnEntity entity in _entities)
+            foreach (YnEntity2D entity in _entities)
                 if (entity.Name == name)
                     return entity;
 

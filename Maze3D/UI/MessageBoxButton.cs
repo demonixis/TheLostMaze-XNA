@@ -10,7 +10,7 @@ namespace Maze3D.UI
 
     public class MessageBoxButton : YnGroup
     {
-        private YnEntity button;
+        private YnEntity2D button;
         private YnText label;
 
         public string FontName
@@ -27,7 +27,7 @@ namespace Maze3D.UI
 
         public MessageBoxButton(MessageBoxButtonType type, string text)
         {
-            button = new YnEntity("Misc/button");
+            button = new YnEntity2D("Misc/button");
             Add(button);
 
             label = new YnText("Font/kozuka_20", text);

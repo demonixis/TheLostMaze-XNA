@@ -10,24 +10,24 @@ namespace Maze3D.UI
     {
         private Vector2 _scaleFactor;
         private YnText scoreText;
-        private Yna.Engine.Graphics.YnEntity scoreCounterEntity;
+        private Yna.Engine.Graphics.YnEntity2D scoreCounterEntity;
 
         private YnText timeText;
-        private Yna.Engine.Graphics.YnEntity timeCounterWheelEntity;
-        private Yna.Engine.Graphics.YnEntity timeCounterNeedleEntity;
+        private Yna.Engine.Graphics.YnEntity2D timeCounterWheelEntity;
+        private Yna.Engine.Graphics.YnEntity2D timeCounterNeedleEntity;
 
         private YnText itemsCounter;
-        private Yna.Engine.Graphics.YnEntity itemsCounterEntity;
+        private Yna.Engine.Graphics.YnEntity2D itemsCounterEntity;
         private int itemsCount;
         private int nbItemsCollected;
         private YnTimer highlightTimer;
 
         private MiniMap miniMap;
-        private Yna.Engine.Graphics.YnEntity miniMapLeftBorder;
-        private Yna.Engine.Graphics.YnEntity miniMapBottomBorder;
+        private Yna.Engine.Graphics.YnEntity2D miniMapLeftBorder;
+        private Yna.Engine.Graphics.YnEntity2D miniMapBottomBorder;
 
-        private Yna.Engine.Graphics.YnEntity bottomBar;
-        private Yna.Engine.Graphics.YnEntity bottomLogo;
+        private Yna.Engine.Graphics.YnEntity2D bottomBar;
+        private Yna.Engine.Graphics.YnEntity2D bottomLogo;
 
         private readonly Color TextColor = new Color(207, 210, 215);
 
@@ -67,7 +67,7 @@ namespace Maze3D.UI
             scoreText.Color = TextColor;
             Add(scoreText);
 
-            scoreCounterEntity = new Yna.Engine.Graphics.YnEntity("UI/needle");
+            scoreCounterEntity = new YnEntity2D("UI/needle");
             Add(scoreCounterEntity);
 
             timeText = new YnText("Font/Desiree_30", "00 : 00");
@@ -75,26 +75,26 @@ namespace Maze3D.UI
             timeText.Color = TextColor;
             Add(timeText);
 
-            itemsCounterEntity = new Yna.Engine.Graphics.YnEntity("UI/needle");
+            itemsCounterEntity = new YnEntity2D("UI/needle");
             Add(itemsCounterEntity);
 
-            timeCounterWheelEntity = new Yna.Engine.Graphics.YnEntity("UI/topWheel");
+            timeCounterWheelEntity = new YnEntity2D("UI/topWheel");
             Add(timeCounterWheelEntity);
 
-            timeCounterNeedleEntity = new Yna.Engine.Graphics.YnEntity("UI/needle-watch");
+            timeCounterNeedleEntity = new YnEntity2D("UI/needle-watch");
             Add(timeCounterNeedleEntity);
 
-            miniMapLeftBorder = new Yna.Engine.Graphics.YnEntity("UI/mapBorderLeft");
+            miniMapLeftBorder = new YnEntity2D("UI/mapBorderLeft");
             Add(miniMapLeftBorder);
 
-            miniMapBottomBorder = new Yna.Engine.Graphics.YnEntity("UI/mapBorderBottom");
+            miniMapBottomBorder = new YnEntity2D("UI/mapBorderBottom");
             Add(miniMapBottomBorder);
 
-            bottomBar = new Yna.Engine.Graphics.YnEntity(new Rectangle(0, 0, YnG.Width, (int)ScreenHelper.GetScaleY(40)), Color.Black);
+            bottomBar = new YnEntity2D(new Rectangle(0, 0, YnG.Width, (int)ScreenHelper.GetScaleY(40)), Color.Black);
             bottomBar.Alpha = 0.4f;
             Add(bottomBar);
 
-            bottomLogo = new Yna.Engine.Graphics.YnEntity("UI/bottomWheel");
+            bottomLogo = new YnEntity2D("UI/bottomWheel");
             Add(bottomLogo);
 
             highlightTimer = new YnTimer(1000);

@@ -25,7 +25,7 @@ namespace Yna.Engine.Graphics
     /// <summary>
     /// A basic drawable object
     /// </summary>
-    public class YnEntity : YnGameEntity, ICollidable2
+    public class YnEntity2D : YnGameEntity, ICollidable2
     {
         #region Protected and private declarations
 
@@ -50,7 +50,7 @@ namespace Yna.Engine.Graphics
         protected float _alpha;
 
         // Define the position of the sprite relative to its parent
-        protected YnEntity _parent;
+        protected YnEntity2D _parent;
         protected int _nbMouseEventObservers;
 
         private Rectangle _testEventRectangle;
@@ -103,7 +103,7 @@ namespace Yna.Engine.Graphics
         /// <summary>
         /// Gets or sets the parent object of this object (null if don't have a parent)
         /// </summary>
-        public YnEntity Parent
+        public YnEntity2D Parent
         {
             get { return _parent; }
             set { _parent = value; }
@@ -476,7 +476,7 @@ namespace Yna.Engine.Graphics
         /// <summary>
         /// A basic entity who represent a graphic object on the 2D Scene
         /// </summary>
-        public YnEntity()
+        public YnEntity2D()
             : base()
         {
             _dirty = false;
@@ -497,11 +497,11 @@ namespace Yna.Engine.Graphics
         }
 
         /// <summary>
-        /// Create a new <see cref="Yna.Engine.Graphics.YnEntity"/> with a procedural texture.
+        /// Create a new <see cref="Yna.Engine.Graphics.YnEntity2D"/> with a procedural texture.
         /// </summary>
         /// <param name='rectangle'>Rectangle of the texture</param>
         /// <param name='color'>Color of the texture</param>
-        public YnEntity(Rectangle rectangle, Color color)
+        public YnEntity2D(Rectangle rectangle, Color color)
             : this()
         {
             _rectangle = rectangle;
@@ -514,7 +514,7 @@ namespace Yna.Engine.Graphics
         /// A basic entity who represent a graphic object on the 2D Scene
         /// </summary>
         /// <param name="assetName">The asset name to use</param>
-        public YnEntity(string assetName)
+        public YnEntity2D(string assetName)
             : this()
         {
             _assetName = assetName;
@@ -525,7 +525,7 @@ namespace Yna.Engine.Graphics
         /// </summary>
         /// <param name="assetName">The asset name to use</param>
         /// <param name="position">The position for the entity</param>
-        public YnEntity(string assetName, Vector2 position)
+        public YnEntity2D(string assetName, Vector2 position)
             : this(assetName)
         {
             Position = position;

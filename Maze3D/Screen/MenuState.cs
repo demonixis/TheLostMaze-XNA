@@ -12,7 +12,7 @@ namespace Maze3D.Screen
     {
         private YnText[] menuItems;
         private int menuItemIndex;
-        private Yna.Engine.Graphics.YnEntity menuItemSelector;
+        private Yna.Engine.Graphics.YnEntity2D menuItemSelector;
         private bool _checkForNext;
         private bool _checkForHover;
 
@@ -25,7 +25,7 @@ namespace Maze3D.Screen
             _checkForHover = false;
             menuItemIndex = 0;
 
-            menuItemSelector = new Yna.Engine.Graphics.YnEntity("UI/menuItemBar");
+            menuItemSelector = new YnEntity2D("UI/menuItemBar");
             Add(menuItemSelector);
 
             string[] itemNames = new string[5]

@@ -114,7 +114,7 @@ namespace Yna.Engine.Graphics.Scene
             _guiManager.Clear();
         }
 
-        public override YnEntity GetMemberByName(string name)
+        public override YnEntity2D GetMemberByName(string name)
         {
             var basicEntity = base.GetMemberByName(name);
 

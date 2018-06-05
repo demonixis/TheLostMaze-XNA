@@ -14,7 +14,7 @@ namespace Maze3D.Screen
         private YnText _content;
         private YnText _waitMessage;
         private YnSprite _background;
-        private Yna.Engine.Graphics.YnEntity _headerBackground;
+        private Yna.Engine.Graphics.YnEntity2D _headerBackground;
         private MessageBoxButton _itemActionA;
         private MessageBoxButton _itemActionB;
 
@@ -51,7 +51,7 @@ namespace Maze3D.Screen
             _background.Alpha = 0.9f;
             Add(_background);
 
-            _headerBackground = new Yna.Engine.Graphics.YnEntity(new Rectangle((int)_background.X, (int)_background.Y, YnG.Width, (int)ScreenHelper.GetScaleY(50)), Color.DarkGray);
+            _headerBackground = new YnEntity2D(new Rectangle((int)_background.X, (int)_background.Y, YnG.Width, (int)ScreenHelper.GetScaleY(50)), Color.DarkGray);
             Add(_headerBackground);
 
             _title = new YnText(Assets.FontKozuka30, "Fin de partie");

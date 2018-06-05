@@ -10,7 +10,7 @@ namespace Maze3D.Screen
 {
     public abstract class BaseMenu : YnState2D
     {
-        protected Yna.Engine.Graphics.YnEntity _background;					// Fond
+        protected Yna.Engine.Graphics.YnEntity2D _background;					// Fond
         protected YnText _title;                        // Titre
         protected List<MenuItem> items;                 // Elements du menu
 
@@ -20,7 +20,7 @@ namespace Maze3D.Screen
         public BaseMenu(string name, string title, int numItems)
             : base(name)
         {
-            _background = new Yna.Engine.Graphics.YnEntity(Assets.TextureMenuBase);
+            _background = new YnEntity2D(Assets.TextureMenuBase);
             Add(_background);
 
             // 1 - Le titre

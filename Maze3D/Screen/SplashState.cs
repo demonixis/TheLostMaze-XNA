@@ -5,13 +5,13 @@ namespace Maze3D.Screen
 {
     public class SplashState : YnState2D
     {
-        private Yna.Engine.Graphics.YnEntity splashScreen;
+        private Yna.Engine.Graphics.YnEntity2D splashScreen;
         private YnTimer waitTimer;
 
         public SplashState(string name)
             : base(name)
         {
-            splashScreen = new Yna.Engine.Graphics.YnEntity(Assets.TextureSplashScreen);
+            splashScreen = new YnEntity2D(Assets.TextureSplashScreen);
             Add(splashScreen);
 
             waitTimer = new YnTimer(1500, 0);

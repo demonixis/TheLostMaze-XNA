@@ -12,7 +12,7 @@ namespace Yna.Engine.Graphics
     /// <summary>
     /// A container of scene object who work as a collection
     /// </summary>
-    public class YnGroup : YnEntity
+    public class YnGroup : YnEntity2D
     {
         #region Private declarations
 
@@ -205,9 +205,9 @@ namespace Yna.Engine.Graphics
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public YnEntity this[int index]
+        public YnEntity2D this[int index]
         {
-            get { return _entitiesList[index] as YnEntity; }
+            get { return _entitiesList[index] as YnEntity2D; }
             set { _entitiesList[index] = value; }
         }
 
@@ -297,7 +297,7 @@ namespace Yna.Engine.Graphics
         /// Add a new object in the collecion
         /// </summary>
         /// <param name="sceneObject">An object or derivated from YnObject</param>
-        public void Add(YnEntity sceneObject)
+        public void Add(YnEntity2D sceneObject)
         {
             sceneObject.Parent = this;
 
@@ -316,7 +316,7 @@ namespace Yna.Engine.Graphics
         /// Add a new entity in the group
         /// </summary>
         /// <param name="sceneObject">An array of objects or derivated from YnObject</param>
-        public void Add(YnEntity[] sceneObject)
+        public void Add(YnEntity2D[] sceneObject)
         {
             int size = sceneObject.Length;
 
@@ -328,7 +328,7 @@ namespace Yna.Engine.Graphics
         /// Remove an entity from the group
         /// </summary>
         /// <param name="sceneObject"></param>
-        public void Remove(YnEntity sceneObject)
+        public void Remove(YnEntity2D sceneObject)
         {
             _entitiesList.Remove(sceneObject);
 
@@ -347,11 +347,11 @@ namespace Yna.Engine.Graphics
 
         public IEnumerator GetEnumerator()
         {
-            foreach (YnEntity member in _entitiesList.Members)
+            foreach (YnEntity2D member in _entitiesList.Members)
                 yield return member;
         }
 
-        public YnEntity GetChildByName(string name)
+        public YnEntity2D GetChildByName(string name)
         {
             YnGameEntity result = null;
             int i = 0;
@@ -363,7 +363,7 @@ namespace Yna.Engine.Graphics
                 i++;
             }
 
-            return result as YnEntity;
+            return result as YnEntity2D;
         }
 
         #endregion

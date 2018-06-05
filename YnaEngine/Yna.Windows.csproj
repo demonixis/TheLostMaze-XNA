@@ -85,7 +85,7 @@
     <Compile Include="YnG.cs" />
     <Compile Include="YnGame.cs" />
     <Compile Include="Graphics\YnGroup.cs" />
-    <Compile Include="Graphics\YnEntity.cs" />
+    <Compile Include="Graphics\YnEntity2D.cs" />
     <Compile Include="YnCollection.cs" />
     <Compile Include="YnQuadTree.cs" />
     <Compile Include="YnTimer.cs" />
