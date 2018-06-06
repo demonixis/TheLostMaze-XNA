@@ -39,40 +39,6 @@ namespace Yna.Engine.State
 
         #endregion
 
-        #region Events
-
-        /// <summary>
-        /// Triggered when the state has begin to load content.
-        /// </summary>
-        public event EventHandler<EventArgs> ContentLoadingStarted = null;
-
-        /// <summary>
-        /// Triggered when the state has finish to load content.
-        /// </summary>
-        public event EventHandler<EventArgs> ContentLoadingFinished = null;
-
-        /// <summary>
-        /// Called when the state has begin to load content.
-        /// </summary>
-        /// <param name="e"></param>
-        protected virtual void OnContentLoadingStarted(EventArgs e)
-        {
-            if (ContentLoadingStarted != null)
-                ContentLoadingStarted(this, e);
-        }
-
-        /// <summary>
-        /// Called when the state has finish to load content.
-        /// </summary>
-        /// <param name="e"></param>
-        protected virtual void OnContentLoadingFinished(EventArgs e)
-        {
-            if (ContentLoadingFinished != null)
-                ContentLoadingFinished(this, e);
-        }
-
-        #endregion
-
         #region Constructors
 
         public YnState()

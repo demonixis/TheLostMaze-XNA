@@ -123,17 +123,13 @@ namespace Yna.Engine.Graphics3D
         /// </summary>
         public override void LoadContent()
         {
-            if (!_assetLoaded)
-            {
-                OnContentLoadingStarted(EventArgs.Empty);
+            if (_assetLoaded)
+                return;
 
-                base.LoadContent();
+            base.LoadContent();
 
-                _scene.LoadContent();
-                _assetLoaded = true;
-
-                OnContentLoadingFinished(EventArgs.Empty);
-            }
+            _scene.LoadContent();
+            _assetLoaded = true;
         }
 
         /// <summary>
@@ -141,12 +137,12 @@ namespace Yna.Engine.Graphics3D
         /// </summary>
         public override void UnloadContent()
         {
-            if (_assetLoaded)
-            {
-                _scene.UnloadContent();
-                _scene.Clear();
-                _assetLoaded = false;
-            }
+            if (!_assetLoaded)
+                return;
+
+            _scene.UnloadContent();
+            _scene.Clear();
+            _assetLoaded = false;
         }
 
         /// <summary>

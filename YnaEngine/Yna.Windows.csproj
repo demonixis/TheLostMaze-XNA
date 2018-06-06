@@ -44,7 +44,6 @@
     <Compile Include="Extensions\Texture2DExtension.cs" />
     <Compile Include="Extensions\Vector2Extension.cs" />
     <Compile Include="Extensions\ViewportExtension.cs" />
-    <Compile Include="Graphics\YnScene.cs" />
     <Compile Include="State\StateManagerException.cs" />
     <Compile Include="YnGameEntityCollection.cs" />
     <Compile Include="YnGameEntity.cs" />
@@ -144,7 +143,6 @@
     <Compile Include="Graphics\GUI\Widgets\YnMessageBox.cs" />
     <Compile Include="Graphics\GUI\Widgets\YnPanel.cs" />
     <Compile Include="Graphics\GUI\Widgets\YnProgressBar.cs" />
-    <Compile Include="Graphics\GUI\YnSceneGui.cs" />
     <Compile Include="Graphics\GUI\YnSkin.cs" />
     <Compile Include="Graphics\GUI\YnSkinGenerator.cs" />
     <Compile Include="Graphics\GUI\YnWidgetList.cs" />

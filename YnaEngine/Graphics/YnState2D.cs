@@ -4,25 +4,12 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using Yna.Engine.Graphics.Gui;
+using Yna.Engine.Graphics.Gui.Widgets;
 using Yna.Engine.State;
-using Yna.Engine.Graphics.Scene;
-using System;
 
 namespace Yna.Engine.Graphics
 {
-    /// <summary>
-    /// A configuration structure used when rendering scene with sprite batch.
-    /// </summary>
-    public struct SpriteBatchConfiguration
-    {
-        public SpriteSortMode SpriteSortMode;
-        public BlendState BlendState;
-        public SamplerState SamplerState;
-        public DepthStencilState DepthStencilState;
-        public RasterizerState RasterizerState;
-        public Effect Effect;
-    }
-
     /// <summary>
     /// This is a State object that contains the scene.
     /// That allows you to add different types of objects.
@@ -30,36 +17,31 @@ namespace Yna.Engine.Graphics
     /// </summary>
     public class YnState2D : YnState
     {
-        protected YnScene _scene;
-        protected SpriteBatchConfiguration _spriteBatchConfig;
+        protected List<YnEntity> _baseList;
+        protected List<YnGameEntity> _entities;
+        protected YnGui _guiManager;
         protected YnCamera2D _camera;
+
+        /// <summary>
+        /// Gets or sets the gui
+        /// </summary>
+        public YnGui Gui
+        {
+            get { return _guiManager; }
+            protected set { _guiManager = value; }
+        }
 
         #region Properties
 
         /// <summary>
         /// Gets basic objects
         /// </summary>
-        public List<Engine.YnEntity> BasicEntities
-        {
-            get { return _scene.BaseObjects; }
-        }
+        public List<YnEntity> BaseObjects => _baseList;
 
         /// <summary>
         /// Gets members attached to the scene
         /// </summary>
-        public List<YnGameEntity> GameEntities
-        {
-            get { return _scene.Entities; }
-        }
-
-        /// <summary>
-        /// Gets or sets the configuration used for sprite batch.
-        /// </summary>
-        public SpriteBatchConfiguration SpriteBatchConfiguration
-        {
-            get { return _spriteBatchConfig; }
-            set { _spriteBatchConfig = value; }
-        }
+        public List<YnGameEntity> GameEntities => _entities;
 
         /// <summary>
         /// Gets or sets the spriteBatchCamera used for add effect on the scene like 
@@ -86,10 +68,10 @@ namespace Yna.Engine.Graphics
         {
             _enabled = active;
             _visible = active;
-
-            InitializeDefaultState();
-
-            _scene = new YnScene();
+            _camera = new YnCamera2D();
+            _baseList = new List<YnEntity>();
+            _entities = new List<YnGameEntity>();
+            _guiManager = new YnGui();
         }
 
         /// <summary>
@@ -113,24 +95,6 @@ namespace Yna.Engine.Graphics
 
         #endregion
 
-        /// <summary>
-        /// Initialize defaut states
-        /// </summary>
-        private void InitializeDefaultState()
-        {
-            _spriteBatchConfig = new SpriteBatchConfiguration()
-            {
-                SpriteSortMode = SpriteSortMode.Deferred,
-                BlendState = BlendState.AlphaBlend,
-                SamplerState = SamplerState.LinearClamp,
-                DepthStencilState = DepthStencilState.Default,
-                RasterizerState = RasterizerState.CullNone,
-                Effect = null
-            };
-
-            _camera = new YnCamera2D();
-        }
-
         #region GameState pattern
 
         /// <summary>
@@ -138,8 +102,13 @@ namespace Yna.Engine.Graphics
         /// </summary>
         public override void Initialize()
         {
-            if (!_initialized)
-                _scene.Initialize();
+            if (_initialized)
+                return;
+
+            foreach (var entity in _entities)
+                entity.Initialize();
+
+            _guiManager.Initialize();
         }
 
         /// <summary>
@@ -149,12 +118,13 @@ namespace Yna.Engine.Graphics
         {
             if (_assetLoaded)
                 return;
-            OnContentLoadingStarted(EventArgs.Empty);
 
             base.LoadContent();
-            _scene.LoadContent();
 
-            OnContentLoadingFinished(EventArgs.Empty);
+            foreach (var entity in _entities)
+                entity.LoadContent();
+
+            _guiManager.LoadContent();
 
             _assetLoaded = true;
         }
@@ -164,12 +134,17 @@ namespace Yna.Engine.Graphics
         /// </summary>
         public override void UnloadContent()
         {
-            if (_assetLoaded)
-            {
-                _scene.UnloadContent();
-                _scene.Clear();
-                _assetLoaded = false;
-            }
+            if (!_assetLoaded)
+                return;
+
+            _baseList.Clear();
+
+            foreach (var entity in _entities)
+                entity.UnloadContent();
+
+            _guiManager.UnloadContent();
+
+            _entities.Clear();
         }
 
         /// <summary>
@@ -179,7 +154,12 @@ namespace Yna.Engine.Graphics
         public override void Update(GameTime gameTime)
         {
             _camera.Update(gameTime);
-            _scene.Update(gameTime);
+
+            foreach (var entity in _baseList)
+                entity.Update(gameTime);
+
+            foreach (var entity in _entities)
+                entity.Update(gameTime);
         }
 
         /// <summary>
@@ -188,21 +168,14 @@ namespace Yna.Engine.Graphics
         /// <param name="gameTime"></param>
         public override void Draw(GameTime gameTime)
         {
-            int nbMembers = _scene.Entities.Count;
-
-            if (nbMembers > 0)
+            foreach (var entity in _entities)
             {
-                spriteBatch.Begin(
-                    _spriteBatchConfig.SpriteSortMode,
-                    _spriteBatchConfig.BlendState,
-                    _spriteBatchConfig.SamplerState,
-                    _spriteBatchConfig.DepthStencilState,
-                    _spriteBatchConfig.RasterizerState,
-                    _spriteBatchConfig.Effect,
-                    _camera.GetTransformMatrix());
-                _scene.Draw(gameTime, spriteBatch);
+                spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, _camera.GetTransformMatrix());
+                entity.Draw(gameTime, spriteBatch);
                 spriteBatch.End();
             }
+
+            _guiManager.Draw(gameTime, spriteBatch);
         }
 
         #endregion
@@ -213,10 +186,8 @@ namespace Yna.Engine.Graphics
         /// Add a basic object to the scene
         /// </summary>
         /// <param name="basicObject">A basic object</param>
-        public void Add(Engine.YnEntity basicObject)
-        {
-            _scene.Add(basicObject);
-        }
+        public void Add(YnEntity basicObject) => _baseList.Add(basicObject);
+
 
         /// <summary>
         /// Add an entity to the scene
@@ -224,36 +195,45 @@ namespace Yna.Engine.Graphics
         /// <param name="entity">An entitiy</param>
         public void Add(YnEntity2D entity)
         {
+            if (_entities.Contains(entity))
+                return;
+
             if (Initialized && !entity.Initialized)
                 entity.Initialize();
 
             if (AssetLoaded && !entity.AssetLoaded)
                 entity.LoadContent();
 
-            _scene.Add(entity);
+            _entities.Add(entity);
         }
+
+        public void Add(YnWidget widget) => _guiManager.Add(widget);
+
+        public void Remove(YnWidget widget) => _guiManager.Remove(widget);
 
         /// <summary>
         /// Remove a basic object to the scene
         /// </summary>
         /// <param name="basicObject">A basic object</param>
-        public void Remove(Engine.YnEntity basicObject)
-        {
-            _scene.Remove(basicObject);
-        }
+        public void Remove(YnEntity basicObject) => _baseList.Remove(basicObject);
 
         /// <summary>
         /// Remove an entity to the scene
         /// </summary>
         /// <param name="entity">An entitiy</param>
-        public void Remove(YnEntity2D entity)
-        {
-            _scene.Remove(entity);
-        }
+        public void Remove(YnEntity2D entity) => _entities.Remove(entity);
 
         public YnEntity2D GetMemberByName(string name)
         {
-            return _scene.GetMemberByName(name);
+            foreach (YnEntity2D entity in _baseList)
+                if (entity.Name == name)
+                    return entity;
+
+            foreach (YnEntity2D entity in _entities)
+                if (entity.Name == name)
+                    return entity;
+
+            return null;
         }
 
         #endregion
