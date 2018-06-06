@@ -1,5 +1,5 @@
 ﻿<Properties StartupConfiguration="{905B6B3B-33B1-49FB-B691-AE30F88CB4F5}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="YnaEngine/Graphics3D/Material/BaseMaterial.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="YnaEngine/Graphics3D/Material/BasicMaterial.cs">
     <Files>
       <File FileName="Maze3D/Screen/LevelState.cs" Line="86" Column="1" />
       <File FileName="Maze3D/MazeLevel.cs" Line="97" Column="1" />
@@ -21,11 +21,11 @@
       <File FileName="YnaEngine/Graphics3D/YnEntity3DList.cs" Line="42" Column="1" />
       <File FileName="Maze3D/Screen/AboutState.cs" Line="25" Column="9" />
       <File FileName="Maze3D/MazeGame.cs" Line="21" Column="14" />
-      <File FileName="YnaEngine/Graphics3D/Terrain/Skybox.cs" Line="113" Column="20" />
+      <File FileName="YnaEngine/Graphics3D/Terrain/Skybox.cs" Line="118" Column="38" />
       <File FileName="YnaEngine/Graphics3D/Terrain/SkySphere.cs" Line="1" Column="1" />
-      <File FileName="YnaEngine/Graphics3D/Material/BasicMaterial.cs" Line="73" Column="25" />
+      <File FileName="YnaEngine/Graphics3D/Material/BasicMaterial.cs" Line="15" Column="41" />
       <File FileName="YnaEngine/Graphics3D/Lighting/BaseLight.cs" Line="17" Column="21" />
-      <File FileName="YnaEngine/Graphics3D/Material/StockMaterial.cs" Line="228" Column="39" />
+      <File FileName="YnaEngine/Graphics3D/Material/StockMaterial.cs" Line="120" Column="21" />
       <File FileName="YnaEngine/Graphics3D/Material/BaseMaterial.cs" Line="16" Column="27" />
     </Files>
   </MonoDevelop.Ide.Workbench>
