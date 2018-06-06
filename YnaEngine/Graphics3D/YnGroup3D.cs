@@ -6,11 +6,12 @@ using System.Collections.Generic;
 using System.Collections;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Yna.Engine.Graphics3D.Camera;
+using Yna.Engine.Graphics3D.Cameras;
 using Yna.Engine.Graphics3D.Lighting;
 
 namespace Yna.Engine.Graphics3D
 {
+    // TODO: Fix transforms
     /// <summary>
     /// A container for updating and drawing 3D object
     /// </summary>
@@ -23,10 +24,7 @@ namespace Yna.Engine.Graphics3D
         /// <summary>
         /// Get the number of elements in the group
         /// </summary>
-        public int Count
-        {
-            get { return _members.Count; }
-        }
+        public int Count => _members.Count;
 
         public new Matrix World
         {
@@ -49,10 +47,7 @@ namespace Yna.Engine.Graphics3D
         /// <summary>
         /// Get the YnObject3D on this scene
         /// </summary>
-        public List<YnEntity3D> SceneObjects
-        {
-            get { return _members; }
-        }
+        public List<YnEntity3D> SceneObjects => _members;
 
         public YnEntity3D this[int index]
         {
@@ -74,18 +69,19 @@ namespace Yna.Engine.Graphics3D
 
         public new Vector3 Rotation
         {
-            get { return _rotation; }
+            get => _rotation;
             set
             {
                 foreach (YnEntity3D entity in this)
                     entity.Rotation += value;
+
                 _rotation = value;
             }
         }
 
         public new Vector3 Position
         {
-            get { return _position; }
+            get => _position;
             set
             {
                 foreach (YnEntity3D entity in this)
@@ -96,11 +92,12 @@ namespace Yna.Engine.Graphics3D
 
         public new Vector3 Scale
         {
-            get { return _scale; }
+            get => _scale;
             set
             {
                 foreach (YnEntity3D entity in this)
                     entity.Scale += value;
+
                 _scale = value;
             }
         }
@@ -243,7 +240,7 @@ namespace Yna.Engine.Graphics3D
         /// </summary>
         /// <param name="gameTime">GameTime object.</param>
         /// <param name="device">GraphicsDevice object</param>
-        public override void Draw(GameTime gameTime, GraphicsDevice device, BaseCamera camera)
+        public override void Draw(GameTime gameTime, GraphicsDevice device, Cameras.Camera camera)
         {
             if (!Visible)
                 return;
@@ -253,7 +250,7 @@ namespace Yna.Engine.Graphics3D
                     member.Draw(gameTime, device, camera);
         }
 
-        public void Draw(GameTime gameTime, GraphicsDevice device, BaseCamera camera, SceneLight light)
+        public void Draw(GameTime gameTime, GraphicsDevice device, Cameras.Camera camera, SceneLight light)
         {
             if (!Visible)
                 return;

@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Yna.Engine.Graphics3D.Camera;
+using Yna.Engine.Graphics3D.Cameras;
 
 namespace Yna.Engine.Graphics3D
 {
@@ -24,7 +24,7 @@ namespace Yna.Engine.Graphics3D
         /// <param name="camera">Camera to use</param>
         /// <param name="position">Position 3D</param>
         /// <returns>The screen position</returns>
-        public static Vector2 GetWorldToScreenPosition(BaseCamera camera, ref Vector3 position)
+        public static Vector2 GetWorldToScreenPosition(Cameras.Camera camera, ref Vector3 position)
         {
             Vector3 p2d = YnG.GraphicsDevice.Viewport.Project(position, camera.Projection, camera.View, Matrix.Identity);
 
@@ -37,7 +37,7 @@ namespace Yna.Engine.Graphics3D
         /// <param name="camera">Camera to use</param>
         /// <param name="position">Position on world</param>
         /// <returns>Position on 3D world</returns>
-        public static Vector3 GetScreenToWorldPosition(BaseCamera camera, ref Vector2 position)
+        public static Vector3 GetScreenToWorldPosition(Cameras.Camera camera, ref Vector2 position)
         {
             Vector3 p3d = YnG.GraphicsDevice.Viewport.Unproject(new Vector3(position, 0.0f), camera.Projection, camera.View, Matrix.Identity);
 
@@ -53,7 +53,7 @@ namespace Yna.Engine.Graphics3D
         /// </summary>
         /// <param name="camera">Camera to use</param>
         /// <returns>A ray</returns>
-        public static Ray GetMouseRay(BaseCamera camera)
+        public static Ray GetMouseRay(Cameras.Camera camera)
         {
             Vector3 nearPoint = new Vector3(YnG.Mouse.Position, 0);
             Vector3 farPoint = new Vector3(YnG.Mouse.Position, 1);
@@ -74,7 +74,7 @@ namespace Yna.Engine.Graphics3D
         /// <param name="camera">Camera to use</param>
         /// <param name="object3D">Object3D</param>
         /// <returns>The distance between the object and the mouse cursor, -1 if not collide</returns>
-        public static float MouseCollideWithObject(BaseCamera camera, YnEntity3D object3D)
+        public static float MouseCollideWithObject(Cameras.Camera camera, YnEntity3D object3D)
         {
             float? distance = null;
 
@@ -92,7 +92,7 @@ namespace Yna.Engine.Graphics3D
         /// <param name="camera">Active camera</param>
         /// <param name="group">Group of object</param>
         /// <returns></returns>
-        public static CollideInformation[] MouseCollideWithGroup(BaseCamera camera, YnGroup3D group)
+        public static CollideInformation[] MouseCollideWithGroup(Cameras.Camera camera, YnGroup3D group)
         {
             List<CollideInformation> collides = new List<CollideInformation>();
 
@@ -171,7 +171,7 @@ namespace Yna.Engine.Graphics3D
             return collides.ToArray();
         }
 
-        public static YnEntity3D[] SphereCollide(BaseCamera camera, YnGroup3D group)
+        public static YnEntity3D[] SphereCollide(Cameras.Camera camera, YnGroup3D group)
         {
             List<YnEntity3D> collides = new List<YnEntity3D>();
 
@@ -227,7 +227,7 @@ namespace Yna.Engine.Graphics3D
             return collides.ToArray();
         }
 
-        public static YnEntity3D[] CubeCollide(BaseCamera camera, YnGroup3D group)
+        public static YnEntity3D[] CubeCollide(Cameras.Camera camera, YnGroup3D group)
         {
             List<YnEntity3D> collides = new List<YnEntity3D>();
 

@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using Yna.Engine;
 using Yna.Engine.Graphics3D;
-using Yna.Engine.Graphics3D.Camera;
+using Yna.Engine.Graphics3D.Cameras;
 using Yna.Engine.Graphics3D.Controls;
 using Yna.Engine.Input;
 
@@ -31,7 +31,8 @@ namespace Maze3D.Control
         private float _vpMoveSpeed;
         private float _vpRotateSpeed;
         private float _vpStrafeSpeed;
-        private RudderController m_RudderController;
+        private RudderController _3drudderController;
+        private bool _3drudderSupported;
 
         // Prevention du garbage collector
         private string _colliderName;
@@ -44,7 +45,7 @@ namespace Maze3D.Control
         public bool Wallthrough { get; set; } = false;
 #endif
 
-        public MazeController(BaseCamera camera)
+        public MazeController(Camera camera)
             : base(camera)
         {
             _nextDirection = Vector3.Zero;
@@ -83,7 +84,10 @@ namespace Maze3D.Control
                 _vpStrafeSpeed = 15.0f;
             }
 
-            m_RudderController = new RudderController();
+            _3drudderSupported = YnG.Platform == Platform.Windows;
+
+            if (_3drudderSupported)
+                _3drudderController = new RudderController();
         }
 
         public override void Update(GameTime gameTime)
@@ -120,28 +124,20 @@ namespace Maze3D.Control
                 Camera.Y++;
 #endif
 
-            var rotation = Vector3.Zero;
-            m_RudderController.UpdateTransform(ref _nextDirection, ref rotation, false);
-            Camera.RotateY(rotation.Y * _rotationSpeed * gameTime.ElapsedGameTime.Milliseconds);
-        }
-
-        private bool InputHackChecker()
-        {
-            if (_waitForUp)
+            if (_3drudderSupported)
             {
-                if (YnG.Keys.JustReleased(Keys.Up) || YnG.Keys.JustReleased(Keys.Z))
-                    _waitForUp = false;
-
+                var rotation = Vector3.Zero;
+                _3drudderController.UpdateTransform(ref _nextDirection, ref rotation, false);
+                Camera.RotateY(rotation.Y * _rotationSpeed * gameTime.ElapsedGameTime.Milliseconds);
             }
-            return _waitForUp;
         }
 
         public bool ValidatePosition(Level level)
         {
             bool collide = false;
 
-            int x = Math.Abs((int)Math.Floor((Camera.X / level.BlockSizes.Width / 2)));
-            int y = Math.Abs((int)Math.Floor((Camera.Z / level.BlockSizes.Depth / 2)));
+            int x = Math.Abs((int)Math.Floor((double)(Camera.X / level.BlockSizes.Width / 2)));
+            int y = Math.Abs((int)Math.Floor((double)(Camera.Z / level.BlockSizes.Depth / 2)));
 
             if (x < level.Width && y < level.Depth)
             {

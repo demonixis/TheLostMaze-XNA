@@ -1,6 +1,8 @@
 ﻿// YnaEngine - Copyright (C) YnaEngine team
 // This file is subject to the terms and conditions defined in
 // file 'LICENSE', which is part of this source code package.
+using System;
+using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,6 +13,11 @@ using Yna.Engine.Storage;
 
 namespace Yna.Engine
 {
+    public enum Platform
+    {
+        Windows, Linux, Mac
+    }
+
     /// <summary>
     /// Static class that expose important object relative to the current context like
     /// Game, GraphicsDevice, Input, etc...
@@ -37,10 +44,7 @@ namespace Yna.Engine
         /// <summary>
         /// Gets the ContentManager instance relative to the Game object
         /// </summary>
-        public static ContentManager Content
-        {
-            get { return Game.Content; }
-        }
+        public static ContentManager Content => Game.Content;
 
         /// <summary>
         /// Gets or Set the State Manager
@@ -83,11 +87,9 @@ namespace Yna.Engine
 
         public static bool ShowMouse
         {
-            get { return Game.IsMouseVisible; }
-            set { Game.IsMouseVisible = value; }
+            get => Game.IsMouseVisible;
+            set => Game.IsMouseVisible = value;
         }
-
-        
 
         #endregion
 
@@ -124,35 +126,17 @@ namespace Yna.Engine
         /// <summary>
         /// Gets the rectangle that represent the screen size
         /// </summary>
-        public static Rectangle ScreenRectangle
-        {
-            get { return new Rectangle(0, 0, YnG.Game.GraphicsDevice.Viewport.Width, YnG.Game.GraphicsDevice.Viewport.Height); }
-        }
+        public static Rectangle ScreenRectangle => new Rectangle(0, 0, Width, Height);
 
         /// <summary>
         /// Gets the center of the screen on X axis
         /// </summary>
-        public static int ScreenCenterX
-        {
-#if !ANDROID && !WINDOWS_PHONE_7 && !WINDOWS_PHONE_8
-            get { return Game.Window.ClientBounds.Width / 2; }
-#else
-			get { return YnG.Width / 2; }
-#endif
-        }
+        public static int ScreenCenterX => Width / 2;
 
         /// <summary>
         /// Gets the center of the screen on Y axis
         /// </summary>
-        public static int ScreenCenterY
-        {
-#if !ANDROID && !WINDOWS_PHONE_7 && !WINDOWS_PHONE_8
-            get { return Game.Window.ClientBounds.Height / 2; }
-#else
-			get { return YnG.Height / 2; }
-#endif
-        }
-
+        public static int ScreenCenterY => Height / 2;
 
         /// <summary>
         /// Change the screen resolution
@@ -161,7 +145,8 @@ namespace Yna.Engine
         /// <param name="height">Screen height</param>
         public static void SetScreenResolution(int width, int height)
         {
-            (Game as YnGame).SetScreenResolution(width, height);
+            var game = Game as YnGame;
+            game?.SetScreenResolution(width, height);
         }
 
         /// <summary>
@@ -170,7 +155,8 @@ namespace Yna.Engine
         /// <param name="fullscreen"></param>
         public static void DetermineBestResolution(bool fullscreen)
         {
-            (Game as YnGame).DetermineBestResolution(true);
+            var game = Game as YnGame;
+            game?.DetermineBestResolution(true);
         }
 
         #endregion
@@ -179,11 +165,39 @@ namespace Yna.Engine
 
         public static void SetStateActive(string name, bool desactiveOtherStates)
         {
-            if (StateManager != null)
-                StateManager.SetActive(name, desactiveOtherStates);
+            StateManager?.SetActive(name, desactiveOtherStates);
+        }
+
+        public static void SwitchState(YnState state, bool active = true)
+        {
+            // TODO
         }
 
         #endregion
+
+        public static Platform Platform
+        {
+            get
+            {
+                switch (Environment.OSVersion.Platform)
+                {
+                    case PlatformID.Unix:
+                        if (Directory.Exists("/Applications")
+                            & Directory.Exists("/System")
+                            & Directory.Exists("/Users")
+                            & Directory.Exists("/Volumes"))
+                            return Platform.Mac;
+                        else
+                            return Platform.Linux;
+
+                    case PlatformID.MacOSX:
+                        return Platform.Mac;
+
+                    default:
+                        return Platform.Windows;
+                }
+            }
+        }
 
         /// <summary>
         /// Close the game

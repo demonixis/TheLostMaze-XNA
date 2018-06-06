@@ -5,7 +5,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Yna.Engine.Graphics3D.Lighting;
-using Yna.Engine.Graphics3D.Camera;
+using Yna.Engine.Graphics3D.Cameras;
 
 namespace Yna.Engine.Graphics3D.Materials
 {
@@ -196,7 +196,7 @@ namespace Yna.Engine.Graphics3D.Materials
                 _enableMainTexture = _texture != null ? true : false;
         }
 
-        public override void Update(BaseCamera camera, ref Matrix world)
+        public override void Update(Cameras.Camera camera, ref Matrix world)
         {
             // Matrices
             IEffectMatrices effectMatrices = (IEffectMatrices)_effect;

@@ -3,7 +3,7 @@
 // file 'LICENSE', which is part of this source code package.
 using System;
 using Microsoft.Xna.Framework.Graphics;
-using Yna.Engine.Graphics3D.Camera;
+using Yna.Engine.Graphics3D.Cameras;
 using Yna.Engine.Graphics3D.Geometry;
 using Yna.Engine.Graphics3D.Materials;
 

@@ -37,9 +37,9 @@ namespace C3DE.VR
                 AvailableDrivers.Add(new VRDriver(new OpenVRService(game), true, 1));
                 //AvailableDrivers.Add(new VRDriver(new OpenHMDService(Application.Engine), true, 0));
 #elif DESKTOP
-                AvailableDrivers.Add(new VRDriver(new OSVRService(Application.Engine), false, 2));
-                AvailableDrivers.Add(new VRDriver(new OpenVRService(Application.Engine), false, 1));
-                AvailableDrivers.Add(new VRDriver(new OpenHMDService(Application.Engine), false, 0));      
+                //AvailableDrivers.Add(new VRDriver(new OSVRService(Application.Engine), false, 2));
+                AvailableDrivers.Add(new VRDriver(new OpenVRService(game), true, 1));
+                //AvailableDrivers.Add(new VRDriver(new OpenHMDService(Application.Engine), false, 0));      
 #endif
             }
 

@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Yna.Engine.Graphics3D.Camera;
+using Yna.Engine.Graphics3D.Cameras;
 using Yna.Engine.Graphics3D.Lighting;
 using Yna.Engine.Graphics3D.Materials;
 
@@ -289,7 +289,7 @@ namespace Yna.Engine.Graphics3D
         /// Draw the model.
         /// </summary>
         /// <param name="device">GraphicsDevice</param>
-        public override void Draw(GameTime gameTime, GraphicsDevice device, BaseCamera camera)
+        public override void Draw(GameTime gameTime, GraphicsDevice device, Cameras.Camera camera)
         {
             UpdateMatrix();
             _material.Update(camera, ref _world);

@@ -4,7 +4,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Yna.Engine.Graphics3D.Camera;
+using Yna.Engine.Graphics3D.Cameras;
 using Yna.Engine.Graphics3D.Geometry;
 using Yna.Engine.Graphics3D.Materials;
 
@@ -34,7 +34,7 @@ namespace Yna.Engine.Graphics3D
             base.LoadContent();
         }
 
-        public void UpdateRotation(BaseCamera camera)
+        public void UpdateRotation(Cameras.Camera camera)
         {
             Vector3 reference = Vector3.Backward;
             Vector3 lookDirection = Vector3.Normalize(camera.Position - camera.Target);
@@ -49,7 +49,7 @@ namespace Yna.Engine.Graphics3D
                 Matrix.CreateTranslation(_position);
         }
 
-        public override void PreDraw(BaseCamera camera)
+        public override void PreDraw(Cameras.Camera camera)
         {
             if (_isFixed)
             {
@@ -64,7 +64,7 @@ namespace Yna.Engine.Graphics3D
             _material.Update(camera, ref _world);
         }
 
-        public override void Draw(GameTime gameTime, GraphicsDevice device, BaseCamera camera)
+        public override void Draw(GameTime gameTime, GraphicsDevice device, Cameras.Camera camera)
         {
             PreDraw(camera);
 

@@ -21,6 +21,7 @@ namespace Yna.Engine.Graphics
         protected List<YnGameEntity> _entities;
         protected YnGui _guiManager;
         protected YnCamera2D _camera;
+        protected bool _GUIEnabled = false;
 
         /// <summary>
         /// Gets or sets the gui
@@ -53,6 +54,26 @@ namespace Yna.Engine.Graphics
             set { _camera = value; }
         }
 
+        public bool GUIEnabled
+        {
+            get => _GUIEnabled;
+            set
+            {
+                _GUIEnabled = value;
+
+                if (_guiManager == null)
+                {
+                    _guiManager = new YnGui();
+
+                    if (_assetLoaded)
+                        _guiManager.LoadContent();
+
+                    if (_initialized)
+                        _guiManager.Initialize();
+                }
+            }
+        }
+
         #endregion
 
         #region Constructors
@@ -63,7 +84,7 @@ namespace Yna.Engine.Graphics
         /// <param name="name">The state name</param>
         /// <param name="active">Set to true to activate the state</param>
         /// <param name="enableGui">Set to true tu enable GUI on this state</param>
-        public YnState2D(string name, bool active, bool enableGui)
+        public YnState2D(string name, bool active = true, bool enableGui = false)
             : base(name)
         {
             _enabled = active;
@@ -71,26 +92,7 @@ namespace Yna.Engine.Graphics
             _camera = new YnCamera2D();
             _baseList = new List<YnEntity>();
             _entities = new List<YnGameEntity>();
-            _guiManager = new YnGui();
-        }
-
-        /// <summary>
-        /// Create a 2D state without GUI.
-        /// </summary>
-        /// <param name="name">The state name</param>
-        /// <param name="active">Set to true to activate the state</param>
-        public YnState2D(string name, bool active)
-            : this(name, active, false)
-        {
-        }
-
-        /// <summary>
-        ///  Create a 2D state without GUI.
-        /// </summary>
-        /// <param name="name">The state name</param>
-        public YnState2D(string name)
-            : this(name, true, false)
-        {
+            _GUIEnabled = enableGui;
         }
 
         #endregion
@@ -108,7 +110,8 @@ namespace Yna.Engine.Graphics
             foreach (var entity in _entities)
                 entity.Initialize();
 
-            _guiManager.Initialize();
+            if (_GUIEnabled)
+                _guiManager.Initialize();
         }
 
         /// <summary>
@@ -124,7 +127,8 @@ namespace Yna.Engine.Graphics
             foreach (var entity in _entities)
                 entity.LoadContent();
 
-            _guiManager.LoadContent();
+            if (_GUIEnabled)
+                _guiManager.LoadContent();
 
             _assetLoaded = true;
         }
@@ -142,7 +146,8 @@ namespace Yna.Engine.Graphics
             foreach (var entity in _entities)
                 entity.UnloadContent();
 
-            _guiManager.UnloadContent();
+            if (_GUIEnabled)
+                _guiManager.UnloadContent();
 
             _entities.Clear();
         }
@@ -160,6 +165,9 @@ namespace Yna.Engine.Graphics
 
             foreach (var entity in _entities)
                 entity.Update(gameTime);
+
+            if (_GUIEnabled)
+                _guiManager.Update(gameTime);
         }
 
         /// <summary>
@@ -175,7 +183,8 @@ namespace Yna.Engine.Graphics
                 spriteBatch.End();
             }
 
-            _guiManager.Draw(gameTime, spriteBatch);
+            if (_GUIEnabled)
+                _guiManager.Draw(gameTime, spriteBatch);
         }
 
         #endregion

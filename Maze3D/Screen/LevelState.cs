@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using Yna.Engine;
 using Yna.Engine.Graphics3D;
-using Yna.Engine.Graphics3D.Camera;
+using Yna.Engine.Graphics3D.Cameras;
 using Yna.Engine.Helpers;
 
 namespace Maze3D.Screen
@@ -178,7 +178,7 @@ namespace Maze3D.Screen
                         {
                             YnG.AudioManager.PlaySound("Audio/kristal", 1.0f, 1.0f, 0.0f);
                             UpdateScore((model as AnimatedItemMesh).Points);
-                            _gameHUD.MiniMap.UpdateItemStatus(Camera.X, Camera.Z);
+                            _gameHUD.MiniMap.UpdateItemStatus((float)Camera.X, (float)Camera.Z);
                             _gameHUD.UpdateNbCrystals();
                             model.Active = false;
                         }
@@ -186,7 +186,7 @@ namespace Maze3D.Screen
                 }
 
                 if (_gameHUD.MiniMap.Enabled)
-                    _gameHUD.MiniMap.UpdatePlayerPosition(Camera.X, Camera.Z);
+                    _gameHUD.MiniMap.UpdatePlayerPosition((float)Camera.X, (float)Camera.Z);
 
                 if (virtualPad.Enabled)
                     virtualPad.Update(gameTime);

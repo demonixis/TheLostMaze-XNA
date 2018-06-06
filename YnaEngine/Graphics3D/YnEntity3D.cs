@@ -3,7 +3,6 @@
 // file 'LICENSE', which is part of this source code package.
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Yna.Engine.Graphics3D.Camera;
 using Yna.Engine.Graphics3D.Lighting;
 
 namespace Yna.Engine.Graphics3D
@@ -17,18 +16,18 @@ namespace Yna.Engine.Graphics3D
 
         // Direction
         protected Vector3 _position;
-        protected Vector3 _rotation;    
-        protected Vector3 _scale;           
-        protected Vector3 _lastPosition;  
-        protected Vector3 _direction;      
-        protected Vector3 _lastDirection;   
+        protected Vector3 _rotation;
+        protected Vector3 _scale = Vector3.One;
+        protected Vector3 _lastPosition;
+        protected Vector3 _direction;
+        protected Vector3 _lastDirection;
 
         // Bounding Sphere/Box
         protected BoundingBox _boundingBox;
         protected BoundingSphere _boundingSphere;
 
         // Visibility
-        protected bool _visible;
+        protected bool _visible = true;
         protected bool _dirty;
 
         // Static or dynamic object
@@ -49,7 +48,7 @@ namespace Yna.Engine.Graphics3D
         // Rendering
         protected Matrix _world;
         protected bool _frustrumCulled;
-        protected bool _enableLight;
+        protected bool _enableLight = true;
 
         #endregion
 
@@ -60,7 +59,7 @@ namespace Yna.Engine.Graphics3D
         /// If true the object is not paused and is visible
         /// Else it's paused and not visible
         /// </summary>
-        public new bool Active
+        public override bool Active
         {
             get { return _enabled && _visible && !_dirty; }
             set
@@ -141,10 +140,7 @@ namespace Yna.Engine.Graphics3D
         /// <summary>
         /// Get the last position
         /// </summary>
-        public Vector3 LastPosition
-        {
-            get { return _lastPosition; }
-        }
+        public Vector3 LastPosition => _lastPosition;
 
         public Vector3 Direction
         {
@@ -152,10 +148,7 @@ namespace Yna.Engine.Graphics3D
             set { _direction = value; }
         }
 
-        public Vector3 LastDirection
-        {
-            get { return _lastDirection; }
-        }
+        public Vector3 LastDirection => _lastDirection;
 
         /// <summary>
         /// Gets or sets the rotation value
@@ -236,42 +229,27 @@ namespace Yna.Engine.Graphics3D
         /// <summary>
         /// Get the width of the model
         /// </summary>
-        public float Width
-        {
-            get { return _width; }
-        }
+        public float Width => _width;
 
         /// <summary>
         /// Get the height of the model
         /// </summary>
-        public float Height
-        {
-            get { return _height; }
-        }
+        public float Height => _height;
 
         /// <summary>
         /// Get the depth of the model
         /// </summary>
-        public float Depth
-        {
-            get { return _depth; }
-        }
+        public float Depth => _depth;
 
         /// <summary>
         /// Get the bounding box of the object
         /// </summary>
-        public BoundingBox BoundingBox
-        {
-            get { return _boundingBox; }
-        }
+        public BoundingBox BoundingBox => _boundingBox;
 
         /// <summary>
         /// Get the bounding sphere of the model
         /// </summary>
-        public BoundingSphere BoundingSphere
-        {
-            get { return _boundingSphere; }
-        }
+        public BoundingSphere BoundingSphere => _boundingSphere;
 
         #endregion
 
@@ -293,45 +271,6 @@ namespace Yna.Engine.Graphics3D
         {
             get { return _enableLight; }
             set { _enableLight = value; }
-        }
-
-        #endregion
-
-        #region Constructors
-
-        public YnEntity3D(Vector3 position)
-            : base()
-        {
-            _position = position;
-            _lastPosition = position;
-            _direction = Vector3.Zero;
-            _lastDirection = Vector3.Zero;
-            _rotation = Vector3.Zero;
-            _scale = Vector3.One;
-
-            _width = 0;
-            _height = 0;
-            _depth = 0;
-
-            _visible = true;
-            _dirty = false;
-
-            _initialized = false;
-            _assetLoaded = false;
-            _dynamic = false;
-
-            _boundingBox = new BoundingBox();
-            _boundingSphere = new BoundingSphere();
-
-            _frustrumCulled = false;
-            
-            _enableLight = true;
-        }
-
-        public YnEntity3D()
-            : this(new Vector3(0.0f, 0.0f, 0.0f))
-        {
-
         }
 
         #endregion
@@ -382,11 +321,9 @@ namespace Yna.Engine.Graphics3D
         /// <param name="z">Z value</param>
         public virtual void Translate(float x, float y, float z)
         {
-            Vector3 move = new Vector3(x, y, z);
-
-            Matrix forwardMovement = Matrix.CreateRotationY(_rotation.Y);
-
-            Vector3 v = Vector3.Transform(move, forwardMovement);
+            var move = new Vector3(x, y, z);
+            var forwardMovement = Matrix.CreateRotationY(_rotation.Y);
+            var v = Vector3.Transform(move, forwardMovement);
 
             _position.X += v.X;
             _position.Y += v.Y;
@@ -397,24 +334,15 @@ namespace Yna.Engine.Graphics3D
         /// Translate the object on X axis
         /// </summary>
         /// <param name="x">X value</param>
-        public virtual void TranslateX(float x)
-        {
-            Translate(x, 0.0f, 0.0f);
-        }
+        public virtual void TranslateX(float x) => Translate(x, 0.0f, 0.0f);
 
         /// <summary>
         /// Translate the object on Y axis
         /// </summary>
         /// <param name="y"></param>
-        public virtual void TranslateY(float y)
-        {
-            Translate(0.0f, y, 0.0f);
-        }
+        public virtual void TranslateY(float y) => Translate(0.0f, y, 0.0f);
 
-        public virtual void TranslateZ(float z)
-        {
-            Translate(0.0f, 0.0f, z);
-        }
+        public virtual void TranslateZ(float z) => Translate(0.0f, 0.0f, z);
 
         #endregion
 
@@ -436,7 +364,6 @@ namespace Yna.Engine.Graphics3D
         /// <param name="light">Light to use.</param>
         public virtual void UpdateLighting(SceneLight light)
         {
-
         }
 
         #endregion
@@ -448,7 +375,6 @@ namespace Yna.Engine.Graphics3D
         /// </summary>
         public virtual void Initialize()
         {
-
         }
 
         /// <summary>
@@ -456,7 +382,6 @@ namespace Yna.Engine.Graphics3D
         /// </summary>
         public virtual void LoadContent()
         {
-
         }
 
         /// <summary>
@@ -464,7 +389,6 @@ namespace Yna.Engine.Graphics3D
         /// </summary>
         public virtual void UnloadContent()
         {
-
         }
 
         /// <summary>
@@ -473,18 +397,18 @@ namespace Yna.Engine.Graphics3D
         /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
-            if (_dynamic)
-            {
-				UpdateBoundingVolumes();
-                _lastDirection = _direction;
-                _direction = (_position - _lastPosition);
-                _lastPosition = _position;
-            }
+            if (!_dynamic)
+                return;
+
+            UpdateBoundingVolumes();
+
+            _lastDirection = _direction;
+            _direction = (_position - _lastPosition);
+            _lastPosition = _position;
         }
 
-        public virtual void Draw(GameTime gameTime, GraphicsDevice device, BaseCamera camera)
+        public virtual void Draw(GameTime gameTime, GraphicsDevice device, Cameras.Camera camera)
         {
-
         }
 
         #endregion

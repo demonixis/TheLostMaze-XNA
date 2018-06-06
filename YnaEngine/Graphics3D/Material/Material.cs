@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Yna.Engine.Graphics3D.Lighting;
-using Yna.Engine.Graphics3D.Camera;
+using Yna.Engine.Graphics3D.Cameras;
 
 namespace Yna.Engine.Graphics3D.Materials
 {
@@ -127,6 +127,6 @@ namespace Yna.Engine.Graphics3D.Materials
         /// </summary>
         /// <param name="camera">Camera to use.</param>
         /// <param name="world">Entity World matrix</param>
-        public abstract void Update(BaseCamera camera, ref Matrix world);
+        public abstract void Update(Cameras.Camera camera, ref Matrix world);
     }
 }

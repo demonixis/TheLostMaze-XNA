@@ -15,8 +15,8 @@ namespace Yna.Engine
 
         private static uint counterId = 0x0001;
 
-        protected uint _id;
-        protected string _name;
+        protected uint _id = counterId++;
+        protected string _name = "YnBase";
         protected bool _enabled;
 
         #endregion
@@ -44,7 +44,7 @@ namespace Yna.Engine
         /// <summary>
         /// Active or Desactive this object
         /// </summary>
-        public bool Active
+        public virtual bool Active
         {
             get { return _enabled; }
             set { _enabled = value; }
@@ -53,20 +53,13 @@ namespace Yna.Engine
         /// <summary>
         /// Pause or resume updates
         /// </summary>
-        public bool Enabled
+        public virtual bool Enabled
         {
             get { return _enabled; }
             set { _enabled = value; }
         }
 
         #endregion
-
-        public YnEntity()
-        {
-            _id = counterId++;
-            _name = String.Format("YnBase_{0}", Id.ToString());
-            _enabled = true;
-        }
 
         /// <summary>
         /// Update method called on each engine update

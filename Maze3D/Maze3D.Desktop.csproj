@@ -13,7 +13,7 @@
     <AssemblyName>TheLostMaze</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>DesktopGL</MonoGamePlatform>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -128,6 +128,10 @@
     <ProjectReference Include="..\Maze3D.Data\Maze3D.Data.Desktop.csproj">
       <Project>{FDFE2971-A351-45F5-A3FA-525C0AE19673}</Project>
       <Name>Maze3D.Data.Desktop</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Maze3D.VR\Maze3D.VR.Desktop.csproj">
+      <Project>{1D4350E6-C63E-4FF4-A9AF-C47FB43DF455}</Project>
+      <Name>Maze3D.VR.Desktop</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
