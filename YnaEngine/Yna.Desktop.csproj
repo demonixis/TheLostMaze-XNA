@@ -48,8 +48,6 @@
     <Compile Include="Extensions\Texture2DExtension.cs" />
     <Compile Include="Extensions\Vector2Extension.cs" />
     <Compile Include="Extensions\ViewportExtension.cs" />
-    <Compile Include="State\StateManagerException.cs" />
-    <Compile Include="YnGameEntityCollection.cs" />
     <Compile Include="YnGameEntity.cs" />
     <Compile Include="Graphics\Animation\AnimationEventArgs.cs" />
     <Compile Include="Graphics\Component\YnVirtualPadController.cs" />
@@ -89,7 +87,6 @@
     <Compile Include="YnGame.cs" />
     <Compile Include="Graphics\YnGroup.cs" />
     <Compile Include="Graphics\YnEntity2D.cs" />
-    <Compile Include="YnCollection.cs" />
     <Compile Include="YnQuadTree.cs" />
     <Compile Include="YnTimer.cs" />
     <Compile Include="YnRandom.cs" />

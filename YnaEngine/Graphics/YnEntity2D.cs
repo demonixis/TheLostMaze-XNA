@@ -66,7 +66,7 @@ namespace Yna.Engine.Graphics
         /// </summary>
         public bool Dirty
         {
-            get { return _dirty; }
+            get => _dirty;
             set
             {
                 _dirty = value;
@@ -78,23 +78,14 @@ namespace Yna.Engine.Graphics
         /// <summary>
         /// Flag indicating that the entity is currently hovered (touch or mouse)
         /// </summary>
-        public bool Hovered
-        {
-            get { return _hovered; }
-        }
+        public bool Hovered => _hovered;
 
         /// <summary>
         /// Flag indicating that the entity is currently beeing clicked (touch or mouse)
         /// </summary>
-        public bool Clicked
-        {
-            get { return _clicked; }
-        }
+        public bool Clicked => _clicked;
 
-        public Vector2 ScreenPosition
-        {
-            get { return _screenPosition; }
-        }
+        public Vector2 ScreenPosition => _screenPosition;
 
         #endregion
 
@@ -105,15 +96,15 @@ namespace Yna.Engine.Graphics
         /// </summary>
         public YnEntity2D Parent
         {
-            get { return _parent; }
-            set { _parent = value; }
+            get => _parent;
+            set => _parent = value;
         }
 
         /// <summary>
         /// Gets or sets the X position of the object.
         /// Note: The rectangle is updated when a value is setted
         /// </summary>
-        public float X
+        public virtual float X
         {
             get { return (int)_position.X; }
             set
@@ -127,7 +118,7 @@ namespace Yna.Engine.Graphics
         /// Gets or sets the Y position of the object.
         /// Note: The rectangle value is updated when a value is setted
         /// </summary>
-        public int Y
+        public virtual float Y
         {
             get { return (int)_position.Y; }
             set
@@ -141,7 +132,7 @@ namespace Yna.Engine.Graphics
         /// Gets or sets the height of the rectangle
         /// Note: who is the texture2D.Height value
         /// </summary>
-        public int Height
+        public virtual int Height
         {
             get { return _rectangle.Height; }
             set
@@ -157,7 +148,7 @@ namespace Yna.Engine.Graphics
         /// Gets or sets the width of the rectangle
         /// Note: who is the texture2D.Width value
         /// </summary>
-        public int Width
+        public virtual int Width
         {
             get { return _rectangle.Width; }
             set
@@ -173,7 +164,7 @@ namespace Yna.Engine.Graphics
         /// Gets or sets the position of the object
         /// Note: The rectangle values are updated
         /// </summary>
-        public Vector2 Position
+        public virtual Vector2 Position
         {
             get { return _position; }
             set
@@ -189,7 +180,7 @@ namespace Yna.Engine.Graphics
         /// Gets or sets the Rectangle (Bounding box) of the object
         /// Note: The position values are updated
         /// </summary>
-        public Rectangle Rectangle
+        public virtual Rectangle Rectangle
         {
             get { return _rectangle; }
             set
@@ -209,7 +200,7 @@ namespace Yna.Engine.Graphics
         /// <summary>
         /// Gets or sets the rotation of the object in radians
         /// </summary>
-        public float Rotation
+        public virtual float Rotation
         {
             get { return _rotation; }
             set { _rotation = value; }
@@ -219,21 +210,15 @@ namespace Yna.Engine.Graphics
         /// Gets or sets the scale of the object.Default is Vector2.One
         /// Note: The rectangle of the object is updated
         /// </summary>
-        public Vector2 Scale
+        public virtual Vector2 Scale
         {
             get { return _scale; }
             set { _scale = value; }
         }
 
-        public float ScaledWidth
-        {
-            get { return _rectangle.Width * _scale.X; }
-        }
+        public float ScaledWidth => _rectangle.Width * _scale.X;
 
-        public float ScaledHeight
-        {
-            get { return _rectangle.Height * _scale.Y; }
-        }
+        public float ScaledHeight => _rectangle.Height * _scale.Y;
 
         #endregion
 
@@ -242,7 +227,7 @@ namespace Yna.Engine.Graphics
         /// <summary>
         /// Gets or sets the origin of the object. Default is Vector2.Zero
         /// </summary>
-        public Vector2 Origin
+        public virtual Vector2 Origin
         {
             get { return _origin; }
             set { _origin = value; }
@@ -251,7 +236,7 @@ namespace Yna.Engine.Graphics
         /// <summary>
         /// Gets or sets the color applied to the object
         /// </summary>
-        public Color Color
+        public virtual Color Color
         {
             get { return _color; }
             set { _color = value; }

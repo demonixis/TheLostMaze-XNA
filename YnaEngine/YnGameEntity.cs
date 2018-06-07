@@ -14,7 +14,7 @@ namespace Yna.Engine
     {
         protected bool _assetLoaded;
         protected bool _initialized;
-        protected bool _visible;
+        protected bool _visible = true;
 
         #region Properties
 
@@ -36,9 +36,9 @@ namespace Yna.Engine
         /// <summary>
         /// Active or desactive the Entity. An active Entity will be updated and drawn
         /// </summary>
-        public new bool Active
+        public override bool Active
         {
-            get { return _visible && _enabled; }
+            get => _visible && _enabled;
             set
             {
                 _enabled = value;
@@ -75,35 +75,15 @@ namespace Yna.Engine
         /// Method called when the entity is activated.
         /// </summary>
         /// <param name="e"></param>
-        protected virtual void OnActivated(EventArgs e)
-        {
-            if (Activated != null)
-                Activated(this, e);
-        }
+        protected virtual void OnActivated(EventArgs e) => Activated?.Invoke(this, e);
 
         /// <summary>
         /// Method called when the entity is desactivated.
         /// </summary>
         /// <param name="e"></param>
-        protected virtual void OnDesactivated(EventArgs e)
-        {
-            if (Desactivated != null)
-                Desactivated(this, e);
-        }
+        protected virtual void OnDesactivated(EventArgs e) => Desactivated?.Invoke(this, e);
 
         #endregion
-
-        /// <summary>
-        /// Create game entity that is updateable and drawable.
-        /// </summary>
-        public YnGameEntity()
-            : base()
-        {
-            _assetLoaded = false;
-            _initialized = false;
-            _enabled = true;
-            _visible = true;
-        }
 
         /// <summary>
         /// Initialize the logic.
@@ -113,7 +93,6 @@ namespace Yna.Engine
         /// <summary>
         /// Load assets
         /// </summary>
-        /// <param name="content">The content manager.</param>
         public abstract void LoadContent();
 
         /// <summary>
@@ -128,7 +107,6 @@ namespace Yna.Engine
         /// <param name="spriteBatch">A SpriteBatch to draw this entity.</param>
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-
         }
     }
 }

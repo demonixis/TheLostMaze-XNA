@@ -1,41 +1,23 @@
 ﻿<Properties StartupConfiguration="{905B6B3B-33B1-49FB-B691-AE30F88CB4F5}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Maze3D/Control/MazeController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="YnaEngine/YnGameEntity.cs">
     <Files>
-      <File FileName="YnaEngine/Graphics/YnState2D.cs" Line="95" Column="37" />
-      <File FileName="YnaEngine/Graphics3D/YnState3D.cs" Line="3" Column="62" />
-      <File FileName="YnaEngine/Graphics3D/Cameras/Camera.cs" Line="372" Column="25" />
-      <File FileName="YnaEngine/Graphics3D/Cameras/ThirdPersonCamera.cs" Line="66" Column="9" />
-      <File FileName="YnaEngine/Graphics3D/Cameras/FirstPersonCamera.cs" Line="1" Column="1" />
+      <File FileName="YnaEngine/State/StateManager.cs" Line="241" Column="36" />
+      <File FileName="YnaEngine/Graphics/Gui/YnWidgetList.cs" Line="51" Column="9" />
+      <File FileName="YnaEngine/Graphics/Gui/YnGui.cs" Line="168" Column="28" />
       <File FileName="YnaEngine/Graphics3D/YnEntity3D.cs" Line="20" Column="47" />
-      <File FileName="YnaEngine/Graphics3D/YnGroup3D.cs" Line="107" Column="51" />
-      <File FileName="YnaEngine/YnEntity.cs" Line="62" Column="19" />
-      <File FileName="Maze3D/Control/MazeController.cs" Line="133" Column="10" />
-      <File FileName="Maze3D.VR/C3DE/OpenVR/OpenVRController.cs" Line="1" Column="17" />
-      <File FileName="Maze3D.VR/C3DE/VRManager.cs" Line="41" Column="86" />
-      <File FileName="YnaEngine/Graphics/Gui/YnSkinGenerator.cs" Line="45" Column="1" />
-      <File FileName="Maze3D.VR/RudderController.cs" Line="20" Column="1" />
-      <File FileName="YnaEngine/YnG.cs" Line="181" Column="14" />
+      <File FileName="YnaEngine/Graphics3D/Terrain/BaseTerrain.cs" Line="1" Column="1" />
+      <File FileName="YnaEngine/Graphics3D/Terrain/Skybox.cs" Line="1" Column="1" />
+      <File FileName="YnaEngine/Graphics3D/Terrain/SkySphere.cs" Line="1" Column="1" />
+      <File FileName="YnaEngine/Graphics/YnGraphics.cs" Line="1" Column="1" />
+      <File FileName="YnaEngine/Graphics/Particle/YnEmitter.cs" Line="1" Column="1" />
+      <File FileName="YnaEngine/Graphics/Event/GlobalEventArgs.cs" Line="1" Column="1" />
+      <File FileName="YnaEngine/Graphics/Animation/YnInterpolator.cs" Line="1" Column="1" />
+      <File FileName="YnaEngine/Graphics/Animation/YnShakeEffect.cs" Line="1" Column="1" />
+      <File FileName="YnaEngine/Graphics/Animation/YnTransitionEffect.cs" Line="1" Column="1" />
+      <File FileName="YnaEngine/Graphics/YnSprite.cs" Line="1" Column="1" />
+      <File FileName="YnaEngine/Graphics/YnEntity2D.cs" Line="14" Column="5" />
+      <File FileName="YnaEngine/YnGameEntity.cs" Line="41" Column="41" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State name="__root__">
-          <Node name="Maze3D.Desktop" expanded="True">
-            <Node name="Maze3D.Desktop" expanded="True">
-              <Node name="Control" expanded="True">
-                <Node name="MazeController.cs" selected="True" />
-              </Node>
-            </Node>
-            <Node name="Maze3D.VR.Desktop" expanded="True" />
-            <Node name="Yna.Desktop" expanded="True">
-              <Node name="Graphics" expanded="True" />
-              <Node name="Graphics3D" expanded="True">
-                <Node name="Cameras" expanded="True" />
-              </Node>
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

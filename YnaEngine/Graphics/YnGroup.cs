@@ -16,7 +16,7 @@ namespace Yna.Engine.Graphics
     {
         #region Private declarations
 
-        protected YnGameEntityCollection _entitiesList;
+        protected List<YnGameEntity> _entitiesList;
         private bool _assetsLoaded;
 
         #endregion
@@ -26,29 +26,12 @@ namespace Yna.Engine.Graphics
         /// <summary>
         /// Members of the group
         /// </summary>
-        public List<YnGameEntity> Members
-        {
-            get { return _entitiesList.Members; }
-        }
+        public List<YnGameEntity> Members => _entitiesList;
 
         /// <summary>
         /// The size of the collection
         /// </summary>
-        public int Count
-        {
-            get { return _entitiesList.Count; }
-        }
-
-        /// <summary>
-        /// Enable of disable the secure cycle. If active, after each update a secure list is created with a copy of current element. 
-        /// This list is used for update and draw so you can change the value of the base members safely. If disable this is the base list who are used for
-        /// the cycle Update and Draw.
-        /// </summary>
-        public bool SecureCycle
-        {
-            get { return _entitiesList.SecureCycle; }
-            set { _entitiesList.SecureCycle = value; }
-        }
+        public int Count => _entitiesList.Count;
 
         /// <summary>
         /// Gets or sets the status of asset loading
@@ -63,12 +46,12 @@ namespace Yna.Engine.Graphics
         /// Gets or sets the position of the group.
         /// Note: The rectangle values are updated
         /// </summary>
-        public new Vector2 Position
+        public override Vector2 Position
         {
-            get { return _position; }
+            get => _position;
             set
             {
-                Vector2 rawValue = value - _position;
+                var rawValue = value - _position;
 
                 _position = value;
                 _rectangle.X = (int)_position.X;
@@ -83,7 +66,7 @@ namespace Yna.Engine.Graphics
         /// Gets or sets the Rectangle (Bounding box) of the group.
         /// Note: The position values are updated
         /// </summary>
-        public new Rectangle Rectangle
+        public override Rectangle Rectangle
         {
             get { return _rectangle; }
             set
@@ -97,7 +80,7 @@ namespace Yna.Engine.Graphics
         /// <summary>
         /// Gets or sets the position on X.
         /// </summary>
-        public new float X
+        public override float X
         {
             get { return (int)_position.X; }
             set
@@ -117,7 +100,7 @@ namespace Yna.Engine.Graphics
         /// <summary>
         /// Gets or sets the position on Y.
         /// </summary>
-        public new float Y
+        public override float Y
         {
             get { return (int)_position.Y; }
             set
@@ -137,7 +120,7 @@ namespace Yna.Engine.Graphics
         /// <summary>
         /// Gets or sets the rotation value for all children. The value is added to the current rotation value of a child. It's not replaced.
         /// </summary>
-        public new float Rotation
+        public override float Rotation
         {
             get { return _rotation; }
             set
@@ -154,7 +137,7 @@ namespace Yna.Engine.Graphics
         /// <summary>
         /// Gets or sets scale for all children. The value is added to the current scale value of a child. It is not replaced.
         /// </summary>
-        public new Vector2 Scale
+        public override Vector2 Scale
         {
             get { return _scale; }
             set
@@ -171,10 +154,10 @@ namespace Yna.Engine.Graphics
         /// <summary>
         /// Ges or sets origin point.
         /// </summary>
-        public new Vector2 Origin
+        public override Vector2 Origin
         {
             get { return _origin; }
-            set 
+            set
             {
                 Vector2 rawValue = value - _origin;
 
@@ -188,7 +171,7 @@ namespace Yna.Engine.Graphics
         /// <summary>
         /// Gets or sets color for all children.
         /// </summary>
-        public new Color Color
+        public override Color Color
         {
             get { return _color; }
             set
@@ -215,23 +198,11 @@ namespace Yna.Engine.Graphics
 
         #region Constructors
 
-        public YnGroup()
-            : this(0)
+        public YnGroup(int capacity = 0, int x = 0, int y = 0)
         {
-
-        }
-
-        public YnGroup(int capacity)
-        {
-            _entitiesList = new YnGameEntityCollection();
+            _entitiesList = new List<YnGameEntity>();
             _initialized = false;
             _assetsLoaded = false;
-            _entitiesList.SecureCycle = true;
-        }
-
-        public YnGroup(int capacity, int x, int y)
-            : this(capacity)
-        {
             _position.X = x;
             _position.Y = y;
             _rectangle.X = x;
@@ -247,7 +218,12 @@ namespace Yna.Engine.Graphics
         /// </summary>
         public override void Initialize()
         {
-            _entitiesList.Initialize();
+            if (_initialized)
+                return;
+
+            foreach (var entity in _entitiesList)
+                entity.Initialize();
+
             _initialized = true;
         }
 
@@ -256,7 +232,12 @@ namespace Yna.Engine.Graphics
         /// </summary>
         public override void LoadContent()
         {
-            _entitiesList.LoadContent();
+            if (_assetLoaded)
+                return;
+
+            foreach (var entity in _entitiesList)
+                entity.LoadContent();
+
             _assetsLoaded = true;
             UpdateRectangle();
         }
@@ -266,7 +247,11 @@ namespace Yna.Engine.Graphics
         /// </summary>
         public override void UnloadContent()
         {
-            _entitiesList.UnloadContent();
+            if (!_assetLoaded)
+                return;
+
+            foreach (var entity in _entitiesList)
+                entity.UnloadContent();
         }
 
         /// <summary>
@@ -276,7 +261,12 @@ namespace Yna.Engine.Graphics
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            _entitiesList.Update(gameTime);
+
+            if (!Enabled)
+                return;
+
+            foreach (var entity in _entitiesList)
+                entity.Update(gameTime);
         }
 
         /// <summary>
@@ -286,7 +276,11 @@ namespace Yna.Engine.Graphics
         /// <param name="spriteBatch"></param>
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            _entitiesList.Draw(gameTime, spriteBatch);
+            if (!Visible)
+                return;
+
+            foreach (var entity in _entitiesList)
+                entity.Draw(gameTime, spriteBatch);
         }
 
         #endregion
@@ -306,7 +300,7 @@ namespace Yna.Engine.Graphics
 
             if (_assetsLoaded)
                 sceneObject.LoadContent();
-            
+
             UpdateRectangle();
 
             _entitiesList.Add(sceneObject);
@@ -347,23 +341,17 @@ namespace Yna.Engine.Graphics
 
         public IEnumerator GetEnumerator()
         {
-            foreach (YnEntity2D member in _entitiesList.Members)
+            foreach (YnEntity2D member in _entitiesList)
                 yield return member;
         }
 
-        public YnEntity2D GetChildByName(string name)
+        public YnGameEntity GetChildByName(string name)
         {
-            YnGameEntity result = null;
-            int i = 0;
-            while (i < Count && result == null)
-            {
-                if (Members[i].Name == name)
-                    result = Members[i];
+            foreach (var entity in _entitiesList)
+                if (entity.Name == name)
+                    return entity;
 
-                i++;
-            }
-
-            return result as YnEntity2D;
+            return null;
         }
 
         #endregion
@@ -395,7 +383,7 @@ namespace Yna.Engine.Graphics
         {
             base.Translate(x, y);
 
-            for (int i = 0, l = this.Count; i < l; i++)
+            for (int i = 0, l = Count; i < l; i++)
                 this[i].Translate(x, y);
         }
 
@@ -403,7 +391,7 @@ namespace Yna.Engine.Graphics
         {
             base.Move(x, y);
 
-            for (int i = 0, l = this.Count; i < l; i++)
+            for (int i = 0, l = Count; i < l; i++)
                 this[i].Translate(X - this[i].X, Y - this[i].Y);
         }
     }
