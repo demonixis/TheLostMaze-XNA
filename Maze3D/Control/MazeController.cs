@@ -120,8 +120,15 @@ namespace Maze3D.Control
 #endif
 
             var rotation = Vector3.Zero;
-            m_RudderController.UpdateTransform(ref _nextDirection, ref rotation, false);
-            Camera.RotateY(rotation.Y * _rotationSpeed * gameTime.ElapsedGameTime.Milliseconds);
+            // m_RudderController.UpdateTransform(ref _nextDirection, ref rotation, false);
+            m_RudderController.UpdateTransform( ref _nextDirection, 
+                                                ref rotation,
+                                                _moveSpeed * gameTime.ElapsedGameTime.Milliseconds,
+                                                _rotationSpeed * gameTime.ElapsedGameTime.Milliseconds,
+                                                false);
+
+            Camera.RotateY(rotation.Y);
+            // Camera.RotateY(rotation.Y * _rotationSpeed * gameTime.ElapsedGameTime.Milliseconds);
         }
 
         private bool InputHackChecker()
