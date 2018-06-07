@@ -26,8 +26,8 @@ The first thing is to install the [MonoGame SDK](http://www.monogame.net/downloa
 - Past it to `bin/Windows/x86/[Debug|Release]/Content`
 - Run the game from Visual Studio like any other apps
 
-### 3drudder
-3drudder is only supported on the Maze.Windows target for now.
+### 3dRudder
+[3dRudder](https://www.3drudder.com/) is only supported on the Maze.Windows target for now.
 
 ## License
 This project is released under the MIT License.
