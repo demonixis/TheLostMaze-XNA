@@ -11,7 +11,7 @@ namespace Yna.Engine.State
     /// A basic state used with the state manager
     /// A state represents a game screen as a menu, a scene or a score screen.
     /// </summary>
-    public abstract class YnState : YnGameEntity
+    public abstract class YnState : YnEntity
     {
         #region Private declarations
 

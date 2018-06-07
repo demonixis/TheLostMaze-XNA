@@ -39,8 +39,6 @@ namespace Maze3D.Control
         private BoundingSphere _nppBSphere;
         private Vector3 _validDirection;
 
-        private bool _waitForUp;
-
 #if DEBUG
         public bool Wallthrough { get; set; } = false;
 #endif
@@ -55,7 +53,6 @@ namespace Maze3D.Control
             _colliderName = String.Empty;
             _nppBSphere = camera.BoundingSphere;
             _validDirection = Vector3.Zero;
-            _waitForUp = false;
 
             EnableGamepad = GameConfiguration.EnabledGamePad;
             EnableMouse = false;// GameConfiguration.EnabledMouse;

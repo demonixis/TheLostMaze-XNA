@@ -17,8 +17,7 @@ namespace Yna.Engine.Graphics
     /// </summary>
     public class YnState2D : YnState
     {
-        protected List<YnEntity> _baseList;
-        protected List<YnGameEntity> _entities;
+        protected List<YnEntity> _entities;
         protected YnGui _guiManager;
         protected YnCamera2D _camera;
         protected bool _GUIEnabled = false;
@@ -35,14 +34,9 @@ namespace Yna.Engine.Graphics
         #region Properties
 
         /// <summary>
-        /// Gets basic objects
-        /// </summary>
-        public List<YnEntity> BaseObjects => _baseList;
-
-        /// <summary>
         /// Gets members attached to the scene
         /// </summary>
-        public List<YnGameEntity> GameEntities => _entities;
+        public List<YnEntity> GameEntities => _entities;
 
         /// <summary>
         /// Gets or sets the spriteBatchCamera used for add effect on the scene like 
@@ -90,8 +84,7 @@ namespace Yna.Engine.Graphics
             _enabled = active;
             _visible = active;
             _camera = new YnCamera2D();
-            _baseList = new List<YnEntity>();
-            _entities = new List<YnGameEntity>();
+            _entities = new List<YnEntity>();
             _GUIEnabled = enableGui;
         }
 
@@ -141,8 +134,6 @@ namespace Yna.Engine.Graphics
             if (!_assetLoaded)
                 return;
 
-            _baseList.Clear();
-
             foreach (var entity in _entities)
                 entity.UnloadContent();
 
@@ -159,9 +150,6 @@ namespace Yna.Engine.Graphics
         public override void Update(GameTime gameTime)
         {
             _camera.Update(gameTime);
-
-            foreach (var entity in _baseList)
-                entity.Update(gameTime);
 
             foreach (var entity in _entities)
                 entity.Update(gameTime);
@@ -194,15 +182,8 @@ namespace Yna.Engine.Graphics
         /// <summary>
         /// Add a basic object to the scene
         /// </summary>
-        /// <param name="basicObject">A basic object</param>
-        public void Add(YnEntity basicObject) => _baseList.Add(basicObject);
-
-
-        /// <summary>
-        /// Add an entity to the scene
-        /// </summary>
-        /// <param name="entity">An entitiy</param>
-        public void Add(YnEntity2D entity)
+        /// <param name="entity">A basic object</param>
+        public void Add(YnEntity entity)
         {
             if (_entities.Contains(entity))
                 return;
@@ -224,23 +205,13 @@ namespace Yna.Engine.Graphics
         /// Remove a basic object to the scene
         /// </summary>
         /// <param name="basicObject">A basic object</param>
-        public void Remove(YnEntity basicObject) => _baseList.Remove(basicObject);
-
-        /// <summary>
-        /// Remove an entity to the scene
-        /// </summary>
-        /// <param name="entity">An entitiy</param>
-        public void Remove(YnEntity2D entity) => _entities.Remove(entity);
+        public void Remove(YnEntity basicObject) => _entities.Remove(basicObject);
 
         public YnEntity2D GetMemberByName(string name)
         {
-            foreach (YnEntity2D entity in _baseList)
-                if (entity.Name == name)
-                    return entity;
-
-            foreach (YnEntity2D entity in _entities)
-                if (entity.Name == name)
-                    return entity;
+            foreach (var entity in _entities)
+                if (entity is YnEntity2D && entity.Name == name)
+                    return (YnEntity2D)entity;
 
             return null;
         }

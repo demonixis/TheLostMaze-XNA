@@ -19,6 +19,10 @@ namespace Yna.Engine.State
         #region Private declarations
 
         private List<YnState> _scenes;
+        private List<YnState> _toAdd;
+        private List<YnState> _toRemove;
+        private string _nextActive;
+        private bool _nextDisableOther;
         private Dictionary<string, int> _statesDictionary;
 
         private bool _initialized;
@@ -80,6 +84,8 @@ namespace Yna.Engine.State
             _clearColor = Color.Black;
 
             _scenes = new List<YnState>();
+            _toAdd = new List<YnState>();
+            _toRemove = new List<YnState>();
             _statesDictionary = new Dictionary<string, int>();
 
             _initialized = false;
@@ -137,6 +143,43 @@ namespace Yna.Engine.State
         {
             if (!Enabled)
                 return;
+
+            if (_toRemove.Count > 0)
+            {
+                foreach (var state in _toRemove)
+                {
+                    _scenes.Remove(state);
+                    _statesDictionary.Remove(state.Name);
+                }
+
+                _toRemove.Clear();
+            }
+
+            if (_toAdd.Count > 0)
+            {
+                foreach (var state in _toAdd)
+                {
+                    _scenes.Add(state);
+                    _statesDictionary.Add(state.Name, _scenes.IndexOf(state));
+                }
+
+                _toAdd.Clear();
+            }
+
+            if (!string.IsNullOrEmpty(_nextActive))
+            {
+                var activableState = _scenes[_statesDictionary[_nextActive]];
+                activableState.Active = true;
+
+                if (_nextDisableOther)
+                {
+                    foreach (YnState screen in _scenes)
+                        if (activableState != screen)
+                            screen.Active = false;
+                }
+
+                _nextActive = string.Empty;
+            }
 
             foreach (var scene in _scenes)
                 if (scene.Enabled)
@@ -210,45 +253,10 @@ namespace Yna.Engine.State
             return true;
         }
 
-
-        /// <summary>
-        /// Active a screen and desactive other screens if needed.
-        /// </summary>
-        /// <param name="index">Index of the screen in the collection</param>
-        /// <param name="desactiveOtherStates">Desactive or not others screens</param>
-        public void SetActive(int index, bool desactiveOtherStates)
-        {
-            int size = _scenes.Count;
-
-            if (index < 0 || index > size - 1)
-                throw new IndexOutOfRangeException("[ScreenManager] The screen doesn't exist at this index");
-
-            _scenes[index].Active = true;
-
-            if (desactiveOtherStates)
-            {
-                for (int i = 0; i < size; i++)
-                {
-                    if (i != index)
-                        _scenes[i].Active = false;
-                }
-            }
-        }
-
         public void SetActive(string name, bool desactiveOtherScreens)
         {
-            if (!_statesDictionary.ContainsKey(name))
-                throw new Exception("This screen name doesn't exists");
-
-            var activableState = _scenes[_statesDictionary[name]];
-            activableState.Active = true;
-
-            if (desactiveOtherScreens)
-            {
-                foreach (YnState screen in _scenes)
-                    if (activableState != screen)
-                        screen.Active = false;
-            }
+            _nextActive = name;
+            _nextDisableOther = desactiveOtherScreens;
         }
 
         /// <summary>
@@ -301,14 +309,10 @@ namespace Yna.Engine.State
         {
             state.StateManager = this;
 
-            if (_initialized)
-                state.Initialize();
+            state.LoadContent();
+            state.Initialize();
 
-            if (_assetLoaded)
-                state.LoadContent();
-
-            _scenes.Add(state);
-            _statesDictionary.Add(state.Name, _scenes.IndexOf(state));
+            _toAdd.Add(state);
         }
 
         /// <summary>
@@ -333,8 +337,7 @@ namespace Yna.Engine.State
         /// <param name="state">Screen to remove</param>
         public void Remove(YnState state)
         {
-            _scenes.Remove(state);
-            _statesDictionary.Remove(state.Name);
+            _toRemove.Add(state);
         }
 
         /// <summary>

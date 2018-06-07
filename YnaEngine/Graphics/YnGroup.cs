@@ -16,7 +16,7 @@ namespace Yna.Engine.Graphics
     {
         #region Private declarations
 
-        protected List<YnGameEntity> _entitiesList;
+        protected List<YnEntity> _entitiesList;
         private bool _assetsLoaded;
 
         #endregion
@@ -26,7 +26,7 @@ namespace Yna.Engine.Graphics
         /// <summary>
         /// Members of the group
         /// </summary>
-        public List<YnGameEntity> Members => _entitiesList;
+        public List<YnEntity> Members => _entitiesList;
 
         /// <summary>
         /// The size of the collection
@@ -200,7 +200,7 @@ namespace Yna.Engine.Graphics
 
         public YnGroup(int capacity = 0, int x = 0, int y = 0)
         {
-            _entitiesList = new List<YnGameEntity>();
+            _entitiesList = new List<YnEntity>();
             _initialized = false;
             _assetsLoaded = false;
             _position.X = x;
@@ -345,7 +345,7 @@ namespace Yna.Engine.Graphics
                 yield return member;
         }
 
-        public YnGameEntity GetChildByName(string name)
+        public YnEntity GetChildByName(string name)
         {
             foreach (var entity in _entitiesList)
                 if (entity.Name == name)

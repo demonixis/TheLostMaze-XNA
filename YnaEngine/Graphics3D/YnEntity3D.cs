@@ -27,7 +27,6 @@ namespace Yna.Engine.Graphics3D
         protected BoundingSphere _boundingSphere;
 
         // Visibility
-        protected bool _visible = true;
         protected bool _dirty;
 
         // Static or dynamic object
@@ -40,10 +39,6 @@ namespace Yna.Engine.Graphics3D
 
         // Parent
         protected YnEntity3D _parent;
-
-        // Initialization
-        protected bool _initialized;
-        protected bool _assetLoaded;
 
         // Rendering
         protected Matrix _world;
@@ -71,15 +66,6 @@ namespace Yna.Engine.Graphics3D
         }
 
         /// <summary>
-        /// Gets or sets the visibility status of the object
-        /// </summary>
-        public bool Visible
-        {
-            get { return _visible; }
-            set { _visible = value; }
-        }
-
-        /// <summary>
         /// Gets or sets the value of dynamic, if true the bouding values will be updated on each update
         /// </summary>
         public bool Dynamic
@@ -95,24 +81,6 @@ namespace Yna.Engine.Graphics3D
         {
             get { return _parent; }
             set { _parent = value; }
-        }
-
-        /// <summary>
-        /// Determine if the entity is initialized.
-        /// </summary>
-        public bool Initialized
-        {
-            get { return _initialized; }
-            set { _initialized = value; }
-        }
-
-        /// <summary>
-        /// Determine if asset is loaded.
-        /// </summary>
-        public bool AssetLoaded
-        {
-            get { return _assetLoaded; }
-            set { _assetLoaded = value; }
         }
 
         /// <summary>
@@ -369,27 +337,6 @@ namespace Yna.Engine.Graphics3D
         #endregion
 
         #region GameState pattern
-
-        /// <summary>
-        /// Initialize logic.
-        /// </summary>
-        public virtual void Initialize()
-        {
-        }
-
-        /// <summary>
-        /// Load content.
-        /// </summary>
-        public virtual void LoadContent()
-        {
-        }
-
-        /// <summary>
-        /// Unload Content
-        /// </summary>
-        public virtual void UnloadContent()
-        {
-        }
 
         /// <summary>
         /// Update logic
