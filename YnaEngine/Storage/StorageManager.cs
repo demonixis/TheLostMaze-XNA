@@ -34,7 +34,7 @@ namespace Yna.Engine.Storage
 
         private string GetContainer(string containerName)
         {
-            string containerTarget = _saveFolder + containerName;
+            var containerTarget = _saveFolder + containerName;
 
             if (!Directory.Exists(containerTarget))
                 Directory.CreateDirectory(containerTarget);
@@ -51,17 +51,17 @@ namespace Yna.Engine.Storage
         /// <param name="obj">Serializable object</param>
         public virtual void Save<T>(string containerName, string fileName, T obj)
         {
-            string container = GetContainer(containerName);
-            string filePath = GetFilePath(container, containerName, fileName);
+            var container = GetContainer(containerName);
+            var filePath = GetFilePath(container, containerName, fileName);
 
             if (File.Exists(filePath))
-                File.Delete(filePath); // TODO : backup file
+                File.Delete(filePath);
 
-            StreamWriter writer = new StreamWriter(filePath);
-            XmlSerializer serializer = new XmlSerializer(typeof(T));
-
-            serializer.Serialize(writer, obj);
-            writer.Dispose();
+            using (var writer = new StreamWriter(filePath))
+            {
+                var serializer = new XmlSerializer(typeof(T));
+                serializer.Serialize(writer, obj);
+            }
         }
 
         /// <summary>
@@ -73,26 +73,26 @@ namespace Yna.Engine.Storage
         /// <returns>Instance of the object type with previous saved datas</returns>
         public virtual T Load<T>(string containerName, string fileName)
         {
-            T datas = default(T);
+            T data = default(T);
 
-            string container = GetContainer(containerName);
-            string filePath = GetFilePath(container, containerName, fileName);
+            var container = GetContainer(containerName);
+            var filePath = GetFilePath(container, containerName, fileName);
 
-            if (File.Exists(filePath))
+            if (!File.Exists(filePath))
+                return data;
+
+            using (var stream = File.Open(filePath, FileMode.Open))
             {
-                Stream stream = File.Open(filePath, FileMode.Open);
-                XmlSerializer serializer = new XmlSerializer(typeof(T));
-
-                datas = (T)serializer.Deserialize(stream);
-                stream.Dispose();
+                var serializer = new XmlSerializer(typeof(T));
+                data = (T)serializer.Deserialize(stream);
             }
 
-            return datas;
+            return data;
         }
 
         private string GetFilePath(string container, string containerName, string fileName)
         {
-            StringBuilder pathBuilder = new StringBuilder();
+            var pathBuilder = new StringBuilder();
             pathBuilder.Append(container);
 
             if (containerName != String.Empty)

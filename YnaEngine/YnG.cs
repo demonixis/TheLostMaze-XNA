@@ -168,9 +168,19 @@ namespace Yna.Engine
             StateManager?.SetActive(name, desactiveOtherStates);
         }
 
-        public static void SwitchState(YnState state, bool active = true)
+        /// <summary>
+        /// Compatibility function for older version of Yna.
+        /// It'll clear all states and add this one as active state.
+        /// </summary>
+        /// <param name="state">The State to enable</param>
+        /// <param name="desactiveOtherStates">This parameter is here for compatibility reason but has no effect.</param>
+        public static void SwitchState(YnState state, bool desactiveOtherStates = true)
         {
-            // TODO
+            if (StateManager == null)
+                return;
+
+            StateManager.Clear();
+            StateManager.Add(state, true);
         }
 
         #endregion

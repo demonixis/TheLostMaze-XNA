@@ -3,9 +3,8 @@
 // file 'LICENSE', which is part of this source code package.
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using Yna.Engine.Graphics;
 
-namespace Yna.Engine
+namespace Yna.Engine.Graphics
 {
     /// <summary>
     /// A QuadTree class for an optimised collision detection

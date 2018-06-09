@@ -14,8 +14,7 @@ namespace Yna.Engine
     {
         #region private declarations
 
-        private static uint counterId = 0x0001;
-
+        private static uint counterId = 0;
         protected uint _id = counterId++;
         protected string _name = "YnBase";
         protected bool _enabled = true;

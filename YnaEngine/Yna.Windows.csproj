@@ -44,9 +44,6 @@
     <Compile Include="Extensions\Texture2DExtension.cs" />
     <Compile Include="Extensions\Vector2Extension.cs" />
     <Compile Include="Extensions\ViewportExtension.cs" />
-    <Compile Include="State\StateManagerException.cs" />
-    <Compile Include="YnGameEntityCollection.cs" />
-    <Compile Include="YnGameEntity.cs" />
     <Compile Include="Graphics\Animation\AnimationEventArgs.cs" />
     <Compile Include="Graphics\Component\YnVirtualPadController.cs" />
     <Compile Include="Graphics\Particle\YnEmitter.cs" />
@@ -66,7 +63,6 @@
     <Compile Include="Graphics\Animation\SpriteAnimator.cs" />
     <Compile Include="Graphics\Animation\YnTransitionEffect.cs" />
     <Compile Include="Graphics\Animation\YnShakeEffect.cs" />
-    <Compile Include="Graphics\Event\GlobalEventArgs.cs" />
     <Compile Include="Graphics\YnCollider.cs" />
     <Compile Include="Graphics\YnSprite.cs" />
     <Compile Include="Content\ContentHelper.cs" />
@@ -85,12 +81,9 @@
     <Compile Include="YnGame.cs" />
     <Compile Include="Graphics\YnGroup.cs" />
     <Compile Include="Graphics\YnEntity2D.cs" />
-    <Compile Include="YnCollection.cs" />
-    <Compile Include="YnQuadTree.cs" />
     <Compile Include="YnTimer.cs" />
     <Compile Include="YnRandom.cs" />
     <Compile Include="Extensions\PointExtension.cs" />
-    <Compile Include="Graphics3D\Camera\CameraManager.cs" />
     <Compile Include="Graphics3D\Controls\FirstPersonVirtualPadControl.cs" />
     <Compile Include="Graphics3D\Geometry\CylinderGeometry.cs" />
     <Compile Include="Graphics3D\Geometry\PyramidGeometry.cs" />
@@ -109,9 +102,8 @@
     <Compile Include="Graphics3D\YnMeshModel.cs" />
     <Compile Include="Graphics3D\Renderer\QuadRenderer.cs" />
     <Compile Include="Graphics3D\Terrain\SkyBox.cs" />
-    <Compile Include="Graphics3D\Camera\BaseCamera.cs" />
-    <Compile Include="Graphics3D\Camera\FixedCamera.cs" />
-    <Compile Include="Graphics3D\Camera\ThirdPersonCamera.cs" />
+    <Compile Include="Graphics3D\Cameras\Camera.cs" />
+    <Compile Include="Graphics3D\Cameras\ThirdPersonCamera.cs" />
     <Compile Include="Graphics3D\Controls\BaseControl.cs" />
     <Compile Include="Graphics3D\Controls\FirstPersonControl.cs" />
     <Compile Include="Graphics3D\Controls\ThirdPersonControl.cs" />
@@ -133,7 +125,7 @@
     <Compile Include="Graphics3D\Terrain\Heightmap.cs" />
     <Compile Include="Graphics3D\Terrain\BaseTerrain.cs" />
     <Compile Include="Graphics3D\Terrain\SimpleTerrain.cs" />
-    <Compile Include="Graphics3D\Camera\FirstPersonCamera.cs" />
+    <Compile Include="Graphics3D\Cameras\FirstPersonCamera.cs" />
     <Compile Include="Graphics3D\YnState3D.cs" />
     <Compile Include="Graphics\GUI\Widgets\YnCheckbox.cs" />
     <Compile Include="Graphics\GUI\YnGui.cs" />
@@ -151,6 +143,7 @@
     <Compile Include="Graphics\GUI\Widgets\YnWidget.cs" />
     <Compile Include="Graphics\GUI\Widgets\YnWindow.cs" />
     <Compile Include="Graphics\GUI\YnWidgetProperties.cs" />
+    <Compile Include="Graphics\YnQuadTree.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Graphics\Component\Resources\gamepad_bg.png" />

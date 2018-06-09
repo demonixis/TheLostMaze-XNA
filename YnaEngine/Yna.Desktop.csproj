@@ -67,7 +67,6 @@
     <Compile Include="Graphics\Animation\SpriteAnimator.cs" />
     <Compile Include="Graphics\Animation\YnTransitionEffect.cs" />
     <Compile Include="Graphics\Animation\YnShakeEffect.cs" />
-    <Compile Include="Graphics\Event\GlobalEventArgs.cs" />
     <Compile Include="Graphics\YnCollider.cs" />
     <Compile Include="Graphics\YnSprite.cs" />
     <Compile Include="Content\ContentHelper.cs" />
@@ -86,7 +85,6 @@
     <Compile Include="YnGame.cs" />
     <Compile Include="Graphics\YnGroup.cs" />
     <Compile Include="Graphics\YnEntity2D.cs" />
-    <Compile Include="YnQuadTree.cs" />
     <Compile Include="YnTimer.cs" />
     <Compile Include="YnRandom.cs" />
     <Compile Include="Extensions\PointExtension.cs" />
@@ -149,6 +147,7 @@
     <Compile Include="Graphics\GUI\Widgets\YnWidget.cs" />
     <Compile Include="Graphics\GUI\Widgets\YnWindow.cs" />
     <Compile Include="Graphics\GUI\YnWidgetProperties.cs" />
+    <Compile Include="Graphics\YnQuadTree.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Graphics\Component\Resources\gamepad_bg.png" />

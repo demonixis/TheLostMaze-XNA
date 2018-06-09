@@ -28,10 +28,7 @@ namespace Yna.Engine.Graphics.Gui
         /// <summary>
 		/// Return true if one of the widgets was hovered.
 		/// </summary>
-		public bool Hovered
-        {
-            get { return _hovered; }
-        }
+		public bool Hovered => _hovered;
 
         #endregion
 
@@ -48,9 +45,10 @@ namespace Yna.Engine.Graphics.Gui
         /// <summary>
         /// See documentation in YnList.
         /// </summary>
-		public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             _hovered = false;
+
             for (int i = 0, l = Count; i < l; i++)
             {
                 if (this[i].Enabled)
