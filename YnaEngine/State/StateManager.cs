@@ -100,39 +100,40 @@ namespace Yna.Engine.State
         {
             base.Initialize();
 
-            if (!_initialized)
-            {
-                foreach (YnState screen in _scenes)
-                    screen.Initialize();
+            if (_initialized)
+                return;
 
-                _initialized = true;
-            }
+            foreach (var screen in _scenes)
+                screen.Initialize();
+
+            _initialized = true;
         }
 
         protected override void LoadContent()
         {
-            if (!_assetLoaded)
-            {
-                int nbScreens = _scenes.Count;
+            if (_assetLoaded)
+                return;
 
-                _spriteBatch = new SpriteBatch(GraphicsDevice);
+            var nbScreens = _scenes.Count;
 
-                foreach (YnState screen in _scenes)
-                    screen.LoadContent();
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-                _assetLoaded = true;
-            }
+            foreach (var screen in _scenes)
+                screen.LoadContent();
+
+            _assetLoaded = true;
         }
 
         protected override void UnloadContent()
         {
-            if (_assetLoaded && _scenes.Count > 0)
-            {
-                foreach (YnState screen in _scenes)
-                    screen.UnloadContent();
+            if (!_assetLoaded)
+                return;
 
-                _assetLoaded = false;
-            }
+            foreach (var screen in _scenes)
+                screen.UnloadContent();
+
+            _spriteBatch.Dispose();
+            _assetLoaded = false;
         }
 
         /// <summary>
@@ -173,7 +174,7 @@ namespace Yna.Engine.State
 
                 if (_nextDisableOther)
                 {
-                    foreach (YnState screen in _scenes)
+                    foreach (var screen in _scenes)
                         if (activableState != screen)
                             screen.Active = false;
                 }
@@ -244,11 +245,11 @@ namespace Yna.Engine.State
             newState.StateManager = this;
             _scenes[index] = newState;
 
-            if (_initialized && !newState.Initialized)
-                newState.Initialize();
-
             if (_assetLoaded && !newState.AssetLoaded)
                 newState.LoadContent();
+
+            if (_initialized && !newState.Initialized)
+                newState.Initialize();
 
             return true;
         }
