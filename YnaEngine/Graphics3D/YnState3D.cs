@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework;
 using Yna.Engine.State;
 using Yna.Engine.Graphics3D.Cameras;
 using Yna.Engine.Graphics3D.Lighting;
+using Microsoft.Xna.Framework.Graphics;
+using C3DE.VR;
 
 namespace Yna.Engine.Graphics3D
 {
@@ -18,6 +20,9 @@ namespace Yna.Engine.Graphics3D
         private Camera _camera;
         private YnGroup3D _scene;
         private List<YnEntity> _basicObjects;
+        private VRService _vrService;
+        private bool _vrEnabled;
+        private RenderTarget2D[] _sceneRenderTargets;
 
         /// <summary>
         /// Gets (protected sets) the collection of basic objects.
@@ -69,6 +74,24 @@ namespace Yna.Engine.Graphics3D
             _basicObjects = new List<YnEntity>();
             _sceneLight = new SceneLight();
             _sceneLight.AmbientIntensity = 1f;
+
+#if DEBUG_VR
+            var nullVR = new NullVRService(YnG.Game, 1);
+            var driver = new VRDriver(nullVR, true, 0);
+            VRManager.AvailableDrivers.Add(driver);
+#endif
+            _vrService = VRManager.GetVRAvailableVRService(YnG.Game);
+            _vrEnabled = _vrService != null;
+
+            if (_vrEnabled)
+            {
+                var size = _vrService.GetRenderTargetSize();
+
+                _sceneRenderTargets = new RenderTarget2D[2];
+
+                for (var i = 0; i < 2; i++)
+                    _sceneRenderTargets[i] = new RenderTarget2D(YnG.GraphicsDevice, (int)size[0], (int)size[1], false, SurfaceFormat.Color, DepthFormat.Depth24Stencil8, 2, RenderTargetUsage.DiscardContents);
+            }
         }
 
         /// <summary>
@@ -138,7 +161,57 @@ namespace Yna.Engine.Graphics3D
 
         public override void Draw(GameTime gameTime)
         {
-            _scene.Draw(gameTime, YnG.GraphicsDevice, _camera, _sceneLight);
+            if (_vrEnabled)
+            {
+                var graphics = YnG.GraphicsDevice;
+                var oldRT = graphics.GetRenderTargets();
+
+                for (var i = 0; i < 2; i++)
+                {
+                    graphics.SetRenderTarget(_sceneRenderTargets[i]);
+                    graphics.Clear(Color.Black);
+
+                    _camera.Projection = _vrService.GetProjectionMatrix(i);
+                    _camera.View = _vrService.GetViewMatrix(i, Matrix.Identity);
+                    _scene.Draw(gameTime, YnG.GraphicsDevice, _camera, _sceneLight);
+
+                    graphics.SetRenderTarget(null);
+                }
+
+                graphics.SetRenderTargets(oldRT);
+
+                DrawVRPreview(0, true);
+            }
+            else
+                _scene.Draw(gameTime, YnG.GraphicsDevice, _camera, _sceneLight);
+        }
+
+        private void DrawVRPreview(int eye, bool stereo)
+        {
+            var graphicsDevice = YnG.GraphicsDevice;
+            graphicsDevice.SetRenderTarget(null);
+            graphicsDevice.Clear(Color.Black);
+
+            var pp = graphicsDevice.PresentationParameters;
+            var height = pp.BackBufferHeight;
+            var width = MathHelper.Min(pp.BackBufferWidth, (int)(height * _vrService.GetRenderTargetAspectRatio(eye)));
+            var offset = (pp.BackBufferWidth - width) / 2;
+
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, null, null, null, _vrService.DistortionEffect, null);
+
+            if (stereo || _vrService.DistortionCorrectionRequired)
+            {
+                width = pp.BackBufferWidth / 2;
+                spriteBatch.Draw(_sceneRenderTargets[0], new Rectangle(0, 0, width, height), null, Color.White, 0, Vector2.Zero, _vrService.PreviewRenderEffect, 0);
+                _vrService.ApplyDistortion(_sceneRenderTargets[0], 0);
+
+                spriteBatch.Draw(_sceneRenderTargets[1], new Rectangle(width, 0, width, height), null, Color.White, 0, Vector2.Zero, _vrService.PreviewRenderEffect, 0);
+                _vrService.ApplyDistortion(_sceneRenderTargets[1], 0);
+            }
+            else
+                spriteBatch.Draw(_sceneRenderTargets[eye], new Rectangle(offset, 0, width, height), null, Color.White, 0, Vector2.Zero, _vrService.PreviewRenderEffect, 0);
+
+            spriteBatch.End();
         }
 
         #endregion

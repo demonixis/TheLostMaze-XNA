@@ -160,5 +160,11 @@
       <HintPath>..\..\..\..\..\..\Library\Frameworks\Mono.framework\External\xbuild\MonoGame\v3.0\Assemblies\DesktopGL\MonoGame.Framework.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Maze3D.VR\Maze3D.VR.Desktop.csproj">
+      <Project>{1D4350E6-C63E-4FF4-A9AF-C47FB43DF455}</Project>
+      <Name>Maze3D.VR.Desktop</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

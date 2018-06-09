@@ -309,6 +309,8 @@ namespace Yna.Engine.Graphics3D.Cameras
 
         #endregion
 
+        public bool VREnabled { get; set; }
+
         public Camera()
         {
             // Position & direction
