@@ -196,7 +196,7 @@ namespace Yna.Engine.Graphics3D.Materials
                 _enableMainTexture = _texture != null ? true : false;
         }
 
-        public override void Update(Cameras.Camera camera, ref Matrix world)
+        public override void Update(Camera camera, ref Matrix world)
         {
             // Matrices
             IEffectMatrices effectMatrices = (IEffectMatrices)_effect;
@@ -232,7 +232,7 @@ namespace Yna.Engine.Graphics3D.Materials
             }
             else
             {
-                effectLights.LightingEnabled = _enableLighting ;
+                effectLights.LightingEnabled = _enableLighting;
                 effectLights.AmbientLightColor = _ambientColor * _ambientIntensity;
 
                 if (_light is SceneLight)

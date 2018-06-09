@@ -60,10 +60,10 @@ namespace Yna.Engine.Graphics3D
         /// <summary>
         /// Update matrix world, bounding volumes if the mesh is dynamic and update the material.
         /// </summary>
-        public virtual void PreDraw(Cameras.Camera camera)
+        public virtual void PreDraw(Camera camera)
         {
             UpdateMatrix();
-			
+
             if (_dynamic)
                 UpdateBoundingVolumes();
 

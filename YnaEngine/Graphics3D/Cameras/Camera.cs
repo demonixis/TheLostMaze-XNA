@@ -1,9 +1,7 @@
 ﻿// YnaEngine - Copyright (C) YnaEngine team
 // This file is subject to the terms and conditions defined in
 // file 'LICENSE', which is part of this source code package.
-using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Yna.Engine.Graphics3D.Cameras
 {
@@ -91,10 +89,7 @@ namespace Yna.Engine.Graphics3D.Cameras
         /// <summary>
         /// Get the last position
         /// </summary>
-        public Vector3 PreviousPosition
-        {
-            get { return _previousPosition; }
-        }
+        public Vector3 PreviousPosition => _previousPosition;
 
         /// <summary>
         /// Get the direction of the camera
@@ -108,10 +103,7 @@ namespace Yna.Engine.Graphics3D.Cameras
         /// <summary>
         /// Get the last direction
         /// </summary>
-        public Vector3 PreviousDirection
-        {
-            get { return _previousDirection; }
-        }
+        public Vector3 PreviousDirection => _previousDirection;
 
         #endregion
 
@@ -178,18 +170,12 @@ namespace Yna.Engine.Graphics3D.Cameras
         /// <summary>
         /// Gets the view project matrix
         /// </summary>
-        public Matrix MatrixViewProjection
-        {
-            get { return _view * _projection; }
-        }
+        public Matrix MatrixViewProjection => _view * _projection;
 
         /// <summary>
         /// Gets the world view projection matrix
         /// </summary>
-        public Matrix MatrixWorldViewProject
-        {
-            get { return _world * (_view * _projection); }
-        }
+        public Matrix MatrixWorldViewProject => _world * (_view * _projection);
 
         /// <summary>
         /// Define if the camera is dynamic or not, if dynamic it will be updated on each frame

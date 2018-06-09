@@ -25,7 +25,7 @@ namespace Yna.Engine.Graphics3D.Geometry
     public abstract class BaseGeometry<T> where T : struct, IVertexType
     {
         #region Protected declarations
-    
+
         // Geometry
         protected T[] _vertices;
         protected short[] _indices;
@@ -254,7 +254,7 @@ namespace Yna.Engine.Graphics3D.Geometry
 
         protected virtual void PostDraw(GraphicsDevice device)
         {
-             if (_doubleSided || _wireframe)
+            if (_doubleSided || _wireframe)
                 device.RasterizerState = _oldRasterizerState;
         }
 
@@ -262,12 +262,12 @@ namespace Yna.Engine.Graphics3D.Geometry
         /// Draw the shape
         /// </summary>
         /// <param name="device">Graphics device</param>
-        public virtual void Draw(GraphicsDevice device, Materials.Material material)
+        public virtual void Draw(GraphicsDevice device, Material material)
         {
             DrawPrimitives(device, material);
         }
 
-        protected virtual void DrawPrimitives(GraphicsDevice device, Materials.Material material)
+        protected virtual void DrawPrimitives(GraphicsDevice device, Material material)
         {
             PreDraw(device);
 
@@ -286,7 +286,7 @@ namespace Yna.Engine.Graphics3D.Geometry
             PostDraw(device);
         }
 
-        protected virtual void DrawUserIndexedPrimitives(GraphicsDevice device, Materials.Material material)
+        protected virtual void DrawUserIndexedPrimitives(GraphicsDevice device, Material material)
         {
             PreDraw(device);
 

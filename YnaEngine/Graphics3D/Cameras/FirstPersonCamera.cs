@@ -40,8 +40,8 @@ namespace Yna.Engine.Graphics3D.Cameras
         {
             base.Update(gameTime);
 
-            Matrix matRotation = Matrix.CreateFromYawPitchRoll(_yaw, _pitch, _roll);
-            Vector3 transformedReference = Vector3.Transform(_reference, matRotation);
+            var matRotation = Matrix.CreateFromYawPitchRoll(_yaw, _pitch, _roll);
+            var transformedReference = Vector3.Transform(_reference, matRotation);
 
             _target = _position + transformedReference;
             _view = Matrix.CreateLookAt(_position, _target, _vectorUp);

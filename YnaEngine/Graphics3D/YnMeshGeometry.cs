@@ -160,7 +160,7 @@ namespace Yna.Engine.Graphics3D
         /// Draw mesh.
         /// </summary>
         /// <param name="device"></param>
-        public override void Draw(GameTime gameTime, GraphicsDevice device, Cameras.Camera camera)
+        public override void Draw(GameTime gameTime, GraphicsDevice device, Camera camera)
         {
             PreDraw(camera);
             _geometry.Draw(device, _material);

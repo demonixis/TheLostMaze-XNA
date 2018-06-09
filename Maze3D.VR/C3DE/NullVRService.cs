@@ -15,7 +15,8 @@ namespace C3DE.VR
         private Vector2 _delta;
         private float _rotationSpeed;
 
-        public Matrix ProjectionMatrix { get; set; }
+        public Matrix ViewMatrix { get; set; } = Matrix.Identity;
+        public Matrix ProjectionMatrix { get; set; } = Matrix.Identity;
 
         public NullVRService(Game game, float rotationSpeed = 0.25f)
             : base(game)
@@ -39,6 +40,9 @@ namespace C3DE.VR
             base.Update(gameTime);
 
             _mouseState = Mouse.GetState();
+
+            _delta.X = _mouseState.X - _previousMouseState.X;
+            _delta.Y = _mouseState.Y - _previousMouseState.Y;
 
             // Rotation.
             _headRotation.X -= _delta.Y * gameTime.ElapsedGameTime.Milliseconds * _rotationSpeed;

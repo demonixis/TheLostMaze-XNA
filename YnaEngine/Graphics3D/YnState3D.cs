@@ -1,6 +1,7 @@
 ﻿// YnaEngine - Copyright (C) YnaEngine team
 // This file is subject to the terms and conditions defined in
 // file 'LICENSE', which is part of this source code package.
+#define DEBUG_VR
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Yna.Engine.State;
@@ -23,6 +24,10 @@ namespace Yna.Engine.Graphics3D
         private VRService _vrService;
         private bool _vrEnabled;
         private RenderTarget2D[] _sceneRenderTargets;
+
+#if DEBUG_VR
+        private NullVRService _NullVR;
+#endif
 
         /// <summary>
         /// Gets (protected sets) the collection of basic objects.
@@ -76,8 +81,8 @@ namespace Yna.Engine.Graphics3D
             _sceneLight.AmbientIntensity = 1f;
 
 #if DEBUG_VR
-            var nullVR = new NullVRService(YnG.Game, 1);
-            var driver = new VRDriver(nullVR, true, 0);
+            _NullVR = new NullVRService(YnG.Game, 1);
+            var driver = new VRDriver(_NullVR, true, 0);
             VRManager.AvailableDrivers.Add(driver);
 #endif
             _vrService = VRManager.GetVRAvailableVRService(YnG.Game);
@@ -166,6 +171,13 @@ namespace Yna.Engine.Graphics3D
                 var graphics = YnG.GraphicsDevice;
                 var oldRT = graphics.GetRenderTargets();
 
+#if DEBUG_VR
+                if (_NullVR.ViewMatrix == Matrix.Identity)
+                {
+                    _NullVR.ViewMatrix = _camera.View;
+                    _NullVR.ProjectionMatrix = _camera.Projection;
+                }
+#endif
                 for (var i = 0; i < 2; i++)
                 {
                     graphics.SetRenderTarget(_sceneRenderTargets[i]);
