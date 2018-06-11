@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{1D4350E6-C63E-4FF4-A9AF-C47FB43DF455}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -19,7 +19,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\$(MonoGamePlatform)\$(Platform)\$(Configuration)\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;DESKTOP;OPENGL</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;WINDOWS;DIRECTX</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -28,7 +28,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\$(MonoGamePlatform)\$(Platform)\$(Configuration)\</OutputPath>
-    <DefineConstants>TRACE;DESKTOP;OPENGL</DefineConstants>
+    <DefineConstants>TRACE;WINDOWS;DIRECTX</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -36,26 +36,19 @@
     <Reference Include="3DRudderSDK.net">
       <HintPath>Libs\3DRudderSDK.net.dll</HintPath>
     </Reference>
+    <Reference Include="SharpDX, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL" />
+    <Reference Include="SharpDX.Direct3D11, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="MonoGame.Framework">
-      <HintPath>..\..\..\..\..\Library\Frameworks\Mono.framework\External\xbuild\MonoGame\v3.0\Assemblies\DesktopGL\MonoGame.Framework.dll</HintPath>
+      <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="C3DE\OpenVR\OpenVRController.cs" />
-    <Compile Include="C3DE\OpenVR\OpenVRExtensions.cs" />
-    <Compile Include="C3DE\OpenVR\OpenVRService.cs" />
-    <Compile Include="C3DE\OpenVR\openvr_api.cs" />
-    <Compile Include="C3DE\VRDriver.cs" />
-    <Compile Include="C3DE\VRManager.cs" />
-    <Compile Include="C3DE\VRService.cs" />
-    <Compile Include="NS3Rudder\3DRudderManager.cs" />
-    <Compile Include="NS3Rudder\CurveRudder.cs" />
-    <Compile Include="NS3Rudder\EventRudder.cs" />
+    <Compile Include="RudderManager.cs" />
+    <Compile Include="CurveRudder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="NS3Rudder\Rudder.cs" />
+    <Compile Include="Rudder.cs" />
     <Compile Include="RudderController.cs" />
-    <Compile Include="C3DE\NullVRService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

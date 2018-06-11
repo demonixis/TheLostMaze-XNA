@@ -22,7 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Externalconsole>true</Externalconsole>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
@@ -39,6 +39,14 @@
   <ItemGroup>
     <Compile Include="Audio\AudioManager.cs" />
     <Compile Include="Extensions\BoundingFrustrumExtension.cs" />
+    <Compile Include="Graphics3D\VR\NullVRService.cs" />
+    <Compile Include="Graphics3D\VR\OpenVR\OpenVRController.cs" />
+    <Compile Include="Graphics3D\VR\OpenVR\OpenVRExtensions.cs" />
+    <Compile Include="Graphics3D\VR\OpenVR\OpenVRService.cs" />
+    <Compile Include="Graphics3D\VR\OpenVR\openvr_api.cs" />
+    <Compile Include="Graphics3D\VR\VRDriver.cs" />
+    <Compile Include="Graphics3D\VR\VRManager.cs" />
+    <Compile Include="Graphics3D\VR\VRService.cs" />
     <Compile Include="Graphics\Component\YnVirtualStick.cs" />
     <Compile Include="Graphics\ICollidable.cs" />
     <Compile Include="Extensions\BoundingBoxExtension.cs" />
@@ -159,12 +167,6 @@
     <Reference Include="MonoGame.Framework">
       <HintPath>..\..\..\..\..\..\Library\Frameworks\Mono.framework\External\xbuild\MonoGame\v3.0\Assemblies\DesktopGL\MonoGame.Framework.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Maze3D.VR\Maze3D.VR.Desktop.csproj">
-      <Project>{1D4350E6-C63E-4FF4-A9AF-C47FB43DF455}</Project>
-      <Name>Maze3D.VR.Desktop</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

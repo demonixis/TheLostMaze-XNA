@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Les informations générales relatives à un assembly dépendent de
 // l'ensemble d'attributs suivant. Changez les valeurs de ces attributs pour modifier les informations
 // associées à un assembly.
-[assembly: AssemblyTitle("Maze3D.VR")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("3DRudder for MonoGame")]
+[assembly: AssemblyDescription("3DRudder for MonoGame")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Maze3D.VR")]
+[assembly: AssemblyProduct("3DRudder for MonoGame")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

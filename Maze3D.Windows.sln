@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maze3D.Windows", "Maze3D\Ma
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yna.Windows", "YnaEngine\Yna.Windows.csproj", "{BF58CAF2-143A-420C-8C0E-11D438522C35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maze3D.VR", "Maze3D.VR\Maze3D.VR.csproj", "{1D4350E6-C63E-4FF4-A9AF-C47FB43DF455}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3DRudder.MonoGame", "3DRudder.MonoGame\3DRudder.MonoGame.csproj", "{1D4350E6-C63E-4FF4-A9AF-C47FB43DF455}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

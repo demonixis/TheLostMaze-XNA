@@ -1,4 +1,4 @@
-﻿namespace NS3DRudder
+﻿namespace RudderMonoGame
 {
     public class CurveRudder : ns3DRudder.Curve
     {

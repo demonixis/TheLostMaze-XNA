@@ -1,18 +1,18 @@
 ﻿using ns3DRudder;
 using System;
 
-namespace NS3DRudder
+namespace RudderMonoGame
 {
     public class Rudder : IDisposable
     {
         private uint m_PortNumber;
         private Axis m_Axis;
         private Axis m_AxisOffset;
-        private s3DRudderManager m_SDK;
+        private RudderManager m_SDK;
 
         public bool Freezed { get; private set; }
 
-        public Rudder(uint portNumber, s3DRudderManager sdk)
+        public Rudder(uint portNumber, RudderManager sdk)
         {
             m_PortNumber = portNumber;
             m_SDK = sdk;

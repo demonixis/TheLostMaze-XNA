@@ -46,9 +46,9 @@
       <Project>{fdfe2971-a351-45f5-a3fa-525c0ae19673}</Project>
       <Name>Maze3D.Data.Windows</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Maze3D.VR\Maze3D.VR.csproj">
+    <ProjectReference Include="..\3DRudder.MonoGame\3DRudder.MonoGame.csproj">
       <Project>{1d4350e6-c63e-4ff4-a9af-c47fb43df455}</Project>
-      <Name>Maze3D.VR</Name>
+      <Name>3DRudder-MonoGame</Name>
     </ProjectReference>
     <ProjectReference Include="..\YnaEngine\Yna.Windows.csproj">
       <Project>{bf58caf2-143a-420c-8c0e-11d438522c35}</Project>
