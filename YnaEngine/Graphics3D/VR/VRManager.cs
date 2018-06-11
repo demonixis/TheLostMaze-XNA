@@ -55,8 +55,9 @@ namespace C3DE.VR
                     if (driver.Enabled && driver.Service.TryInitialize() == 0)
                         return AvailableDrivers[i].Service;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Console.WriteLine(ex.Message);
                     continue;
                 }
             }

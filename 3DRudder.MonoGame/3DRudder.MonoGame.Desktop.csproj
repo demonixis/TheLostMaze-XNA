@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RudderMonoGame</RootNamespace>
-    <AssemblyName>Maze3D.VR</AssemblyName>
+    <AssemblyName>3DRudder.MonoGame</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
