@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
 
 namespace C3DE.VR
 {
@@ -94,6 +93,14 @@ namespace C3DE.VR
         /// <param name="renderTargetLeft">The renderTarget used for the left eye.</param>
         /// <param name="renderTargetRight">The renderTarget used for the right eye.</param>
         public abstract int SubmitRenderTargets(RenderTarget2D renderTargetLeft, RenderTarget2D renderTargetRight);
+
+        /// <summary>
+        /// Submits the render targets to the VR SDKs (Compositor).
+        /// </summary>
+        /// <returns>Returns 0 if the operation is a success, otherwise it returns an error code.</returns>
+        /// <param name="renderTarget">The renderTarget used for the current eye.</param>
+        /// <param name="int eye">The current eye.</param>
+        public abstract int SubmitRenderTarget(RenderTarget2D renderTarget, int eye);
 
         /// <summary>
         /// Applies the distortion correction effect.

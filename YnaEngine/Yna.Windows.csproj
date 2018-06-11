@@ -35,6 +35,8 @@
   <ItemGroup>
     <Compile Include="Audio\AudioManager.cs" />
     <Compile Include="Extensions\BoundingFrustrumExtension.cs" />
+    <Compile Include="Graphics3D\Renderer\DeviceState.cs" />
+    <Compile Include="Graphics3D\Renderer\GraphicsDeviceExtensions.cs" />
     <Compile Include="Graphics3D\VR\NullVRService.cs" />
     <Compile Include="Graphics3D\VR\OpenVR\OpenVRController.cs" />
     <Compile Include="Graphics3D\VR\OpenVR\OpenVRExtensions.cs" />

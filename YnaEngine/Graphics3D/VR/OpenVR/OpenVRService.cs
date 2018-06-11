@@ -166,6 +166,12 @@ namespace C3DE.VR
             return 0;
         }
 
+        public override int SubmitRenderTarget(RenderTarget2D renderTarget, int eye)
+        {
+            OpenVR.Compositor.Submit(EVREye.Eye_Left, ref m_Textures[eye], ref m_TextureBounds[eye], EVRSubmitFlags.Submit_Default);
+            return 0;
+        }
+
         #region Controllers Management
 
         public override void GetLocalPosition(int hand, ref Vector3 position)

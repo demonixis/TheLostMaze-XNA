@@ -1,7 +1,9 @@
 ﻿// YnaEngine - Copyright (C) YnaEngine team
 // This file is subject to the terms and conditions defined in
 // file 'LICENSE', which is part of this source code package.
+#if DEBUG && USE_NULL_SERVICE
 #define DEBUG_VR
+#endif
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Yna.Engine.State;
@@ -9,6 +11,7 @@ using Yna.Engine.Graphics3D.Cameras;
 using Yna.Engine.Graphics3D.Lighting;
 using Microsoft.Xna.Framework.Graphics;
 using C3DE.VR;
+using Yna.Engine.Graphics3D.Renderer;
 
 namespace Yna.Engine.Graphics3D
 {
@@ -90,12 +93,13 @@ namespace Yna.Engine.Graphics3D
 
             if (_vrEnabled)
             {
+                YnG.Game.Components.Add(_vrService);
                 var size = _vrService.GetRenderTargetSize();
 
                 _sceneRenderTargets = new RenderTarget2D[2];
 
                 for (var i = 0; i < 2; i++)
-                    _sceneRenderTargets[i] = new RenderTarget2D(YnG.GraphicsDevice, (int)size[0], (int)size[1], false, SurfaceFormat.Color, DepthFormat.Depth24Stencil8, 2, RenderTargetUsage.DiscardContents);
+                    _sceneRenderTargets[i] = _vrService.CreateRenderTargetForEye(i);
             }
         }
 
@@ -178,19 +182,21 @@ namespace Yna.Engine.Graphics3D
                     _NullVR.ProjectionMatrix = _camera.Projection;
                 }
 #endif
-                for (var i = 0; i < 2; i++)
+                using (graphics.GeometryState())
                 {
-                    graphics.SetRenderTarget(_sceneRenderTargets[i]);
-                    graphics.Clear(Color.Black);
+                    for (var i = 0; i < 2; i++)
+                    {
+                        graphics.SetRenderTarget(_sceneRenderTargets[i]);
+                        graphics.Clear(Color.Black);
 
-                    _camera.Projection = _vrService.GetProjectionMatrix(i);
-                    _camera.View = _vrService.GetViewMatrix(i, Matrix.Identity);
-                    _scene.Draw(gameTime, YnG.GraphicsDevice, _camera, _sceneLight);
-
-                    graphics.SetRenderTarget(null);
+                        _camera.Projection = _vrService.GetProjectionMatrix(i);
+                        _camera.View = _vrService.GetViewMatrix(i, Matrix.Identity);
+                        _scene.Draw(gameTime, YnG.GraphicsDevice, _camera, _sceneLight);
+                        _vrService.SubmitRenderTarget(_sceneRenderTargets[i], i);
+                    }
                 }
 
-                graphics.SetRenderTargets(oldRT);
+               // _vrService.SubmitRenderTargets(_sceneRenderTargets[0], _sceneRenderTargets[1]);
 
                 DrawVRPreview(0, true);
             }

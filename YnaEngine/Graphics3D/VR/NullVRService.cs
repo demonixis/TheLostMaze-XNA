@@ -61,6 +61,9 @@ namespace C3DE.VR
 
         public override Matrix GetViewMatrix(int eye, Matrix playerPose)
         {
+            if (ViewMatrix != Matrix.Identity)
+                return ViewMatrix;
+
             var rotationMatrix = Matrix.CreateFromYawPitchRoll(_headRotation.Y, _headRotation.X, 0.0f);
             var target = Vector3.Transform(Vector3.Forward, rotationMatrix);
             return Matrix.CreateLookAt(Vector3.Zero, target, Vector3.Up);
@@ -69,6 +72,8 @@ namespace C3DE.VR
         public override float GetRenderTargetAspectRatio(int eye) => 1.0f;
 
         public override int SubmitRenderTargets(RenderTarget2D renderTargetLeft, RenderTarget2D renderTargetRight) => 0;
+
+        public override int SubmitRenderTarget(RenderTarget2D renderTarget, int eye) => 0;
 
         public override void ApplyDistortion(RenderTarget2D renderTarget, int eye)
         {
