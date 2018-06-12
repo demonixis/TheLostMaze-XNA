@@ -1,0 +1,31 @@
+﻿Levels = 
+Continue = 
+Credits = 
+Exit = 
+HowTo = 
+New = 
+Options = 
+Cancel = 
+Ok = 
+Next = 
+Game Over = 
+Level Done = 
+About = 
+Greeting = 
+About this game = 
+
+[Messages]
+Lbl_GameOver = #Game Over
+Msg_GameOver = Congratulations you have completed the game, you have {0} points.\nWhy not start with a higher difficulty mode?
+Lbl_LevelCompleted = Level Done!
+Msg_LevelCompleted = You have completed the level with {0} crystals and {1} points
+Lbl_ConfimQuit = Quit the current game
+Msg_ConfirmQuit = Do you want to quit the current game?
+
+[Long Texts]
+Txt_Description = The lost maze is an exploration game where the player is trapped in a maze and must get out. During his exploration, he must collect crystals to increase its score.
+Txt_Description2 = \n\nProgramming and Game Design: Yannick Comte
+Txt_Description3 = \n\nGraphics and music: Christophe Belleuvre
+
+Txt_Greeting = I also thank all those who have supported me and who have tested this game
+Txt_Greeting2 = \n\nFinally thank you to you to play The Lost Maze, have fun :)

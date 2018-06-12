@@ -1,0 +1,31 @@
+﻿Levels = Niveaux
+Continue = Continuer
+Credits = Crédits
+Exit = Quitter
+HowTo = Comment Jouer
+New = Nouveau
+Options = Options
+Cancel = Annuler
+Ok = Ok
+Next = Suivant
+Game Over = Fin de partie
+Level Done = Niveau terminé
+About = A propos
+Greeting = Remerciements
+About this game = A propos de ce jeu
+
+[Messages]
+Lbl_GameOver = #Game Over
+Msg_GameOver = Félicitations! Vous avez terminé le jeu avec {0} points\nPourquoi ne pas recommencer le jeu avec un niveau de difficulté plus élevé?
+Lbl_LevelCompleted = Niveau terminé !
+Msg_LevelCompleted = Vous avez terminé le niveau avec {0} cristaux et {1} points.
+Lbl_ConfimQuit = Quitter le jeu
+Msg_ConfirmQuit = Voulez vous quitter le jeu ?
+
+[Long Texts]
+Txt_Description = The Lost Maze est un jeu d'exploration où vous devez récupérer des cristaux tout en trouvant la sortie. Récupérez le plus de cristaux pour faire le meilleur score.
+Txt_Description2 = \nProgrammation et Game Design : Yannick Comte
+Txt_Description3 = \n\nGraphismes et Musique : Christophe Belleuvre
+
+Txt_Greeting = Merci à tous ceux qui m'ont supporté durant le développement du jeu
+Txt_Greeting2 = \n\nEnfin, merci à vous de jouer, amusez vous bien :)
