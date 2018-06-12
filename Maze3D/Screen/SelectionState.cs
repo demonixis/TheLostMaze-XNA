@@ -13,7 +13,7 @@ namespace Maze3D.Screen
         public SelectionState(string name)
             : base(name, "Choix du niveau", 0)
         {
-            _title.Text = MazeLang.Text.Menus.Choose;
+            _title.Text = Translation.Get("Levels");
         }
 
         public override void LoadContent()

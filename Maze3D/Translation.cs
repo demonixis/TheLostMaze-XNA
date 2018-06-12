@@ -2,6 +2,7 @@
 using System.IO;
 using Microsoft.Xna.Framework;
 using System.Globalization;
+using System;
 
 public sealed class Translation : GameComponent
 {
@@ -13,9 +14,15 @@ public sealed class Translation : GameComponent
             return;
 
         var userLanguage = CultureInfo.CurrentCulture.Name.Split('-')[0];
-        var selectedLanguage = userLanguage == "fr" ? "fr" : "en";
 
-        var data = File.ReadAllText($"Content/Data/Translations/texts.{selectedLanguage}.ini");
+        var path = $"Content/Data/Translations/translation.{userLanguage}.ini";
+        if (!File.Exists(path))
+            path = "Content/Data/Translations/translation.en.ini";
+
+        var data = File.ReadAllText(path);
+        if (data == null)
+            throw new Exception($"The translation file {path} is missing.");
+
         ParseFile(data);
     }
 

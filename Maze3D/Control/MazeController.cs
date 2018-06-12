@@ -237,8 +237,8 @@ namespace Maze3D.Control
         {
             if (YnG.Mouse.Click(MouseButton.Left))
             {
-                Camera.RotateX(-YnG.Mouse.Delta.Y * 0.1f * gameTime.ElapsedGameTime.Milliseconds);
-                Camera.RotateY(YnG.Mouse.Delta.X * 0.1f * gameTime.ElapsedGameTime.Milliseconds);
+                Camera.RotateX(YnG.Mouse.Delta.Y * 0.01f * gameTime.ElapsedGameTime.Milliseconds);
+                Camera.RotateY(-YnG.Mouse.Delta.X * 0.01f * gameTime.ElapsedGameTime.Milliseconds);
             }
         }
 

@@ -64,7 +64,9 @@ namespace C3DE.VR
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
-            OpenVR.Shutdown();
+
+            if (m_System != null)
+                OpenVR.Shutdown();
         }
 
         public override RenderTarget2D CreateRenderTargetForEye(int eye)

@@ -59,12 +59,6 @@
     <Content Include="Content\Data\Achievements\achivement_1.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Data\Translations\translation.en.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Data\Translations\translation.fr.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\Data\Levels\level_1.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -89,6 +83,12 @@
     <Content Include="Content\Data\Levels\level_8.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+	<Content Include="Content\Data\Translations\translation.fr.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+	<Content Include="Content\Data\Translations\translation.en.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Game.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -96,13 +96,13 @@
     <Compile Include="Assets.cs" />
     <Compile Include="MazeTimer.cs" />
     <Compile Include="GameConfiguration.cs" />
-    <Compile Include="MazeLang.cs" />
     <Compile Include="Screen\AboutState.cs" />
     <Compile Include="Screen\LevelState.cs" />
     <Compile Include="MazeEvents.cs" />
     <Compile Include="Screen\PopupState.cs" />
     <Compile Include="Screen\SelectionState.cs" />
     <Compile Include="Screen\SplashState.cs" />
+    <Compile Include="Translation.cs" />
     <Compile Include="UI\MessageBoxButton.cs" />
     <Compile Include="UI\MiniMap.cs" />
     <Compile Include="UI\GameHUD.cs" />

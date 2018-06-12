@@ -28,13 +28,13 @@ namespace Maze3D.Screen
             menuItemSelector = new YnEntity2D("UI/menuItemBar");
             Add(menuItemSelector);
 
-            string[] itemNames = new string[5]
+            string[] itemNames = new string[]
             {
-                MazeLang.Text.Menus.New,
-                MazeLang.Text.Menus.Choose,
-                MazeLang.Text.Menus.Options,
-                MazeLang.Text.Menus.Credits,
-                MazeLang.Text.Menus.Exit
+                Translation.Get("New"),
+                Translation.Get("Levels"),
+                Translation.Get("Options"),
+                Translation.Get("Credits"),
+                Translation.Get("Exit")
             };
 
             menuItems = new YnText[5];

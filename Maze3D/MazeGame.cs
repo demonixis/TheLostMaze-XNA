@@ -38,8 +38,9 @@ namespace Maze3D
         public MazeGame()
             : base()
         {
-            InitializeLanguage(String.Empty);
             GameTitle = "The Lost Maze";
+
+            Components.Add(new Translation(this));
 
             if (GameConfiguration.EnabledFullScreen && !graphics.IsFullScreen)
                 graphics.ToggleFullScreen();
@@ -76,24 +77,6 @@ namespace Maze3D
         {
             _playerManager.Save();
             base.UnloadContent();
-        }
-
-        private void InitializeLanguage(string useLang)
-        {
-            var userLanguage = String.Empty;
-            var selectedLanguage = "fr";
-
-            if (useLang == String.Empty)
-                userLanguage = CultureInfo.CurrentCulture.Name.Split('-')[0];
-
-            if (userLanguage == "fr")
-                selectedLanguage = "fr";
-            else
-                selectedLanguage = "en";
-
-            var path = String.Format("Data/Translations/translation.{0}", selectedLanguage);
-
-            MazeLang.Text = ContentHelper.LoadXMLFromXna<GameText>(path);
         }
 
         public void PrepareNewLevel(int levelId, bool isStarted)

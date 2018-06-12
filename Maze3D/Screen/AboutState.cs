@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using System.Text;
 using Yna.Engine;
 using Yna.Engine.Graphics;
 using Yna.Engine.Graphics.Event;
@@ -42,12 +43,24 @@ namespace Maze3D.Screen
         private ItemLabelText _greetingText;
         
         public AboutState(string name)
-            : base(name, MazeLang.Text.Menus.Credits, 0)
+            : base(name, Translation.Get("Credits"), 0)
         {
-            _aboutText = new ItemLabelText(MazeLang.Text.Credits.Description.Label, MazeLang.Text.Credits.Description.Content);
+            var sb = new StringBuilder();
+            sb.Append(Translation.Get("Txt_Description"));
+            sb.Append("\r\n");
+            sb.Append(Translation.Get("Txt_Description2"));
+            sb.Append("\r\n\r\n");
+            sb.Append(Translation.Get("Txt_Description3"));
+
+            _aboutText = new ItemLabelText(Translation.Get("About this game"), sb.ToString());
             Add(_aboutText);
 
-            _greetingText = new ItemLabelText(MazeLang.Text.Credits.Greeting.Label, MazeLang.Text.Credits.Greeting.Content);
+            sb.Clear();
+            sb.Append(Translation.Get("Txt_Greeting"));
+            sb.Append("\r\n\r\n");
+            sb.Append(Translation.Get("Txt_Greeting2"));
+
+            _greetingText = new ItemLabelText(Translation.Get("Greeting"), sb.ToString());
             Add(_greetingText);
         }
 
@@ -64,7 +77,6 @@ namespace Maze3D.Screen
 
 		protected override void item_MouseJustClicked(object sender, MouseClickEntityEventArgs e)
         {
-
         }
 
         public override void Update(GameTime gameTime)
