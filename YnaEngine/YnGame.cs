@@ -33,8 +33,10 @@ namespace Yna.Engine
             : base()
         {
             Content.RootDirectory = "Content";
-
+            
             _graphicsDevice = new GraphicsDeviceManager(this);
+            _graphicsDevice.GraphicsProfile = GraphicsProfile.HiDef;
+
             _stateManager = new StateManager(this);
 
             // Registry globals objects

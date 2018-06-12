@@ -1,6 +1,7 @@
 ﻿// YnaEngine - Copyright (C) YnaEngine team
 // This file is subject to the terms and conditions defined in
 // file 'LICENSE', which is part of this source code package.
+#define USE_NULL_SERVICE_
 #if DEBUG && USE_NULL_SERVICE
 #define DEBUG_VR
 #endif
@@ -90,7 +91,7 @@ namespace Yna.Engine.Graphics3D
 #endif
             _vrService = VRManager.GetVRAvailableVRService(YnG.Game);
             _vrEnabled = _vrService != null;
-
+       
             if (_vrEnabled)
             {
                 YnG.Game.Components.Add(_vrService);
@@ -108,15 +109,13 @@ namespace Yna.Engine.Graphics3D
         /// </summary>
         /// <param name="name">State name.</param>
         /// <param name="camera">Camera to use on this scene.</param>
-        public YnState3D(string name, Camera camera)
-            : this(camera) => _name = name;
+        public YnState3D(string name, Camera camera) : this(camera) => _name = name;
 
         /// <summary>
         /// Create a state with a 3D scene and a fixed camera.
         /// </summary>
         /// <param name="name">State name.</param>
-        public YnState3D(string name)
-            : this(name, null) { }
+        public YnState3D(string name) : this(name, null) { }
 
         #endregion
 
@@ -192,11 +191,10 @@ namespace Yna.Engine.Graphics3D
                         _camera.Projection = _vrService.GetProjectionMatrix(i);
                         _camera.View = _vrService.GetViewMatrix(i, Matrix.Identity);
                         _scene.Draw(gameTime, YnG.GraphicsDevice, _camera, _sceneLight);
-                        _vrService.SubmitRenderTarget(_sceneRenderTargets[i], i);
                     }
                 }
 
-               // _vrService.SubmitRenderTargets(_sceneRenderTargets[0], _sceneRenderTargets[1]);
+                _vrService.SubmitRenderTargets(_sceneRenderTargets[0], _sceneRenderTargets[1]);
 
                 DrawVRPreview(0, true);
             }

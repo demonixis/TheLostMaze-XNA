@@ -170,7 +170,7 @@ namespace C3DE.VR
 
         public override int SubmitRenderTarget(RenderTarget2D renderTarget, int eye)
         {
-            OpenVR.Compositor.Submit(EVREye.Eye_Left, ref m_Textures[eye], ref m_TextureBounds[eye], EVRSubmitFlags.Submit_Default);
+            OpenVR.Compositor.Submit((EVREye)eye, ref m_Textures[eye], ref m_TextureBounds[eye], EVRSubmitFlags.Submit_Default);
             return 0;
         }
 

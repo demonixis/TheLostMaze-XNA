@@ -58,8 +58,8 @@ namespace Maze3D
         // Affichage
         public bool EnabledFullScreen = false;
         public bool DetermineBestResolution = false;
-        public int ScreenWidth = 1280;
-        public int ScreenHeight = 720;
+        public int ScreenWidth = 640;
+        public int ScreenHeight = 400;
 
         // Niveau
         public void SetStartLevel(int level)

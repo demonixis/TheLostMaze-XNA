@@ -28,8 +28,8 @@ namespace Maze3D.Screen
         private MazeLevel _mazeLevel;
         private GameHUD _gameHUD;
 
-        private MazeController control;
-        private VirtualPad virtualPad;
+        private MazeController _control;
+        private VirtualPad _virtualPad;
 
         public event Action<Score, int, bool> LevelFinished = null;
         public event Action ExitRequest = null;
@@ -66,7 +66,7 @@ namespace Maze3D.Screen
             else
                 soundTimer.Completed += (s, e) => { };
 
-            control = new MazeController(Camera);
+            _control = new MazeController(Camera);
 
             SceneLight.AmbientIntensity = 0.85f;
             SceneLight.DirectionalLights[0].Enabled = true;
@@ -86,8 +86,8 @@ namespace Maze3D.Screen
             _gameHUD.Initialize();
             _gameHUD.InitializeMinimap(_mazeLevel);
 
-            virtualPad = new VirtualPad();
-            virtualPad.LoadContent();
+            _virtualPad = new VirtualPad();
+            _virtualPad.LoadContent();
 
             var vpZoomValue = 1.0f;
             var settings = GameSettings.Instance;
@@ -100,16 +100,16 @@ namespace Maze3D.Screen
             }
 
             vpZoomValue *= ScreenHelper.GetScale().X;
-            virtualPad.UpdateScale(vpZoomValue);
-            virtualPad.Position = new Vector2(YnG.Width - virtualPad.Width * vpZoomValue - 10, YnG.Height - virtualPad.Height * vpZoomValue - 10);
-            virtualPad.UpdateLayoutPosition();
+            _virtualPad.UpdateScale(vpZoomValue);
+            _virtualPad.Position = new Vector2(YnG.Width - _virtualPad.Width * vpZoomValue - 10, YnG.Height - _virtualPad.Height * vpZoomValue - 10);
+            _virtualPad.UpdateLayoutPosition();
 
             if (settings.ControlMode == ControlMode.New)
-                virtualPad.Pressed += (d) => control.SetControlDirection(d);
+                _virtualPad.Pressed += (d) => _control.SetControlDirection(d);
             else
-                virtualPad.JustPressed += (d) => control.SetControlDirection(d);
+                _virtualPad.JustPressed += (d) => _control.SetControlDirection(d);
 
-            virtualPad.Active = settings.EnabledVirtualPad;
+            _virtualPad.Active = settings.EnabledVirtualPad;
 
             if (settings.EnabledMusic)
                 YnG.AudioManager.PlayMusic("Audio/Lost_in_dark_way", true);
@@ -143,12 +143,12 @@ namespace Maze3D.Screen
 
                 _gameHUD.Time = $"{time.Minutes} : {time.Seconds}";
 
-                control.Update(gameTime);
+                _control.Update(gameTime);
 #if DEBUG
                 if (YnG.Keys.JustPressed(Keys.F8))
                     OnLevelFinished(score, (_mazeLevel.Id + 1), false);
 #endif
-                string collider = control.ValidatePosition(_mazeLevel.Walls);
+                string collider = _control.ValidatePosition(_mazeLevel.Walls);
 
                 if (collider == "END")
                 {
@@ -185,8 +185,8 @@ namespace Maze3D.Screen
                 if (_gameHUD.MiniMap.Enabled)
                     _gameHUD.MiniMap.UpdatePlayerPosition((float)Camera.X, (float)Camera.Z);
 
-                if (virtualPad.Enabled)
-                    virtualPad.Update(gameTime);
+                if (_virtualPad.Enabled)
+                    _virtualPad.Update(gameTime);
             }
             else if (gameState == MazeGameState.Ending)
             {
@@ -218,8 +218,8 @@ namespace Maze3D.Screen
 
             _gameHUD.Draw(gameTime, spriteBatch);
 
-            if (virtualPad.Visible)
-                virtualPad.Draw(gameTime, spriteBatch);
+            if (_virtualPad.Visible)
+                _virtualPad.Draw(gameTime, spriteBatch);
 
             spriteBatch.End();
         }
