@@ -17,9 +17,9 @@ namespace Yna.Engine
     /// </summary>
     public class YnGame : Game
     {
-        protected GraphicsDeviceManager graphics = null;
+        protected GraphicsDeviceManager _graphicsDevice = null;
         protected SpriteBatch m_SpriteBatch = null;
-        protected StateManager m_StateManager = null;
+        protected StateManager _stateManager = null;
         public static string GameTitle = "Yna Game";
         public static string GameVersion = "1.0.0.0";
 
@@ -32,35 +32,23 @@ namespace Yna.Engine
         public YnGame()
             : base()
         {
-            this.graphics = new GraphicsDeviceManager(this);
-            this.Content.RootDirectory = "Content";
-            this.m_StateManager = new StateManager(this);
+            Content.RootDirectory = "Content";
 
-            YnKeyboard keyboardComponent = new YnKeyboard(this);
-            YnMouse mouseComponent = new YnMouse(this);
-            YnGamepad gamepadComponent = new YnGamepad(this);
-            YnTouch touchComponent = new YnTouch(this);
-
-            Components.Add(keyboardComponent);
-            Components.Add(mouseComponent);
-            Components.Add(gamepadComponent);
-            Components.Add(touchComponent);
-            Components.Add(m_StateManager);
+            _graphicsDevice = new GraphicsDeviceManager(this);
+            _stateManager = new StateManager(this);
 
             // Registry globals objects
             YnG.Game = this;
-            YnG.GraphicsDeviceManager = this.graphics;
-            YnG.Keys = keyboardComponent;
-            YnG.Mouse = mouseComponent;
-            YnG.Gamepad = gamepadComponent;
-            YnG.Touch = touchComponent;
-            YnG.StateManager = m_StateManager;
-            YnG.StorageManager = new StorageManager();
+            YnG.GraphicsDeviceManager = _graphicsDevice;
+            YnG.Keys = new YnKeyboard(this); ;
+            YnG.Mouse = new YnMouse(this); ;
+            YnG.Gamepad = new YnGamepad(this); ;
+            YnG.Touch = new YnTouch(this); ;
+            YnG.StateManager = _stateManager;
+            YnG.StorageManager = new StorageManager(this);
             YnG.AudioManager = new AudioManager();
-
-            Window.Title = String.Format("{0} - v{1}", GameTitle, GameVersion);
-            ScreenHelper.ScreenWidthReference = graphics.PreferredBackBufferWidth;
-            ScreenHelper.ScreenHeightReference = graphics.PreferredBackBufferHeight;
+            ScreenHelper.ScreenWidthReference = _graphicsDevice.PreferredBackBufferWidth;
+            ScreenHelper.ScreenHeightReference = _graphicsDevice.PreferredBackBufferHeight;
         }
 
         #endregion
@@ -74,7 +62,8 @@ namespace Yna.Engine
         {
             base.LoadContent();
             m_SpriteBatch = new SpriteBatch(GraphicsDevice);
-            GraphicsDevice.Viewport = new Viewport(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+            GraphicsDevice.Viewport = new Viewport(0, 0, _graphicsDevice.PreferredBackBufferWidth, _graphicsDevice.PreferredBackBufferHeight);
+            Window.Title = String.Format("{0} - v{1}", GameTitle, GameVersion);
         }
 
         /// <summary>
@@ -97,9 +86,9 @@ namespace Yna.Engine
         /// <param name="height">Screen height</param>
         public virtual void SetScreenResolution(int width, int height)
         {
-            this.graphics.PreferredBackBufferWidth = width;
-            this.graphics.PreferredBackBufferHeight = height;
-            this.graphics.ApplyChanges();
+            this._graphicsDevice.PreferredBackBufferWidth = width;
+            this._graphicsDevice.PreferredBackBufferHeight = height;
+            this._graphicsDevice.ApplyChanges();
         }
 
         /// <summary>
@@ -110,8 +99,8 @@ namespace Yna.Engine
         {
             SetScreenResolution(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height);
             
-            if (!graphics.IsFullScreen && fullscreen)
-                graphics.ToggleFullScreen();
+            if (!_graphicsDevice.IsFullScreen && fullscreen)
+                _graphicsDevice.ToggleFullScreen();
         }
 
         #endregion

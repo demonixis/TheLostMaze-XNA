@@ -1,5 +1,6 @@
 ﻿using Maze3D.UI;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using Yna.Engine;
@@ -28,20 +29,11 @@ namespace Maze3D.Screen
             get { return _itemActionB.Text; }
         }
 
-        public event EventHandler<MessageBoxEventArgs> ActionNext = null;
-        public event EventHandler<MessageBoxEventArgs> ActionMenu = null;
+        public event Action<bool, bool> ActionNext = null;
+        public event Action<bool, bool> ActionMenu = null;
 
-        public void OnActionNext(MessageBoxEventArgs e)
-        {
-            if (ActionNext != null)
-                ActionNext(this, e);
-        }
-
-        public void OnActionMenu(MessageBoxEventArgs e)
-        {
-            if (ActionMenu != null)
-                ActionMenu(this, e);
-        }
+        public void OnActionNext(bool defaultAction, bool cancelAction) => ActionNext?.Invoke(defaultAction, cancelAction);
+        public void OnActionMenu(bool defaultAction, bool cancelAction) => ActionMenu?.Invoke(defaultAction, cancelAction);
 
         public PopupState(string name)
             : base(name, false)
@@ -72,13 +64,13 @@ namespace Maze3D.Screen
 
             _itemActionA = new MessageBoxButton(MessageBoxButtonType.Cancel, "Menu");
             _itemActionA.Position = new Vector2(_background.Width / 3, _background.Y + _background.Height - ScreenHelper.GetScaleY(100));
-            _itemActionA.MouseClicked += (s, e) => OnActionMenu(new MessageBoxEventArgs(false, true));
+            _itemActionA.MouseClicked += (s, e) => OnActionMenu(false, true);
             _itemActionA.Scale = ScreenHelper.GetScale();
             Add(_itemActionA);
 
             _itemActionB = new MessageBoxButton(MessageBoxButtonType.Validate, "Suivant");
             _itemActionB.Position = new Vector2((_background.Width / 3) * 2, _itemActionA.Y);
-            _itemActionB.MouseClicked += (s, e) => OnActionMenu(new MessageBoxEventArgs(true, false));
+            _itemActionB.MouseClicked += (s, e) => OnActionMenu(true, false);
             _itemActionB.Scale = ScreenHelper.GetScale();
             Add(_itemActionB);
 
@@ -135,13 +127,13 @@ namespace Maze3D.Screen
             base.Update(gameTime);
 
             if (YnG.Keys.JustPressed(Keys.Escape) || YnG.Gamepad.JustPressed(PlayerIndex.One, Buttons.Back) || YnG.Gamepad.JustPressed(PlayerIndex.One, Buttons.B))
-                OnActionMenu(new MessageBoxEventArgs(false, true));
+                OnActionMenu(false, true);
         }
 
         public override void Draw(GameTime gameTime)
         {
             if (spriteBatch == null)
-                spriteBatch = new Microsoft.Xna.Framework.Graphics.SpriteBatch(YnG.GraphicsDevice);
+                spriteBatch = new SpriteBatch(YnG.GraphicsDevice);
 
             base.Draw(gameTime);
         }

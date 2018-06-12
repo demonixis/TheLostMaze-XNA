@@ -23,37 +23,38 @@ namespace Maze3D
 
         static void PrepareParams(string param)
         {
-            string [] temp = param.Split(new char [] { '=' });
-            string name = temp[0];
-            string value = temp[1];
+            var temp = param.Split(new char [] { '=' });
+            var name = temp[0];
+            var value = temp[1];
+            var settings = GameSettings.Instance;
 
             switch (name)
             {
-                case "width": GameConfiguration.ScreenWidth = int.Parse(value); break;
-                case "height": GameConfiguration.ScreenHeight = int.Parse(value); break;
-                case "fullscreen": GameConfiguration.EnabledFullScreen = bool.Parse(value); break;
-                case "auto": GameConfiguration.DetermineBestResolution = bool.Parse(value); break;
-                case "sound": GameConfiguration.EnabledSound = bool.Parse(value); break;
+                case "width": settings.ScreenWidth = int.Parse(value); break;
+                case "height": settings.ScreenHeight = int.Parse(value); break;
+                case "fullscreen": settings.EnabledFullScreen = bool.Parse(value); break;
+                case "auto": settings.DetermineBestResolution = bool.Parse(value); break;
+                case "sound": settings.EnabledSound = bool.Parse(value); break;
                 case "difficulty":
                     switch (value)
                     {
-                        case "very-easy": GameConfiguration.SetDifficulty(Difficulty.VeryEasy); break;
-                        case "easy": GameConfiguration.SetDifficulty(Difficulty.Easy); break;
-                        case "normal": GameConfiguration.SetDifficulty(Difficulty.Normal); break;
-                        case "hard": GameConfiguration.SetDifficulty(Difficulty.Hard); break;
+                        case "very-easy": settings.SetDifficulty(Difficulty.VeryEasy); break;
+                        case "easy": settings.SetDifficulty(Difficulty.Easy); break;
+                        case "normal": settings.SetDifficulty(Difficulty.Normal); break;
+                        case "hard": settings.SetDifficulty(Difficulty.Hard); break;
                     }
                     break;
-                case "virtualpad": GameConfiguration.EnabledVirtualPad = bool.Parse(value); break;
-                case "mouse": GameConfiguration.EnabledMouse = bool.Parse(value); break;
-                case "gamepad": GameConfiguration.EnabledGamePad = bool.Parse(value); break;
+                case "virtualpad": settings.EnabledVirtualPad = bool.Parse(value); break;
+                case "mouse": settings.EnabledMouse = bool.Parse(value); break;
+                case "gamepad": settings.EnabledGamePad = bool.Parse(value); break;
                 case "mode":
                     if (value == "old")
-                        GameConfiguration.ControlMode = ControlMode.Old;
+                        settings.ControlMode = ControlMode.Old;
                     else
-                        GameConfiguration.ControlMode = ControlMode.New;
+                        settings.ControlMode = ControlMode.New;
                     break;
-                case "level": 
-                    GameConfiguration.SetStartLevel(int.Parse(value)); 
+                case "level":
+                    settings.SetStartLevel(int.Parse(value)); 
                     break;
                 default: break;
             }

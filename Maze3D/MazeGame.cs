@@ -1,9 +1,6 @@
-using Maze3D.Data;
 using Maze3D.Screen;
 using System;
-using System.Globalization;
 using Yna.Engine;
-using Yna.Engine.Content;
 using Yna.Engine.Helpers;
 
 namespace Maze3D
@@ -12,7 +9,7 @@ namespace Maze3D
     {
         private bool _gameFinished;
         private int _nextLevel;
-        private PlayerManager _playerManager;
+        private Player _playerManager;
 
         public int NextLevel
         {
@@ -21,54 +18,51 @@ namespace Maze3D
             {
                 if (value < 1)
                     _nextLevel = 1;
-                else if (value > GameConfiguration.LevelCount)
-                    _nextLevel = GameConfiguration.LevelCount;
+                else if (value > GameSettings.LevelCount)
+                    _nextLevel = GameSettings.LevelCount;
                 else
                     _nextLevel = value;
             }
         }
 
-        #region Events
-
-        public event EventHandler<EventArgs> QuitRequested = null;
-        public event EventHandler<LevelFinishEventArgs> LevelFinished = null;
-
-        #endregion
 
         public MazeGame()
             : base()
         {
             GameTitle = "The Lost Maze";
+            GameVersion = "1.6.0.0";
 
             Components.Add(new Translation(this));
 
-            if (GameConfiguration.EnabledFullScreen && !graphics.IsFullScreen)
-                graphics.ToggleFullScreen();
+            var settings = GameSettings.Instance;
 
-            if (GameConfiguration.DetermineBestResolution)
-                YnG.DetermineBestResolution(GameConfiguration.EnabledFullScreen);
+            if (settings.EnabledFullScreen && !_graphicsDevice.IsFullScreen)
+                _graphicsDevice.ToggleFullScreen();
+
+            if (settings.DetermineBestResolution)
+                YnG.DetermineBestResolution(settings.EnabledFullScreen);
 
             ScreenHelper.ScreenWidthReference = 1280;
             ScreenHelper.ScreenHeightReference = 720;
 
-            graphics.PreferredBackBufferWidth = GameConfiguration.ScreenWidth;
-            graphics.PreferredBackBufferHeight = GameConfiguration.ScreenHeight;
-            graphics.ApplyChanges();
+            _graphicsDevice.PreferredBackBufferWidth = settings.ScreenWidth;
+            _graphicsDevice.PreferredBackBufferHeight = settings.ScreenHeight;
+            _graphicsDevice.ApplyChanges();
 
             _gameFinished = false;
-            _playerManager = new PlayerManager();
+            _playerManager = new Player();
         }
 
         protected override void Initialize()
         {
             _playerManager.Load();
-            _nextLevel = GameConfiguration.LevelStart;
+            _nextLevel = GameSettings.Instance.LevelStart;
 
-            m_StateManager.Add(new SplashState("splash"), true);
-            m_StateManager.Add(new MenuState("menu"), false);
-            m_StateManager.Add(new SelectionState("selection"), false);
-            m_StateManager.Add(new OptionsState("options"), false);
-            m_StateManager.Add(new AboutState("about"), false);
+            _stateManager.Add(new SplashState("splash"), true);
+            _stateManager.Add(new MenuState("menu"), false);
+            _stateManager.Add(new SelectionState("selection"), false);
+            _stateManager.Add(new OptionsState("options"), false);
+            _stateManager.Add(new AboutState("about"), false);
 
             base.Initialize();
         }
@@ -81,12 +75,12 @@ namespace Maze3D
 
         public void PrepareNewLevel(int levelId, bool isStarted)
         {
-            var level = (LevelState)m_StateManager.Get("level");
-            var launchLevelId = GameConfiguration.LevelStart;
+            var level = (LevelState)_stateManager.Get("level");
+            var launchLevelId = GameSettings.Instance.LevelStart;
 
             if (level != null)
             {
-                m_StateManager.Remove(level);
+                _stateManager.Remove(level);
 
                 level.ExitRequest -= OnExitRequest;
                 level.LevelFinished -= OnLevelFinished;
@@ -98,48 +92,45 @@ namespace Maze3D
             level.ExitRequest += OnExitRequest;
             level.LevelFinished += OnLevelFinished;
 
-            m_StateManager.Add(level, isStarted);
-            m_StateManager.SetActive("level", true);
+            _stateManager.Add(level, isStarted);
+            _stateManager.SetActive("level", true);
         }
 
         #region Event Management
 
-        private void OnLevelFinished(object sender, LevelFinishEventArgs e)
+        private void OnLevelFinished(Score score, int nextLevel, bool gameFinished)
         {
             YnG.AudioManager.StopMusic();
 
-            var score = e.Score.PartyScore;
-            var points = score > 0 ? score + " points" : "0 point";
+            var points = score.GameScore > 0 ? score + " points" : "0 point";
+            var settings = GameSettings.Instance;
 
-            if (e.GameFinished)
+            if (gameFinished)
             {
                 NextLevel = 1;
-                GameConfiguration.LevelsUnlocked = GameConfiguration.LevelCount;
+                settings.LevelsUnlocked = GameSettings.LevelCount;
                 YnG.StateManager.SetActive("menu", true);
             }
             else
             {
-                NextLevel = e.NextLevel;
-                GameConfiguration.LevelsUnlocked = NextLevel;
+                NextLevel = nextLevel;
+                settings.LevelsUnlocked = NextLevel;
 
-                var level = (LevelState)m_StateManager.Get("level");
+                var level = (LevelState)_stateManager.Get("level");
                 level.Active = false;
                 PrepareNewLevel(_nextLevel, true);
             }
 
-            _gameFinished = e.GameFinished;
-            _playerManager.AddScore(e.Score);
+            _gameFinished = gameFinished;
+            _playerManager.AddScore(score);
             _playerManager.Save();
         }
 
-        private void OnExitRequest(object sender, EventArgs e)
+        private void OnExitRequest()
         {
             YnG.AudioManager.StopMusic();
             YnG.StateManager.SetActive("menu", true);
         }
-
-        public void OnQuitRequested(EventArgs e) => QuitRequested?.Invoke(this, e);
-        public void OnLevelFinished(LevelFinishEventArgs e) => LevelFinished(this, e);
 
         #endregion
     }

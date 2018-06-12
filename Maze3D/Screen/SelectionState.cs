@@ -19,7 +19,8 @@ namespace Maze3D.Screen
         public override void LoadContent()
         {
             base.LoadContent();
-            _levelTiles = new YnEntity2D[GameConfiguration.LevelCount];
+
+            _levelTiles = new YnEntity2D[GameSettings.LevelCount];
 
             YnText levelText = null;
             int cursor = 0;
@@ -31,7 +32,7 @@ namespace Maze3D.Screen
             float paddingX = 1.25f;
             YnText.DefaultColor = Color.Yellow;
 
-            for (int i = 0; i < GameConfiguration.LevelCount; i++)
+            for (int i = 0; i < GameSettings.LevelCount; i++)
             {
                 _levelTiles[i] = new YnEntity2D("Misc/mapPreview");
                 _levelTiles[i].LoadContent();
@@ -63,9 +64,11 @@ namespace Maze3D.Screen
         {
             base.Initialize();
 
-            for (int i = 0; i < GameConfiguration.LevelCount; i++)
+            var settings = GameSettings.Instance;
+
+            for (int i = 0; i < GameSettings.LevelCount; i++)
             {
-                if (GameConfiguration.LevelsUnlocked >= (i + 1))
+                if (settings.LevelsUnlocked >= (i + 1))
                 {
                     _levelTiles[i].MouseClicked += item_MouseJustClicked;
                     _levelTiles[i].Color = Color.White;
@@ -80,14 +83,15 @@ namespace Maze3D.Screen
 
         protected override void item_MouseJustClicked(object sender, MouseClickEntityEventArgs e)
         {
-            Yna.Engine.Graphics.YnEntity2D levelScreen = sender as Yna.Engine.Graphics.YnEntity2D;
+            var levelScreen = sender as YnEntity2D;
+            var settings = GameSettings.Instance;
 
             if (levelScreen != null)
             {
                 YnG.AudioManager.PlaySound(Assets.SoundCrystal);
 
-                int levelId = int.Parse(levelScreen.Name.Split(new char[] { '_' })[1].ToString());
-                GameConfiguration.SetStartLevel(levelId);
+                var levelId = int.Parse(levelScreen.Name.Split(new char[] { '_' })[1].ToString());
+                settings.SetStartLevel(levelId);
                 (YnG.Game as MazeGame).PrepareNewLevel(levelId, true);
             }
         }

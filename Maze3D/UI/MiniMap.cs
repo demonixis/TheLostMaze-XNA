@@ -13,7 +13,7 @@ namespace Maze3D.UI
     public class MiniMap : YnGroup
     {
         private Color _wallColor;
-        private Color _groundColor; 
+        private Color _groundColor;
         private YnSprite _player;
         private int _sizeX;
         private int _sizeY;
@@ -23,21 +23,13 @@ namespace Maze3D.UI
         private int[,] _tiles;
         private float _zoomFactor;
 
-        public new int Width
-        {
-            get { return _mapWidth * _ceilSize; }
-        }
-
-        public new int Height
-        {
-            get { return _mapHeight * _ceilSize; }
-        }
+        public override int Width => _mapWidth * _ceilSize;
+        public override int Height => _mapHeight * _ceilSize;
 
         public MiniMap(int[,] tiles, int sizeX, int sizeY)
         {
             _wallColor = new Color(170, 144, 111);
             _groundColor = new Color(213, 209, 205);
-
             _sizeX = sizeX;
             _sizeY = sizeY;
             _tiles = tiles;
@@ -45,13 +37,14 @@ namespace Maze3D.UI
             _mapHeight = tiles.GetLength(1);
             _ceilSize = 6;
             _zoomFactor = 0.11f;
+
             X = YnG.Width - (_mapWidth * _ceilSize);
             Y = 0;
         }
 
         private void DetermineCeilSize()
         {
-            switch (GameConfiguration.MapCeilSize)
+            switch (GameSettings.Instance.MapCeilSize)
             {
                 case MapCeilSize.Small: _zoomFactor = 0.09f; break;
                 case MapCeilSize.Normal: _zoomFactor = 0.16f; break;
@@ -62,7 +55,6 @@ namespace Maze3D.UI
         public override void LoadContent()
         {
             base.LoadContent();
-
             GenerateMap(null);
         }
 
@@ -78,10 +70,10 @@ namespace Maze3D.UI
             X = YnG.Width - (_mapWidth * _ceilSize);
             Y = 0;
 
-            Rectangle rectangle = Rectangle.Empty;
-            Color color = _groundColor;
-
-            Rectangle rectanglePlayer = new Rectangle(0, 0, _ceilSize, _ceilSize);
+            var rectangle = Rectangle.Empty;
+            var color = _groundColor;
+            var rectanglePlayer = new Rectangle(0, 0, _ceilSize, _ceilSize);
+            var settings = GameSettings.Instance;
 
             for (int y = 0; y < _mapHeight; y++)
             {
@@ -94,8 +86,8 @@ namespace Maze3D.UI
                     {
                         case 1: color = _groundColor; break;
                         case 2: color = _wallColor; break;
-                        case 5: color = GameConfiguration.EnabledMinimapItems ? Color.Blue : _groundColor; break;
-                        case 6: color = GameConfiguration.EnabledMinimapItems ? Color.Orange : _groundColor; break;
+                        case 5: color = settings.EnabledMinimapItems ? Color.Blue : _groundColor; break;
+                        case 6: color = settings.EnabledMinimapItems ? Color.Orange : _groundColor; break;
                         case 8: color = Color.Red; break;
                         case 9:
                             rectanglePlayer.X = x;
@@ -117,8 +109,8 @@ namespace Maze3D.UI
 
         public void UpdatePlayerPosition(float cameraX, float cameraZ)
         {
-            int x = Math.Abs((int)Math.Floor(((cameraX / _sizeX) / 2)));
-            int y = Math.Abs((int)Math.Floor(((cameraZ / _sizeY) / 2)));
+            var x = Math.Abs((int)Math.Floor(((cameraX / _sizeX) / 2)));
+            var y = Math.Abs((int)Math.Floor(((cameraZ / _sizeY) / 2)));
 
             _player.X = (int)(X + x * _ceilSize);
             _player.Y = (int)(Y + y * _ceilSize);
@@ -126,8 +118,8 @@ namespace Maze3D.UI
 
         public void UpdateItemStatus(float cameraX, float cameraZ)
         {
-            int x = Math.Abs((int)Math.Floor(((cameraX / _sizeX) / 2)));
-            int y = Math.Abs((int)Math.Floor(((cameraZ / _sizeY) / 2)));
+            var x = Math.Abs((int)Math.Floor(((cameraX / _sizeX) / 2)));
+            var y = Math.Abs((int)Math.Floor(((cameraZ / _sizeY) / 2)));
 
             this[x + y * _mapWidth].Texture = YnGraphics.CreateTexture(_groundColor, _ceilSize, _ceilSize);
         }

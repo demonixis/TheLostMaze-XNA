@@ -8,7 +8,7 @@ using System.Resources;
 // associées à l’assembly.
 [assembly: AssemblyTitle("The Lost Maze")]
 [assembly: AssemblyProduct("The Lost Maze")]
-[assembly: AssemblyDescription("The Lost Maze est un jeu d'exploration en 3D")]
+[assembly: AssemblyDescription("The Lost Maze")]
 [assembly: AssemblyCompany("Demonixis Games")]
 [assembly: AssemblyCopyright("Copyright Demonixis ©  2012 - 2013")]
 [assembly: AssemblyTrademark("Demonixis")]

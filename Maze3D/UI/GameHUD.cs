@@ -103,17 +103,19 @@ namespace Maze3D.UI
 
         public void InitializeMinimap(MazeLevel mazeLevel)
         {
+            var settings = GameSettings.Instance;
+
             itemsCount = mazeLevel.Items.Count;
             itemsCounter.Text = String.Format("{0} / {1}", new object[] { 0, itemsCount }); 
 
             miniMap = new MiniMap(mazeLevel.Tiles, mazeLevel.Level.BlockSizes.Width, mazeLevel.Level.BlockSizes.Depth);
             miniMap.LoadContent();
-            miniMap.Enabled = GameConfiguration.EnabledMinimapUpdate;
-            miniMap.Visible = GameConfiguration.EnabledMinimap;
+            miniMap.Enabled = settings.EnabledMinimapUpdate;
+            miniMap.Visible = settings.EnabledMinimap;
             Add(miniMap);
 
-            miniMapLeftBorder.Active = GameConfiguration.EnabledMinimap;
-            miniMapBottomBorder.Active = GameConfiguration.EnabledMinimap;
+            miniMapLeftBorder.Active = settings.EnabledMinimap;
+            miniMapBottomBorder.Active = settings.EnabledMinimap;
 
             miniMapBottomBorder.Width = (int)(miniMap.Width);
             miniMapBottomBorder.Position = new Vector2(miniMap.X, miniMap.Y + miniMap.Height);

@@ -90,6 +90,8 @@ namespace Yna.Engine.State
 
             _initialized = false;
             _assetLoaded = false;
+
+            game.Components.Add(this);
         }
 
         #endregion

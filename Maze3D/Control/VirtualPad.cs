@@ -33,29 +33,21 @@ namespace Maze3D.Control
 
         #region Events
 
-        public event EventHandler<VirtualPadPressedEventArgs> Pressed = null;
+        public event Action<ControlDirection> Pressed = null;
+        public event Action<ControlDirection> JustPressed = null;
 
-        public event EventHandler<VirtualPadPressedEventArgs> JustPressed = null;
-
-        public void OnPressed(VirtualPadPressedEventArgs e)
-        {
-            if (Pressed != null)
-                Pressed(this, e);
-        }
-
-        public void OnJustPressed(VirtualPadPressedEventArgs e)
-        {
-            if (JustPressed != null)
-                JustPressed(this, e);
-        }
+        public void OnPressed(ControlDirection direction) => Pressed?.Invoke(direction);
+        public void OnJustPressed(ControlDirection direction) => JustPressed?.Invoke(direction);
 
         #endregion
 
         public VirtualPad()
         {
+            var settings = GameSettings.Instance;
+
             _margin = new Vector2(3, 2);
 
-            string path = String.Format("{0}/{1}/", "Misc/Pad", (GameConfiguration.VirtualPadStyle == VirtualPadStyle.Modern) ? "Modern" : "Normal");
+            var path = String.Format("{0}/{1}/", "Misc/Pad", (settings.VirtualPadStyle == VirtualPadStyle.Modern) ? "Modern" : "Normal");
 
             _upPad = new YnSprite(path + "kbup");
             _upPad.Name = "Button_" + ((int)ControlDirection.Up).ToString();
@@ -84,7 +76,7 @@ namespace Maze3D.Control
             foreach (YnSprite sprite in this)
             {
                 sprite.Parent = null;
-                if (GameConfiguration.ControlMode == ControlMode.New)
+                if (settings.ControlMode == ControlMode.New)
                     sprite.MouseClick += new EventHandler<MouseClickEntityEventArgs>(Pad_Click);
                 else
                     sprite.MouseClicked += new EventHandler<MouseClickEntityEventArgs>(Pad_Click);
@@ -124,21 +116,19 @@ namespace Maze3D.Control
 
         private void Pad_Click(object sender, MouseClickEntityEventArgs e)
         {
-            YnSprite button = sender as YnSprite;
+            var button = sender as YnSprite;
 
-            if (button != null)
-            {
-                string [] temp = button.Name.Split(new char [] { '_' });
-                int index = int.Parse(temp [1].ToString());
+            if (button == null)
+                return;
 
-                ControlDirection direction = (ControlDirection)index;
-                VirtualPadPressedEventArgs vpEvent = new VirtualPadPressedEventArgs(direction);
+            var temp = button.Name.Split(new char[] { '_' });
+            var index = int.Parse(temp[1].ToString());
+            var direction = (ControlDirection)index;
 
-                if (e.JustClicked)
-                    OnJustPressed(vpEvent);
-                else
-                    OnPressed(vpEvent);
-            }
+            if (e.JustClicked)
+                OnJustPressed(direction);
+            else
+                OnPressed(direction);
         }
 
 #if NETFX_CORE

@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Maze3D</RootNamespace>
-    <AssemblyName>Maze3D</AssemblyName>
+    <AssemblyName>The Lost Maze</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <MonoGamePlatform>Windows</MonoGamePlatform>
@@ -83,10 +83,10 @@
     <Content Include="Content\Data\Levels\level_8.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-	<Content Include="Content\Data\Translations\translation.fr.ini">
+    <Content Include="Content\Data\Translations\translation.fr.ini">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-	<Content Include="Content\Data\Translations\translation.en.ini">
+    <Content Include="Content\Data\Translations\translation.en.ini">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Game.ico" />
@@ -94,11 +94,10 @@
   <ItemGroup>
     <Compile Include="AnimatedItemMesh.cs" />
     <Compile Include="Assets.cs" />
-    <Compile Include="MazeTimer.cs" />
-    <Compile Include="GameConfiguration.cs" />
+    <Compile Include="GameSettings.cs" />
+    <Compile Include="Score.cs" />
     <Compile Include="Screen\AboutState.cs" />
     <Compile Include="Screen\LevelState.cs" />
-    <Compile Include="MazeEvents.cs" />
     <Compile Include="Screen\PopupState.cs" />
     <Compile Include="Screen\SelectionState.cs" />
     <Compile Include="Screen\SplashState.cs" />
@@ -116,7 +115,7 @@
     <Compile Include="MazeLevel.cs" />
     <Compile Include="Control\VirtualPad.cs" />
     <Compile Include="Control\MazeController.cs" />
-    <Compile Include="Player\PlayerManager.cs" />
+    <Compile Include="Player\Player.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

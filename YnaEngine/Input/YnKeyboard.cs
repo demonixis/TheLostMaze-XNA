@@ -16,6 +16,7 @@ namespace Yna.Engine.Input
         {
             _kbState = Keyboard.GetState();
             _lastKbState = _kbState;
+            game.Components.Add(this);
         }
 
         public override void Update(GameTime gameTime)

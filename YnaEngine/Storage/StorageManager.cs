@@ -1,6 +1,7 @@
 ﻿// YnaEngine - Copyright (C) YnaEngine team
 // This file is subject to the terms and conditions defined in
 // file 'LICENSE', which is part of this source code package.
+using Microsoft.Xna.Framework;
 using System;
 using System.IO;
 using System.Text;
@@ -11,12 +12,19 @@ namespace Yna.Engine.Storage
     /// <summary>
     /// The storage manager is an object that can be used for store and load informations like scores, achievments, etc..
     /// </summary>
-    public class StorageManager
+    public class StorageManager : GameComponent
     {
         private string _saveFolder;
 
-        public StorageManager()
+        public StorageManager(Game game)
+            : base(game)
         {
+            game.Components.Add(this);
+        }
+
+        public override void Initialize()
+        {
+            base.Initialize();
             _saveFolder = GetSaveContainer();
         }
 
@@ -25,7 +33,7 @@ namespace Yna.Engine.Storage
             var builder = new StringBuilder();
             builder.Append(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
             builder.Append(Path.DirectorySeparatorChar);
-            builder.Append("my games");
+            builder.Append("My Games");
             builder.Append(Path.DirectorySeparatorChar);
             builder.Append(YnGame.GameTitle);
             builder.Append(Path.DirectorySeparatorChar);

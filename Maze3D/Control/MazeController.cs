@@ -31,6 +31,7 @@ namespace Maze3D.Control
         private float _vpRotateSpeed;
         private float _vpStrafeSpeed;
         private RudderController _3drudderController;
+        private GameSettings m_Settings;
 
         // Prevention du garbage collector
         private string _colliderName;
@@ -52,11 +53,13 @@ namespace Maze3D.Control
             _nppBSphere = camera.BoundingSphere;
             _validDirection = Vector3.Zero;
 
-            EnableGamepad = GameConfiguration.EnabledGamePad;
-            EnableMouse = GameConfiguration.EnabledMouse;
-            EnableVirtualPad = GameConfiguration.EnabledVirtualPad;
+            m_Settings = GameSettings.Instance;
 
-            if (GameConfiguration.ControlMode == ControlMode.New)
+            EnableGamepad = m_Settings.EnabledGamePad;
+            EnableMouse = m_Settings.EnabledMouse;
+            EnableVirtualPad = m_Settings.EnabledVirtualPad;
+
+            if (m_Settings.ControlMode == ControlMode.New)
             {
                 _moveSpeed = 0.05f;
                 _rotationSpeed = 0.15f;
@@ -93,7 +96,7 @@ namespace Maze3D.Control
             if (EnableVirtualPad)
                 UpdateVirtualPadInput(gameTime);
 
-            if (GameConfiguration.ControlMode == ControlMode.Old)
+            if (m_Settings.ControlMode == ControlMode.Old)
             {
                 if (EnableGamepad)
                     UpdateOldGamepadInput(gameTime);

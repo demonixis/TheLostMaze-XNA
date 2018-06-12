@@ -22,6 +22,8 @@ namespace Yna.Engine.Input
                 state[i] = GamePad.GetState((PlayerIndex)i);
                 lastState[i] = state[i];
             }
+
+            game.Components.Add(this);
         }
 
         public override void Update(GameTime gameTime)

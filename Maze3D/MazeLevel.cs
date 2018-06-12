@@ -141,7 +141,7 @@ namespace Maze3D
 
         private void GenerateGrounds()
         {
-            bool enableSkybox = _level.SkyboxType != SkyboxType.None;
+            var enableSkybox = _level.SkyboxType != SkyboxType.None;
             if (!enableSkybox)
             {
                 PlaneGeometry planG = new PlaneGeometry(new Vector3(_level.Width * _level.BlockSizes.Width, 0, _level.Depth * _level.BlockSizes.Depth));
@@ -154,10 +154,10 @@ namespace Maze3D
                 Add(top);
             }
 
-            PlaneGeometry planG2 = new PlaneGeometry(new Vector3(_level.Width * _level.BlockSizes.Width, 0, _level.Depth * _level.BlockSizes.Depth));
+            var planG2 = new PlaneGeometry(new Vector3(_level.Width * _level.BlockSizes.Width, 0, _level.Depth * _level.BlockSizes.Depth));
             planG2.TextureRepeat = new Vector2(24);
 
-            YnMeshGeometry ground = new YnMeshGeometry(planG2, _level.GroundTexture);
+            var ground = new YnMeshGeometry(planG2, _level.GroundTexture);
             ground.LoadContent();
             ground.Position = new Vector3((_level.Width * _level.BlockSizes.Width), 0, (_level.Depth * _level.BlockSizes.Depth));
             Add(ground);
@@ -168,23 +168,23 @@ namespace Maze3D
         /// </summary>
         private void GenerateBorderWalls()
         {
-            Vector3[] sizes = new Vector3[4]
+            var sizes = new Vector3[4]
             {
-                new Vector3(_level.GetWorldWidth(), _level.BlockSizes.Height, 1),
-                new Vector3(_level.GetWorldWidth(), _level.BlockSizes.Height, 1),
-                new Vector3(1, _level.BlockSizes.Height, _level.GetWorldDepth()),
-                new Vector3(1, _level.BlockSizes.Height, _level.GetWorldDepth())
+                new Vector3(_level.WorldWidth, _level.BlockSizes.Height, 1),
+                new Vector3(_level.WorldWidth, _level.BlockSizes.Height, 1),
+                new Vector3(1, _level.BlockSizes.Height, _level.WorldDepth),
+                new Vector3(1, _level.BlockSizes.Height, _level.WorldDepth)
             };
 
-            Vector3[] positions = new Vector3[4] 
+            var positions = new Vector3[4]
             {
-                new Vector3(_level.GetWorldWidth(), _level.BlockSizes.Height, 0),
-                new Vector3(_level.GetWorldWidth(), _level.BlockSizes.Height, 2 * _level.GetWorldDepth()),
-                new Vector3(0, _level.BlockSizes.Height, _level.GetWorldWidth()),
-                new Vector3(2 * _level.GetWorldDepth(), _level.BlockSizes.Height, _level.GetWorldWidth())
+                new Vector3(_level.WorldWidth, _level.BlockSizes.Height, 0),
+                new Vector3(_level.WorldWidth, _level.BlockSizes.Height, 2 * _level.WorldDepth),
+                new Vector3(0, _level.BlockSizes.Height, _level.WorldWidth),
+                new Vector3(2 * _level.WorldDepth, _level.BlockSizes.Height, _level.WorldWidth)
             };
 
-            Color[] colors = new Color[4]
+            var colors = new Color[4]
             {
                 Color.Red, Color.Green, Color.Blue, Color.Yellow
             };

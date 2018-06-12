@@ -34,41 +34,19 @@
             this.fichierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quitterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.niveauToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.apercuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.générerCollectionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.succèsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.nouveauToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.enregistrerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.générerCollectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.supprimerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.nouveauToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.nouveauToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.enregistrerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.supprimerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.apercuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.jSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sauvegarderCaptureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ouvrirToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.nouveauToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.SuccessGroupBox = new System.Windows.Forms.GroupBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.listAchievements = new System.Windows.Forms.ListBox();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.générerCollectionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textureTop = new System.Windows.Forms.TextBox();
@@ -100,10 +78,6 @@
             this.tabProperties = new System.Windows.Forms.TabControl();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            this.SuccessGroupBox.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -123,8 +97,7 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fichierToolStripMenuItem,
-            this.niveauToolStripMenuItem,
-            this.succèsToolStripMenuItem});
+            this.niveauToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(523, 24);
@@ -142,9 +115,9 @@
             // quitterToolStripMenuItem
             // 
             this.quitterToolStripMenuItem.Name = "quitterToolStripMenuItem";
-            this.quitterToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.quitterToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.quitterToolStripMenuItem.Text = "Quitter";
-            this.quitterToolStripMenuItem.Click += new System.EventHandler(this.quitterToolStripMenuItem_Click);
+            this.quitterToolStripMenuItem.Click += new System.EventHandler(this.OnQuitButtonClicked);
             // 
             // niveauToolStripMenuItem
             // 
@@ -161,85 +134,17 @@
             this.niveauToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
             this.niveauToolStripMenuItem.Text = "Niveau";
             // 
-            // apercuToolStripMenuItem
-            // 
-            this.apercuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.jSONToolStripMenuItem,
-            this.imageToolStripMenuItem,
-            this.sauvegarderCaptureToolStripMenuItem});
-            this.apercuToolStripMenuItem.Name = "apercuToolStripMenuItem";
-            this.apercuToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.apercuToolStripMenuItem.Text = "Apercu";
-            // 
-            // générerCollectionToolStripMenuItem1
-            // 
-            this.générerCollectionToolStripMenuItem1.Name = "générerCollectionToolStripMenuItem1";
-            this.générerCollectionToolStripMenuItem1.Size = new System.Drawing.Size(170, 22);
-            this.générerCollectionToolStripMenuItem1.Text = "Générer collection";
-            // 
-            // succèsToolStripMenuItem
-            // 
-            this.succèsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.nouveauToolStripMenuItem1,
-            this.ouvrirToolStripMenuItem1,
-            this.enregistrerToolStripMenuItem,
-            this.supprimerToolStripMenuItem,
-            this.toolStripSeparator3,
-            this.générerCollectionToolStripMenuItem});
-            this.succèsToolStripMenuItem.Name = "succèsToolStripMenuItem";
-            this.succèsToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
-            this.succèsToolStripMenuItem.Text = "Succès";
-            // 
-            // nouveauToolStripMenuItem1
-            // 
-            this.nouveauToolStripMenuItem1.Name = "nouveauToolStripMenuItem1";
-            this.nouveauToolStripMenuItem1.Size = new System.Drawing.Size(170, 22);
-            this.nouveauToolStripMenuItem1.Text = "Nouveau";
-            // 
-            // enregistrerToolStripMenuItem
-            // 
-            this.enregistrerToolStripMenuItem.Name = "enregistrerToolStripMenuItem";
-            this.enregistrerToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.enregistrerToolStripMenuItem.Text = "Enregistrer";
-            // 
-            // générerCollectionToolStripMenuItem
-            // 
-            this.générerCollectionToolStripMenuItem.Name = "générerCollectionToolStripMenuItem";
-            this.générerCollectionToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.générerCollectionToolStripMenuItem.Text = "Générer collection";
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 387);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(523, 22);
-            this.statusStrip1.TabIndex = 14;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(28, 17);
-            this.toolStripStatusLabel1.Text = "Prêt";
-            // 
-            // supprimerToolStripMenuItem
-            // 
-            this.supprimerToolStripMenuItem.Name = "supprimerToolStripMenuItem";
-            this.supprimerToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.supprimerToolStripMenuItem.Text = "Supprimer";
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(167, 6);
-            // 
             // nouveauToolStripMenuItem2
             // 
             this.nouveauToolStripMenuItem2.Name = "nouveauToolStripMenuItem2";
             this.nouveauToolStripMenuItem2.Size = new System.Drawing.Size(170, 22);
             this.nouveauToolStripMenuItem2.Text = "Nouveau";
+            // 
+            // nouveauToolStripMenuItem
+            // 
+            this.nouveauToolStripMenuItem.Name = "nouveauToolStripMenuItem";
+            this.nouveauToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.nouveauToolStripMenuItem.Text = "Ouvrir";
             // 
             // enregistrerToolStripMenuItem1
             // 
@@ -253,15 +158,20 @@
             this.supprimerToolStripMenuItem1.Size = new System.Drawing.Size(170, 22);
             this.supprimerToolStripMenuItem1.Text = "Supprimer";
             // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(167, 6);
-            // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(167, 6);
+            // 
+            // apercuToolStripMenuItem
+            // 
+            this.apercuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.jSONToolStripMenuItem,
+            this.imageToolStripMenuItem,
+            this.sauvegarderCaptureToolStripMenuItem});
+            this.apercuToolStripMenuItem.Name = "apercuToolStripMenuItem";
+            this.apercuToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.apercuToolStripMenuItem.Text = "Apercu";
             // 
             // jSONToolStripMenuItem
             // 
@@ -281,165 +191,32 @@
             this.sauvegarderCaptureToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.sauvegarderCaptureToolStripMenuItem.Text = "Sauvegarder capture";
             // 
-            // ouvrirToolStripMenuItem1
+            // toolStripSeparator4
             // 
-            this.ouvrirToolStripMenuItem1.Name = "ouvrirToolStripMenuItem1";
-            this.ouvrirToolStripMenuItem1.Size = new System.Drawing.Size(170, 22);
-            this.ouvrirToolStripMenuItem1.Text = "Ouvrir";
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(167, 6);
             // 
-            // nouveauToolStripMenuItem
+            // générerCollectionToolStripMenuItem1
             // 
-            this.nouveauToolStripMenuItem.Name = "nouveauToolStripMenuItem";
-            this.nouveauToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.nouveauToolStripMenuItem.Text = "Ouvrir";
+            this.générerCollectionToolStripMenuItem1.Name = "générerCollectionToolStripMenuItem1";
+            this.générerCollectionToolStripMenuItem1.Size = new System.Drawing.Size(170, 22);
+            this.générerCollectionToolStripMenuItem1.Text = "Générer collection";
             // 
-            // tabPage3
+            // statusStrip1
             // 
-            this.tabPage3.Controls.Add(this.groupBox4);
-            this.tabPage3.Controls.Add(this.SuccessGroupBox);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(512, 341);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Succès";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 387);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(523, 22);
+            this.statusStrip1.TabIndex = 14;
+            this.statusStrip1.Text = "statusStrip1";
             // 
-            // SuccessGroupBox
+            // toolStripStatusLabel1
             // 
-            this.SuccessGroupBox.Controls.Add(this.textBox5);
-            this.SuccessGroupBox.Controls.Add(this.label15);
-            this.SuccessGroupBox.Controls.Add(this.textBox4);
-            this.SuccessGroupBox.Controls.Add(this.textBox3);
-            this.SuccessGroupBox.Controls.Add(this.groupBox2);
-            this.SuccessGroupBox.Controls.Add(this.label11);
-            this.SuccessGroupBox.Controls.Add(this.label12);
-            this.SuccessGroupBox.Location = new System.Drawing.Point(6, 6);
-            this.SuccessGroupBox.Name = "SuccessGroupBox";
-            this.SuccessGroupBox.Size = new System.Drawing.Size(194, 218);
-            this.SuccessGroupBox.TabIndex = 13;
-            this.SuccessGroupBox.TabStop = false;
-            this.SuccessGroupBox.Text = "Nouveau";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 43);
-            this.label12.Name = "label12";
-            this.label12.Padding = new System.Windows.Forms.Padding(0, 5, 5, 9);
-            this.label12.Size = new System.Drawing.Size(41, 27);
-            this.label12.TabIndex = 1;
-            this.label12.Text = "Points";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 16);
-            this.label11.Name = "label11";
-            this.label11.Padding = new System.Windows.Forms.Padding(0, 5, 5, 9);
-            this.label11.Size = new System.Drawing.Size(34, 27);
-            this.label11.TabIndex = 0;
-            this.label11.Text = "Nom";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.textBox2);
-            this.groupBox2.Controls.Add(this.textBox1);
-            this.groupBox2.Controls.Add(this.label13);
-            this.groupBox2.Controls.Add(this.label14);
-            this.groupBox2.Location = new System.Drawing.Point(9, 127);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(179, 76);
-            this.groupBox2.TabIndex = 2;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Condition de déblocage";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(3, 43);
-            this.label14.Name = "label14";
-            this.label14.Padding = new System.Windows.Forms.Padding(0, 5, 5, 9);
-            this.label14.Size = new System.Drawing.Size(44, 27);
-            this.label14.TabIndex = 3;
-            this.label14.Text = "Temps";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(3, 16);
-            this.label13.Name = "label13";
-            this.label13.Padding = new System.Windows.Forms.Padding(0, 5, 5, 9);
-            this.label13.Size = new System.Drawing.Size(41, 27);
-            this.label13.TabIndex = 2;
-            this.label13.Text = "Points";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(61, 23);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(106, 20);
-            this.textBox1.TabIndex = 4;
-            this.textBox1.Text = "200";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(61, 50);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(106, 20);
-            this.textBox2.TabIndex = 5;
-            this.textBox2.Text = "1.2";
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(70, 21);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(106, 20);
-            this.textBox3.TabIndex = 3;
-            this.textBox3.Text = "Achievement";
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(70, 47);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(106, 20);
-            this.textBox4.TabIndex = 4;
-            this.textBox4.Text = "10";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(7, 74);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(16, 13);
-            this.label15.TabIndex = 5;
-            this.label15.Text = "Id";
-            // 
-            // textBox5
-            // 
-            this.textBox5.Location = new System.Drawing.Point(70, 74);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(106, 20);
-            this.textBox5.TabIndex = 6;
-            this.textBox5.Text = "1";
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.listAchievements);
-            this.groupBox4.Location = new System.Drawing.Point(206, 6);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(300, 329);
-            this.groupBox4.TabIndex = 14;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Liste";
-            // 
-            // listAchievements
-            // 
-            this.listAchievements.FormattingEnabled = true;
-            this.listAchievements.Location = new System.Drawing.Point(6, 19);
-            this.listAchievements.Name = "listAchievements";
-            this.listAchievements.Size = new System.Drawing.Size(288, 303);
-            this.listAchievements.TabIndex = 0;
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(28, 17);
+            this.toolStripStatusLabel1.Text = "Prêt";
             // 
             // tabPage2
             // 
@@ -715,13 +492,12 @@
             this.textContentLevel.Size = new System.Drawing.Size(500, 332);
             this.textContentLevel.TabIndex = 1;
             this.textContentLevel.Text = "";
-            this.textContentLevel.TextChanged += new System.EventHandler(this.textContentLevel_TextChanged);
+            this.textContentLevel.TextChanged += new System.EventHandler(this.OnContentLevelChanged);
             // 
             // tabProperties
             // 
             this.tabProperties.Controls.Add(this.tabPage1);
             this.tabProperties.Controls.Add(this.tabPage2);
-            this.tabProperties.Controls.Add(this.tabPage3);
             this.tabProperties.Location = new System.Drawing.Point(4, 23);
             this.tabProperties.Name = "tabProperties";
             this.tabProperties.SelectedIndex = 0;
@@ -744,12 +520,6 @@
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
-            this.SuccessGroupBox.ResumeLayout(false);
-            this.SuccessGroupBox.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -775,10 +545,6 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripMenuItem générerCollectionToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem succèsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem nouveauToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem enregistrerToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem générerCollectionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nouveauToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem nouveauToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem enregistrerToolStripMenuItem1;
@@ -788,24 +554,6 @@
         private System.Windows.Forms.ToolStripMenuItem imageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sauvegarderCaptureToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.ToolStripMenuItem ouvrirToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem supprimerToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.ListBox listAchievements;
-        private System.Windows.Forms.GroupBox SuccessGroupBox;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TextBox textBox6;

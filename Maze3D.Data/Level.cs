@@ -1,21 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Maze3D.Data
 {
-#if !NETFX_CORE && !WINDOWS_PHONE
     [Serializable]
-#endif
     public enum SkyboxType
     {
         Day = 0, Night, Montain, None
     }
 
-#if !NETFX_CORE && !WINDOWS_PHONE
     [Serializable]
-#endif
     public class Level
     {
         public int Id { get; set; }
@@ -31,8 +24,11 @@ namespace Maze3D.Data
         public int[] Tiles { get; set; }
         public string TilesStr { get; set; }
         public SkyboxType SkyboxType { get; set; }
-        public int AchievementID { get; set; }
- 
+
+        public int WorldWidth => Width * BlockSizes.Width;
+        public int WorldHeight => Height * BlockSizes.Height;
+        public int WorldDepth => Depth * BlockSizes.Depth;
+
         public Level()
         {
             Id = 0;
@@ -47,16 +43,11 @@ namespace Maze3D.Data
             Tiles = new int[Width * Depth];
             BlockSizes = new Size3();
             SkyboxType = SkyboxType.None;
-            AchievementID = -1;
             TilesStr = String.Empty;
         }
 
-        public Level(int id)
-            : this()
-        {
-            Id = id;
-        }
-
+        public Level(int id) : this() => Id = id;
+       
         public void Initialize()
         {
             Tiles = new int[Width * Depth];
@@ -79,47 +70,24 @@ namespace Maze3D.Data
             Width = tiles.GetLength(0);
             Depth = tiles.GetLength(1);
 
-            int[] tiles1D = new int[Width * Depth];
+            var tiles1D = new int[Width * Depth];
 
             Tiles = new int[Width * Depth];
 
             for (int y = 0; y < Depth; y++)
-            {
                 for (int x = 0; x < Width; x++)
-                {
                     Tiles[x + y * Width] = tiles[x, y];
-                }
-            }
         }
 
         public int[,] GetTiles2D()
         {
-            int[,] tiles2D = new int[Width, Depth];
+            var tiles2D = new int[Width, Depth];
 
             for (int y = 0; y < Depth; y++)
-            {
                 for (int x = 0; x < Width; x++)
-                {
                     tiles2D[x, y] = Tiles[x + y * Width];
-                }
-            }
 
             return tiles2D;
-        }
-
-        public int GetWorldWidth()
-        {
-            return Width * BlockSizes.Width;
-        }
-
-        public int GetWorldHeight()
-        {
-            return Height * BlockSizes.Height;
-        }
-
-        public int GetWorldDepth()
-        {
-            return Depth * BlockSizes.Depth;
         }
     }
 }

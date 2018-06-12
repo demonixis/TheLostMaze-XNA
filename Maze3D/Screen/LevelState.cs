@@ -17,7 +17,6 @@ namespace Maze3D.Screen
 
     public class LevelState : YnState3D
     {
-        private MazeTimer timeTimer;
         private YnTimer soundTimer;
         private long elapsedPartyTime;
 
@@ -32,12 +31,8 @@ namespace Maze3D.Screen
         private MazeController control;
         private VirtualPad virtualPad;
 
-        public event EventHandler<LevelFinishEventArgs> LevelFinished = null;
-        public event EventHandler<EventArgs> ExitRequest = null;
-
-        private void OnLevelFinished(LevelFinishEventArgs e) => LevelFinished?.Invoke(this, e);
-
-        public void OnExitRequest(EventArgs e) => ExitRequest?.Invoke(this, e);
+        public event Action<Score, int, bool> LevelFinished = null;
+        public event Action ExitRequest = null;
 
         public LevelState(string name, int startLevel)
             : base(name)
@@ -46,9 +41,11 @@ namespace Maze3D.Screen
             Camera.BoundingRadius = 2.0f;
             Camera.UpdateBoundingVolumes();
 
-            YnG.ShowMouse = (GameConfiguration.EnabledMouse ? true : false);
-            YnG.AudioManager.SoundEnabled = GameConfiguration.EnabledSound;
-            YnG.AudioManager.MusicVolume = GameConfiguration.MusicVolume;
+            var settings = GameSettings.Instance;
+
+            YnG.ShowMouse = (settings.EnabledMouse ? true : false);
+            YnG.AudioManager.SoundEnabled = settings.EnabledSound;
+            YnG.AudioManager.MusicVolume = settings.MusicVolume;
 
             groundPlayerBoundingSphere = new BoundingSphere(Camera.Position, Camera.BoundingRadius);
 
@@ -56,8 +53,6 @@ namespace Maze3D.Screen
             Add(_mazeLevel);
 
             _gameHUD = new GameHUD();
-
-            timeTimer = new MazeTimer();
 
             score = new Score(startLevel);
 
@@ -94,9 +89,10 @@ namespace Maze3D.Screen
             virtualPad = new VirtualPad();
             virtualPad.LoadContent();
 
-            float vpZoomValue = 1.0f;
+            var vpZoomValue = 1.0f;
+            var settings = GameSettings.Instance;
 
-            switch (GameConfiguration.VirtualPadSize)
+            switch (settings.VirtualPadSize)
             {
                 case VirtualPadSize.Small: vpZoomValue = 0.9f; break;
                 case VirtualPadSize.Normal: vpZoomValue = 1.2f; break;
@@ -108,20 +104,20 @@ namespace Maze3D.Screen
             virtualPad.Position = new Vector2(YnG.Width - virtualPad.Width * vpZoomValue - 10, YnG.Height - virtualPad.Height * vpZoomValue - 10);
             virtualPad.UpdateLayoutPosition();
 
-            if (GameConfiguration.ControlMode == ControlMode.New)
-                virtualPad.Pressed += (s, e) => control.SetControlDirection(e.Direction);
+            if (settings.ControlMode == ControlMode.New)
+                virtualPad.Pressed += (d) => control.SetControlDirection(d);
             else
-                virtualPad.JustPressed += (s, e) => control.SetControlDirection(e.Direction);
+                virtualPad.JustPressed += (d) => control.SetControlDirection(d);
 
-            virtualPad.Active = GameConfiguration.EnabledVirtualPad;
+            virtualPad.Active = settings.EnabledVirtualPad;
 
-            if (GameConfiguration.EnabledMusic)
+            if (settings.EnabledMusic)
                 YnG.AudioManager.PlayMusic("Audio/Lost_in_dark_way", true);
         }
 
         private void UpdateScore(int addScore)
         {
-            score.PartyScore += addScore;
+            score.GameScore += addScore;
             _gameHUD.Score = score.GetPartyScore();
         }
 
@@ -141,15 +137,16 @@ namespace Maze3D.Screen
 
                 elapsedPartyTime += gameTime.ElapsedGameTime.Milliseconds;
 
-                timeTimer.Update(gameTime.ElapsedGameTime.Milliseconds);
-
                 _gameHUD.Update(gameTime);
-                _gameHUD.Time = timeTimer.ToString();
+
+                var time = TimeSpan.FromMilliseconds(elapsedPartyTime);
+
+                _gameHUD.Time = $"{time.Minutes} : {time.Seconds}";
 
                 control.Update(gameTime);
 #if DEBUG
                 if (YnG.Keys.JustPressed(Keys.F8))
-                    OnLevelFinished(new LevelFinishEventArgs(score, (_mazeLevel.Id + 1), false));
+                    OnLevelFinished(score, (_mazeLevel.Id + 1), false);
 #endif
                 string collider = control.ValidatePosition(_mazeLevel.Walls);
 
@@ -199,7 +196,7 @@ namespace Maze3D.Screen
 
                 int nextLevel = (_mazeLevel.Id + 1);
 
-                if (nextLevel > GameConfiguration.LevelCount)
+                if (nextLevel > GameSettings.LevelCount)
                 {
                     nextLevel = 1;
                     finishedGame = true;
@@ -207,7 +204,7 @@ namespace Maze3D.Screen
 
                 score.ElapsedTime = elapsedPartyTime;
 
-                OnLevelFinished(new LevelFinishEventArgs(score, nextLevel, finishedGame));
+                OnLevelFinished(score, nextLevel, finishedGame);
             }
         }
 
@@ -226,5 +223,9 @@ namespace Maze3D.Screen
 
             spriteBatch.End();
         }
+
+        private void OnLevelFinished(Score score, int nextLevel, bool gameFinished) => LevelFinished?.Invoke(score, nextLevel, gameFinished);
+
+        public void OnExitRequest(EventArgs e) => ExitRequest?.Invoke();
     }
 }

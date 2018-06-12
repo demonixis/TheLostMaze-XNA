@@ -58,6 +58,7 @@ namespace Yna.Engine.Input
             _mouseState = Mouse.GetState();
             _lastMouseState = _mouseState;
             _delta = new Vector2();
+            game.Components.Add(this);
         }
 
         public override void Update(GameTime gameTime)

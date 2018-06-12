@@ -37,6 +37,8 @@ namespace Yna.Engine.Input
                 _maxFingerPoints = 0;
 
             _needUpdate = true;
+
+            game.Components.Add(this);
         }
 
         public void SetMaxFingerPoints(int fingerCount)
