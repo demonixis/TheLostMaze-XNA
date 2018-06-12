@@ -85,7 +85,7 @@ namespace Yna.Engine.Graphics3D
             _sceneLight.AmbientIntensity = 1f;
 
 #if DEBUG_VR
-            _NullVR = new NullVRService(YnG.Game, 1);
+            _NullVR = new NullVRService(YnG.Game);
             var driver = new VRDriver(_NullVR, true, 0);
             VRManager.AvailableDrivers.Add(driver);
 #endif

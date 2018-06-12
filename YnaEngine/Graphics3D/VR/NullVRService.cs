@@ -18,7 +18,7 @@ namespace C3DE.VR
         public Matrix ViewMatrix { get; set; } = Matrix.Identity;
         public Matrix ProjectionMatrix { get; set; } = Matrix.Identity;
 
-        public NullVRService(Game game, float rotationSpeed = 0.25f)
+        public NullVRService(Game game, float rotationSpeed = 0.001f)
             : base(game)
         {
             _rotationSpeed = rotationSpeed;
@@ -27,13 +27,7 @@ namespace C3DE.VR
             ProjectionMatrix = Matrix.CreatePerspective(pp.BackBufferWidth, pp.BackBufferHeight, 0.1f, 1000.0f);
         }
 
-        public override int TryInitialize()
-        {
-            //DistortionEffect = Game.Content.Load<Effect>("Shaders/PostProcessing/OsvrDistortion");
-            //DistortionCorrectionRequired = true;
-            Game.Components.Add(this);
-            return 0;
-        }
+        public override int TryInitialize() => 0;
 
         public override void Update(GameTime gameTime)
         {
@@ -46,7 +40,7 @@ namespace C3DE.VR
 
             // Rotation.
             _headRotation.X -= _delta.Y * gameTime.ElapsedGameTime.Milliseconds * _rotationSpeed;
-            _headRotation.Y -= _delta.X * gameTime.ElapsedGameTime.Milliseconds * _rotationSpeed;
+            _headRotation.Y = _delta.X * gameTime.ElapsedGameTime.Milliseconds * _rotationSpeed;
 
             _previousMouseState = _mouseState;
         }
@@ -74,16 +68,6 @@ namespace C3DE.VR
         public override int SubmitRenderTargets(RenderTarget2D renderTargetLeft, RenderTarget2D renderTargetRight) => 0;
 
         public override int SubmitRenderTarget(RenderTarget2D renderTarget, int eye) => 0;
-
-        public override void ApplyDistortion(RenderTarget2D renderTarget, int eye)
-        {
-            /* DistortionEffect.Parameters["TargetTexture"].SetValue(renderTarget);
-             DistortionEffect.Parameters["K1_Red"].SetValue(1f);
-             DistortionEffect.Parameters["K1_Green"].SetValue(1f);
-             DistortionEffect.Parameters["K1_Blue"].SetValue(1f);
-             DistortionEffect.Parameters["Center"].SetValue(new Vector2(0.5f, 0.5f));
-             DistortionEffect.Techniques[0].Passes[0].Apply();*/
-        }
 
         public override uint[] GetRenderTargetSize()
         {

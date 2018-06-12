@@ -128,10 +128,8 @@ namespace C3DE.VR
 
         public override float GetRenderTargetAspectRatio(int eye) => 1.0f;
 
-        public override void Update(GameTime gameTime)
+        public void UpdateEvents()
         {
-            base.Update(gameTime);
-
             while (m_System.PollNextEvent(ref m_VREvent, (uint)Marshal.SizeOf(m_VREvent)))
                 ProcessEvent(ref m_VREvent);
 
@@ -163,6 +161,7 @@ namespace C3DE.VR
 
         public override int SubmitRenderTargets(RenderTarget2D renderTargetLeft, RenderTarget2D renderTargetRight)
         {
+            UpdateEvents();
             OpenVR.Compositor.Submit(EVREye.Eye_Left, ref m_Textures[0], ref m_TextureBounds[0], EVRSubmitFlags.Submit_Default);
             OpenVR.Compositor.Submit(EVREye.Eye_Right, ref m_Textures[1], ref m_TextureBounds[1], EVRSubmitFlags.Submit_Default);
             return 0;
@@ -170,6 +169,7 @@ namespace C3DE.VR
 
         public override int SubmitRenderTarget(RenderTarget2D renderTarget, int eye)
         {
+            UpdateEvents();
             OpenVR.Compositor.Submit((EVREye)eye, ref m_Textures[eye], ref m_TextureBounds[eye], EVRSubmitFlags.Submit_Default);
             return 0;
         }

@@ -198,7 +198,7 @@ namespace Yna.Engine.State
             if (!Visible)
                 return;
 
-            GraphicsDevice.Clear(_clearColor);
+            //GraphicsDevice.Clear(_clearColor);
 
             foreach (var scene in _scenes)
                 if (scene.Enabled)
