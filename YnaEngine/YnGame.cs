@@ -9,6 +9,7 @@ using Yna.Engine.State;
 using Yna.Engine.Helpers;
 using Yna.Engine.Input;
 using Yna.Engine.Storage;
+using Yna.Engine.Graphics;
 
 namespace Yna.Engine
 {
@@ -22,6 +23,7 @@ namespace Yna.Engine
         protected GraphicsDeviceManager _graphicsDevice = null;
         protected SpriteBatch _spriteBatch;
         protected StateManager _stateManager;
+        private Texture2D _debugOverlay;
         private SpriteFont _debugSpriteFont;
         private bool _debugEnabled;
 
@@ -83,20 +85,45 @@ namespace Yna.Engine
 		{
             base.Draw(gameTime);
 
-            if (_debugEnabled)
+            if (!_debugEnabled)
+                return;
+            
+            var metrics = GraphicsDevice.Metrics;
+            var strings = new string[]
             {
-                var metrics = GraphicsDevice.Metrics;
-                _spriteBatch.Begin();
-                _spriteBatch.DrawString(_debugSpriteFont, $"ClearCount: {metrics.ClearCount}", new Vector2(5, 5), Color.LightGreen);
-                _spriteBatch.DrawString(_debugSpriteFont, $"DrawCount: {metrics.DrawCount}", new Vector2(5, 15), Color.LightGreen);
-                _spriteBatch.DrawString(_debugSpriteFont, $"SpriteCount: {metrics.SpriteCount}", new Vector2(5, 25), Color.LightGreen);
-                _spriteBatch.DrawString(_debugSpriteFont, $"TargetCount: {metrics.TargetCount}", new Vector2(5, 35), Color.LightGreen);
-                _spriteBatch.DrawString(_debugSpriteFont, $"TextureCount: {metrics.TextureCount}", new Vector2(5, 45), Color.LightGreen);
-                _spriteBatch.DrawString(_debugSpriteFont, $"PrimitiveCount: {metrics.PrimitiveCount}", new Vector2(5, 55), Color.LightGreen);
-                _spriteBatch.DrawString(_debugSpriteFont, $"VertexShaderCount: {metrics.VertexShaderCount}", new Vector2(5, 65), Color.LightGreen);
-                _spriteBatch.DrawString(_debugSpriteFont, $"PixelShaderCount: {metrics.PixelShaderCount}", new Vector2(5, 75), Color.LightGreen);
-                _spriteBatch.End();
+                $"ClearCount: {metrics.ClearCount}",
+                $"DrawCount: {metrics.DrawCount}",
+                $"SpriteCount: {metrics.SpriteCount}",
+                $"TargetCount: {metrics.TargetCount}",
+                $"TextureCount: {metrics.TextureCount}",
+                $"PrimitiveCount: {metrics.PrimitiveCount}",
+                $"VertexShaderCount: {metrics.VertexShaderCount}",
+                $"PixelShaderCount: {metrics.PixelShaderCount}"
+            };
+
+            var longer = 0;
+            var index = 0;
+
+            for (var i = 0; i < strings.Length; i++)
+            {
+                if (strings[i].Length > longer)
+                {
+                    longer = strings[i].Length;
+                    index = i;
+                }
             }
+
+            var size = _debugSpriteFont.MeasureString(strings[index]);
+            var offset = size.Y;
+
+            _spriteBatch.Begin();
+
+            _spriteBatch.Draw(_debugOverlay, new Rectangle(0, 0, (int)(5 + size.X), (int)(strings.Length * offset + 5)), Color.White);
+
+            for (var i = 0; i < strings.Length; i++)
+                _spriteBatch.DrawString(_debugSpriteFont, strings[i], new Vector2(5, 5 + (offset * i)), Color.LightGreen);
+                                        
+            _spriteBatch.End();
 		}
 
 		#endregion
@@ -105,6 +132,14 @@ namespace Yna.Engine
         {
             _debugSpriteFont = font;
             _debugEnabled = font != null;
+
+            if (_debugOverlay != null)
+                return;
+
+            var color = Color.Black;
+            color.A = 125;
+
+            _debugOverlay = YnGraphics.CreateTexture(color, 8, 8);
         }
 
 		#region Resolution setup

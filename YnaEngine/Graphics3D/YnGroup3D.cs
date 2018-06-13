@@ -66,24 +66,8 @@ namespace Yna.Engine.Graphics3D
         {
             _boundingBox = new BoundingBox();
 
-            if (_initialized)
-            {
-                if (_members.Count > 0)
-                {
-                    foreach (YnEntity3D sceneObject in _members)
-                    {
-                        BoundingBox box = sceneObject.BoundingBox;
-
-                        _boundingBox.Min.X = box.Min.X < _boundingBox.Min.X ? box.Min.X : _boundingBox.Min.X;
-                        _boundingBox.Min.X = box.Min.Y < _boundingBox.Min.Y ? box.Min.Y : _boundingBox.Min.Y;
-                        _boundingBox.Min.X = box.Min.Z < _boundingBox.Min.Z ? box.Min.Z : _boundingBox.Min.Z;
-
-                        _boundingBox.Min.X = box.Min.X < _boundingBox.Min.X ? box.Min.X : _boundingBox.Min.X;
-                        _boundingBox.Min.X = box.Min.Y < _boundingBox.Min.Y ? box.Min.Y : _boundingBox.Min.Y;
-                        _boundingBox.Min.X = box.Min.Z < _boundingBox.Min.Z ? box.Min.Z : _boundingBox.Min.Z;
-                    }
-                }
-            }
+            foreach (YnEntity3D entity in _members)
+                _boundingBox = BoundingBox.CreateMerged(_boundingBox, entity.BoundingBox);
 
             // Update sizes of the scene
             _width = _boundingBox.Max.X - _boundingBox.Min.X;

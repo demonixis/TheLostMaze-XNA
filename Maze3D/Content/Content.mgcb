@@ -140,6 +140,12 @@
 /processorParam:TextureFormat=Color
 /build:Models/flare_blue.png
 
+#begin Font/debug.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:Font/debug.spritefont
+
 #begin Font/GameFont.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor

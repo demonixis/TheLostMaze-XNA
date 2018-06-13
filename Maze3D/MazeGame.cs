@@ -1,4 +1,5 @@
 using Maze3D.Screen;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using Yna.Engine;
 using Yna.Engine.Helpers;
@@ -63,6 +64,10 @@ namespace Maze3D
             _stateManager.Add(new SelectionState("selection"), false);
             _stateManager.Add(new OptionsState("options"), false);
             _stateManager.Add(new AboutState("about"), false);
+
+#if DEBUG
+            SetDebugLayerEnabled(Content.Load<SpriteFont>("Font/debug"));
+#endif
 
             base.Initialize();
         }

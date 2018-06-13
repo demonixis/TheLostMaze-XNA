@@ -36,7 +36,7 @@ namespace Yna.Engine.Graphics3D
         {
             UpdateMatrix();
 
-            if (_dynamic)
+            if (!_static)
                 UpdateBoundingVolumes();
 
             _material.Update(camera, ref _world);

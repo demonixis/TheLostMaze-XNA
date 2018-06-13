@@ -15,36 +15,19 @@ namespace Yna.Engine.Graphics3D
     {
         #region Protected & private declarations
 
-        // Direction
         protected Vector3 _position;
         protected Vector3 _rotation;
         protected Vector3 _scale = Vector3.One;
         protected Vector3 _lastPosition;
-        protected Vector3 _direction;
-        protected Vector3 _lastDirection;
-
-        // Bounding Sphere/Box
         protected BoundingBox _boundingBox;
         protected BoundingSphere _boundingSphere;
-
-        // Visibility
         protected bool _dirty;
-
-        // Static or dynamic object
-        protected bool _dynamic;
-
-        // Sizes
+        protected bool _static;
         protected float _width;
         protected float _height;
         protected float _depth;
-
-        // Parent
         protected YnEntity3D _parent;
-
-        // Rendering
-        protected Matrix _world;
-        protected bool _frustrumCulled;
-        protected bool _enableLight = true;
+        protected Matrix _world = Matrix.Identity;
 
         #endregion
 
@@ -69,10 +52,10 @@ namespace Yna.Engine.Graphics3D
         /// <summary>
         /// Gets or sets the value of dynamic, if true the bouding values will be updated on each update
         /// </summary>
-        public bool Dynamic
+        public bool Static
         {
-            get { return _dynamic; }
-            set { _dynamic = value; }
+            get { return _static; }
+            set { _static = value; }
         }
 
         /// <summary>
@@ -110,14 +93,6 @@ namespace Yna.Engine.Graphics3D
         /// Get the last position
         /// </summary>
         public Vector3 LastPosition => _lastPosition;
-
-        public Vector3 Direction
-        {
-            get { return _direction; }
-            set { _direction = value; }
-        }
-
-        public Vector3 LastDirection => _lastDirection;
 
         /// <summary>
         /// Gets or sets the rotation value
@@ -228,27 +203,6 @@ namespace Yna.Engine.Graphics3D
 
         #endregion
 
-        #region Properties for rendering
-
-        /// <summary>
-        /// Determine if the entity must be in the frustrum.
-        /// </summary>
-        public bool FrustrumCulled
-        {
-            get { return _frustrumCulled; }
-            set { _frustrumCulled = value; }
-        }
-
-        /// <summary>
-        /// Enable or disable lighting on an entity.
-        /// </summary>
-        public bool EnableLighting
-        {
-            get { return _enableLight; }
-            set { _enableLight = value; }
-        }
-
-        #endregion
 
         #region Rotation & Translation methods
 
@@ -296,28 +250,10 @@ namespace Yna.Engine.Graphics3D
         /// <param name="z">Z value</param>
         public virtual void Translate(float x, float y, float z)
         {
-            var move = new Vector3(x, y, z);
-            var forwardMovement = Matrix.CreateRotationY(_rotation.Y);
-            var v = Vector3.Transform(move, forwardMovement);
-
-            _position.X += v.X;
-            _position.Y += v.Y;
-            _position.Z += v.Z;
+            _position.X += x;
+            _position.Y += y;
+            _position.Z += z;
         }
-
-        /// <summary>
-        /// Translate the object on X axis
-        /// </summary>
-        /// <param name="x">X value</param>
-        public virtual void TranslateX(float x) => Translate(x, 0.0f, 0.0f);
-
-        /// <summary>
-        /// Translate the object on Y axis
-        /// </summary>
-        /// <param name="y"></param>
-        public virtual void TranslateY(float y) => Translate(0.0f, y, 0.0f);
-
-        public virtual void TranslateZ(float z) => Translate(0.0f, 0.0f, z);
 
         #endregion
 
@@ -373,13 +309,11 @@ namespace Yna.Engine.Graphics3D
         /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
-            if (!_dynamic)
+            if (_static)
                 return;
 
             UpdateBoundingVolumes();
 
-            _lastDirection = _direction;
-            _direction = (_position - _lastPosition);
             _lastPosition = _position;
         }
 
