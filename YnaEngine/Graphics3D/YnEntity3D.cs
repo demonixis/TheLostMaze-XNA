@@ -3,6 +3,7 @@
 // file 'LICENSE', which is part of this source code package.
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Yna.Engine.Graphics3D.Lighting;
 
 namespace Yna.Engine.Graphics3D
@@ -219,6 +220,12 @@ namespace Yna.Engine.Graphics3D
         /// </summary>
         public BoundingSphere BoundingSphere => _boundingSphere;
 
+        public Vector3 Forward => _world.Forward;
+        public Vector3 Backward => _world.Backward;
+        public Vector3 Right => _world.Right;
+        public Vector3 Left => _world.Left;
+        public Vector3 Up => Vector3.Normalize(Position + Vector3.Transform(Vector3.Up, _world));
+
         #endregion
 
         #region Properties for rendering
@@ -319,12 +326,34 @@ namespace Yna.Engine.Graphics3D
         /// <summary>
         /// Update world matrix.
         /// </summary>
-        public abstract void UpdateMatrix();
+        public virtual void UpdateMatrix()
+        {
+            _world = Matrix.Identity;
+            _world *= Matrix.CreateScale(_scale);
+            _world *= Matrix.CreateFromYawPitchRoll(_rotation.Y, _rotation.X, _rotation.Z);
+            _world *= Matrix.CreateTranslation(_position);
+
+            if (_parent != null)
+                _world *= _parent.World;
+        }
 
         /// <summary>
         /// Update bounding box and bounding sphere.
         /// </summary>
-        public abstract void UpdateBoundingVolumes();
+        public virtual void UpdateBoundingVolumes()
+        {
+            _boundingBox.Min.X = X;
+            _boundingBox.Min.Y = Y;
+            _boundingBox.Min.Z = Z;
+            _boundingBox.Max.X = X + Width;
+            _boundingBox.Max.Y = Y + Height;
+            _boundingBox.Max.Z = Z + Depth;
+
+            _boundingSphere.Center.X = X + (Width / 2);
+            _boundingSphere.Center.Y = Y + (Height / 2);
+            _boundingSphere.Center.Z = Z + (Depth / 2);
+            _boundingSphere.Radius = Math.Max(Math.Max(Width, Height), Depth);
+        }
 
         /// <summary>
         /// Update lights.

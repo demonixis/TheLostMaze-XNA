@@ -26,24 +26,6 @@ namespace Yna.Engine.Graphics3D
         /// </summary>
         public int Count => _members.Count;
 
-        public new Matrix World
-        {
-            get
-            {
-                _world = Matrix.Identity;
-
-                foreach (YnEntity3D members in _members)
-                    _world *= members.World;
-
-                return _world;
-            }
-            set
-            {
-                foreach (YnEntity3D members in _members)
-                    members.World *= value;
-            }
-        }
-
         /// <summary>
         /// Get the YnObject3D on this scene
         /// </summary>
@@ -53,52 +35,15 @@ namespace Yna.Engine.Graphics3D
         {
             get
             {
-                if (index < 0 || index > _members.Count - 1)
-                    return null;
-                else
+                if (index >= 0 && index < _members.Count)
                     return _members[index];
+
+                return null;
             }
             set
             {
-                if (index < 0 || index > _members.Count - 1)
-                    throw new IndexOutOfRangeException();
-                else
+                if (index >= 0 && index < _members.Count)
                     _members[index] = value;
-            }
-        }
-
-        public new Vector3 Rotation
-        {
-            get => _rotation;
-            set
-            {
-                foreach (YnEntity3D entity in this)
-                    entity.Rotation += value;
-
-                _rotation = value;
-            }
-        }
-
-        public new Vector3 Position
-        {
-            get => _position;
-            set
-            {
-                foreach (YnEntity3D entity in this)
-                    entity.Position += value;
-                _position = value;
-            }
-        }
-
-        public new Vector3 Scale
-        {
-            get => _scale;
-            set
-            {
-                foreach (YnEntity3D entity in this)
-                    entity.Scale += value;
-
-                _scale = value;
             }
         }
 
@@ -147,22 +92,6 @@ namespace Yna.Engine.Graphics3D
 
             _boundingSphere.Center = new Vector3(X + Width / 2, Y + Height / 2, Z + Depth / 2);
             _boundingSphere.Radius = Math.Max(Math.Max(_width, _height), _depth) / 2;
-
-            World = Matrix.Identity;
-
-            foreach (YnEntity3D members in _members)
-                World *= members.World;
-        }
-
-        /// <summary>
-        /// Update world and children world matrix.
-        /// </summary>
-        public override void UpdateMatrix()
-        {
-            World = Matrix.Identity;
-
-            foreach (YnEntity3D members in _members)
-                World *= members.World;
         }
 
         /// <summary>
@@ -171,7 +100,7 @@ namespace Yna.Engine.Graphics3D
         /// <param name="light">Light to use.</param>
         public override void UpdateLighting(SceneLight light)
         {
-            foreach (YnEntity3D entity3D in _members)
+            foreach (var entity3D in _members)
                 entity3D.UpdateLighting(light);
         }
 
@@ -291,6 +220,14 @@ namespace Yna.Engine.Graphics3D
             _members.Add(sceneObject);
 
             return true;
+        }
+
+        public virtual YnEntity3D Get(int index)
+        {
+            if (index >= 0 && index < _members.Count)
+                return _members[index];
+
+            return null;
         }
 
         /// <summary>

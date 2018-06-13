@@ -69,13 +69,31 @@ namespace Yna.Engine.Graphics3D
             set { _sceneLight = value; }
         }
 
+        public bool VREnabled
+        {
+            get => _vrEnabled;
+            set
+            {
+                if (value == _vrEnabled)
+                    return;
+
+                if (!value)
+                {
+                    _vrEnabled = false;
+                    _vrService.Dispose();
+                }
+                else
+                    TryInitializeVR();
+            }
+        }
+
         #region Constructors
 
         /// <summary>
         /// Create a state with a 3D scene and a camera.
         /// </summary>
         /// <param name="camera">Camera to use on this scene.</param>
-        public YnState3D(Camera camera = null)
+        public YnState3D(Camera camera = null, bool tryInitializeVR = true)
             : base()
         {
             _camera = camera != null ? new Camera() : camera;
@@ -84,6 +102,12 @@ namespace Yna.Engine.Graphics3D
             _sceneLight = new SceneLight();
             _sceneLight.AmbientIntensity = 1f;
 
+            if (tryInitializeVR)
+                TryInitializeVR();
+        }
+
+        private void TryInitializeVR()
+        {
 #if DEBUG_VR
             _NullVR = new NullVRService(YnG.Game);
             var driver = new VRDriver(_NullVR, true, 0);
