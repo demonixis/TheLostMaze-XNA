@@ -17,11 +17,13 @@ namespace Yna.Engine
     /// </summary>
     public class YnGame : Game
     {
-        protected GraphicsDeviceManager _graphicsDevice = null;
-        protected SpriteBatch m_SpriteBatch = null;
-        protected StateManager _stateManager = null;
         public static string GameTitle = "Yna Game";
         public static string GameVersion = "1.0.0.0";
+        protected GraphicsDeviceManager _graphicsDevice = null;
+        protected SpriteBatch _spriteBatch;
+        protected StateManager _stateManager;
+        private SpriteFont _debugSpriteFont;
+        private bool _debugEnabled;
 
         #region Constructors
 
@@ -63,7 +65,7 @@ namespace Yna.Engine
         protected override void LoadContent()
         {
             base.LoadContent();
-            m_SpriteBatch = new SpriteBatch(GraphicsDevice);
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
             GraphicsDevice.Viewport = new Viewport(0, 0, _graphicsDevice.PreferredBackBufferWidth, _graphicsDevice.PreferredBackBufferHeight);
             Window.Title = String.Format("{0} - v{1}", GameTitle, GameVersion);
         }
@@ -77,16 +79,42 @@ namespace Yna.Engine
             YnG.AudioManager.Dispose();
         }
 
-        #endregion
+		protected override void Draw(GameTime gameTime)
+		{
+            base.Draw(gameTime);
 
-        #region Resolution setup
+            if (_debugEnabled)
+            {
+                var metrics = GraphicsDevice.Metrics;
+                _spriteBatch.Begin();
+                _spriteBatch.DrawString(_debugSpriteFont, $"ClearCount: {metrics.ClearCount}", new Vector2(5, 5), Color.LightGreen);
+                _spriteBatch.DrawString(_debugSpriteFont, $"DrawCount: {metrics.DrawCount}", new Vector2(5, 15), Color.LightGreen);
+                _spriteBatch.DrawString(_debugSpriteFont, $"SpriteCount: {metrics.SpriteCount}", new Vector2(5, 25), Color.LightGreen);
+                _spriteBatch.DrawString(_debugSpriteFont, $"TargetCount: {metrics.TargetCount}", new Vector2(5, 35), Color.LightGreen);
+                _spriteBatch.DrawString(_debugSpriteFont, $"TextureCount: {metrics.TextureCount}", new Vector2(5, 45), Color.LightGreen);
+                _spriteBatch.DrawString(_debugSpriteFont, $"PrimitiveCount: {metrics.PrimitiveCount}", new Vector2(5, 55), Color.LightGreen);
+                _spriteBatch.DrawString(_debugSpriteFont, $"VertexShaderCount: {metrics.VertexShaderCount}", new Vector2(5, 65), Color.LightGreen);
+                _spriteBatch.DrawString(_debugSpriteFont, $"PixelShaderCount: {metrics.PixelShaderCount}", new Vector2(5, 75), Color.LightGreen);
+                _spriteBatch.End();
+            }
+		}
 
-        /// <summary>
-        /// Change the screen resolution
-        /// </summary>
-        /// <param name="width">Screen width</param>
-        /// <param name="height">Screen height</param>
-        public virtual void SetScreenResolution(int width, int height)
+		#endregion
+
+        public void SetDebugLayerEnabled(SpriteFont font)
+        {
+            _debugSpriteFont = font;
+            _debugEnabled = font != null;
+        }
+
+		#region Resolution setup
+
+		/// <summary>
+		/// Change the screen resolution
+		/// </summary>
+		/// <param name="width">Screen width</param>
+		/// <param name="height">Screen height</param>
+		public virtual void SetScreenResolution(int width, int height)
         {
             this._graphicsDevice.PreferredBackBufferWidth = width;
             this._graphicsDevice.PreferredBackBufferHeight = height;
