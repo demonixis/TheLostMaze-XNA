@@ -35,8 +35,10 @@
   <ItemGroup>
     <Compile Include="Audio\AudioManager.cs" />
     <Compile Include="Extensions\BoundingFrustrumExtension.cs" />
+    <Compile Include="Graphics3D\Material\SkyboxMaterial.cs" />
     <Compile Include="Graphics3D\Renderer\DeviceState.cs" />
     <Compile Include="Graphics3D\Renderer\GraphicsDeviceExtensions.cs" />
+    <Compile Include="Graphics3D\Skybox.cs" />
     <Compile Include="Graphics3D\VR\NullVRService.cs" />
     <Compile Include="Graphics3D\VR\OpenVR\OpenVRController.cs" />
     <Compile Include="Graphics3D\VR\OpenVR\OpenVRExtensions.cs" />
@@ -129,7 +131,6 @@
     <Compile Include="Graphics3D\Renderer\BoundingBoxRenderer.cs" />
     <Compile Include="Graphics3D\Renderer\RayRenderer.cs" />
     <Compile Include="Graphics3D\Renderer\BoundingFrustrumRenderer.cs" />
-    <Compile Include="Graphics3D\YnG3.cs" />
     <Compile Include="Graphics3D\YnGroup3D.cs" />
     <Compile Include="Graphics3D\YnEntity3D.cs" />
     <Compile Include="Graphics3D\Terrain\Heightmap.cs" />
@@ -158,6 +159,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Graphics\Component\Resources\gamepad_bg.png" />
     <EmbeddedResource Include="Graphics\Component\Resources\gamepad_fg.png" />
+    <EmbeddedResource Include="Graphics3D\Material\Resources\Skybox_dx11.mgfxo" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

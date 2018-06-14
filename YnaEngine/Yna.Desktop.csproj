@@ -162,6 +162,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Graphics\Component\Resources\gamepad_bg.png" />
     <EmbeddedResource Include="Graphics\Component\Resources\gamepad_fg.png" />
+	<EmbeddedResource Include="Graphics3D\Material\Resources\Skybox_dx11.mgfxo" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

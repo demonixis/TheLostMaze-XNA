@@ -210,7 +210,7 @@ namespace Maze3D.Screen
 
         public override void Draw(GameTime gameTime)
         {
-            YnG3.RestoreGraphicsDeviceStates();
+            YnG.RestoreGraphicsDeviceStates();
 
             base.Draw(gameTime);
 

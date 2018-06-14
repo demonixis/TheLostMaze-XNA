@@ -53,11 +53,9 @@ namespace Yna.Engine.Graphics3D.Geometry
         /// <summary>
         /// Gets the vertex array used by this object
         /// </summary>
-        public T[] Vertices
-        {
-            get { return _vertices; }
-            protected set { _vertices = value; }
-        }
+        public T[] Vertices => _vertices;
+        public short[] Indices => _indices;
+
 
         /// <summary>
         /// Gets the state of the geometry.
@@ -91,7 +89,7 @@ namespace Yna.Engine.Graphics3D.Geometry
         /// <summary>
         /// Gets or sets the segments size. It represent the space between two vertex.
         /// </summary>
-        public Vector3 SegmentSizes
+        public Vector3 Size
         {
             get { return _segmentSizes; }
             set { _segmentSizes = value; }
@@ -108,6 +106,9 @@ namespace Yna.Engine.Graphics3D.Geometry
             get { return _origin; }
             protected set { _origin = value; }
         }
+
+        public VertexBuffer VertexBuffer => _vertexBuffer;
+        public IndexBuffer IndexBuffer => _indexBuffer;
 
         /// <summary>
         /// Enable or disable the rendering on all faces, event hidden faces.
