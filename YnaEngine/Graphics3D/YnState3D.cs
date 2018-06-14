@@ -93,7 +93,7 @@ namespace Yna.Engine.Graphics3D
         /// Create a state with a 3D scene and a camera.
         /// </summary>
         /// <param name="camera">Camera to use on this scene.</param>
-        public YnState3D(Camera camera = null, bool tryInitializeVR = true)
+        public YnState3D(Camera camera = null, bool tryInitializeVR = false)
             : base()
         {
             _camera = camera != null ? new Camera() : camera;
@@ -115,7 +115,7 @@ namespace Yna.Engine.Graphics3D
 #endif
             _vrService = VRManager.GetVRAvailableVRService(YnG.Game);
             _vrEnabled = _vrService != null;
-       
+
             if (_vrEnabled)
             {
                 YnG.Game.Components.Add(_vrService);
@@ -193,9 +193,10 @@ namespace Yna.Engine.Graphics3D
 
         public override void Draw(GameTime gameTime)
         {
+            var graphics = YnG.GraphicsDevice;
+
             if (_vrEnabled)
             {
-                var graphics = YnG.GraphicsDevice;
                 var oldRT = graphics.GetRenderTargets();
 
 #if DEBUG_VR
@@ -223,7 +224,7 @@ namespace Yna.Engine.Graphics3D
                 DrawVRPreview(0, true);
             }
             else
-                _scene.Draw(gameTime, YnG.GraphicsDevice, _camera, _sceneLight);
+                _scene.Draw(gameTime, graphics, _camera, _sceneLight);
         }
 
         private void DrawVRPreview(int eye, bool stereo)

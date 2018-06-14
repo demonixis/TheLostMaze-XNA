@@ -17,19 +17,19 @@ namespace Yna.Engine.Graphics3D.Materials
     {
         // The effect to use
         protected Effect _effect;
-        protected string _effectName;
+        protected string _effectName = string.Empty;
         protected bool _effectLoaded;
 
         // A default texture
         protected Texture2D _texture;
-        protected string _textureName;
+        protected string _textureName = string.Empty;
         protected bool _textureLoaded;
 
         // Base value for a material
-        protected Vector3 _ambientColor;
-        protected float _ambientIntensity;
-        protected Vector3 _diffuseColor;
-        protected float _diffuseIntensity;
+        protected Vector3 _ambientColor = Color.White.ToVector3();
+        protected float _ambientIntensity = 0.75f;
+        protected Vector3 _diffuseColor = Color.White.ToVector3();
+        protected float _diffuseIntensity = 0.75f;
 
         protected BaseLight _light;
 
@@ -104,21 +104,6 @@ namespace Yna.Engine.Graphics3D.Materials
         }
 
         #endregion
-
-        public Material()
-        {
-            _ambientColor = Color.White.ToVector3();
-            _ambientIntensity = 0.75f;
-            _diffuseColor = Color.White.ToVector3();
-            _diffuseIntensity = 0.75f;
-            _effect = null;
-            _effectName = String.Empty;
-            _effectLoaded = false;
-            _texture = null;
-            _textureName = String.Empty;
-            _textureLoaded = false;
-            _light = null;
-        }
 
         public abstract void LoadContent();
 

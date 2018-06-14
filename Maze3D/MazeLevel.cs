@@ -25,50 +25,32 @@ namespace Maze3D
         /// <summary>
         /// Position de départ de la caméra.
         /// </summary>
-        public Vector3 StartPosition
-        {
-            get { return _startPosition; }
-        }
+        public Vector3 StartPosition => _startPosition;
 
         /// <summary>
         /// Obtient le tableau de structure du niveau.
         /// </summary>
-        public int[,] Tiles
-        {
-            get { return _levelTiles; }
-        }
+        public int[,] Tiles => _levelTiles;
 
         /// <summary>
         /// Obtient le numéro de niveau.
         /// </summary>
-        public new int Id
-        {
-            get { return _levelId; }
-        }
+        public new int Id => _levelId;
 
         /// <summary>
         /// Obtient l'instance Level utilisé pour générer ce niveau.
         /// </summary>
-        public Level Level
-        {
-            get { return _level; }
-        }
+        public Level Level => _level;
 
         /// <summary>
         /// Obtient la collection des murs.
         /// </summary>
-        public YnGroup3D Walls
-        {
-            get { return _groupWalls; }
-        }
+        public YnGroup3D Walls => _groupWalls;
 
         /// <summary>
         /// Obtient la collection des éléments à ramasser.
         /// </summary>
-        public YnGroup3D Items
-        {
-            get { return _groupItems; }
-        }
+        public YnGroup3D Items => _groupItems;
 
         #endregion
 
@@ -122,21 +104,15 @@ namespace Maze3D
         /// </summary>
         private void GenerateSkyBox()
         {
-            if (_level.SkyboxType != SkyboxType.None)
-            {
-                string[] skyAssets;
+            if (_level.SkyboxType == SkyboxType.None)
+                return;
 
-                if (_level.SkyboxType == SkyboxType.Day)
-                    skyAssets = Assets.SkyboxLand;
-                else
-                    skyAssets = Assets.SkyboxNight;
+            var skyAssets = _level.SkyboxType == SkyboxType.Day ? Assets.SkyboxLand : Assets.SkyboxNight;
 
-                _skybox = new SkyBox(Math.Max(_level.Width * _level.BlockSizes.Width, _level.Depth * _level.BlockSizes.Depth) * 4.5f, skyAssets);
-                _skybox.LoadContent();
-                _skybox.SetLightEnable(false);
-                _skybox.Position = new Vector3((_level.Width * _level.BlockSizes.Width), 0, (_level.Depth * _level.BlockSizes.Depth));
-                Add(_skybox);
-            }
+            _skybox = new SkyBox(Math.Max(_level.Width * _level.BlockSizes.Width, _level.Depth * _level.BlockSizes.Depth) * 4.5f, skyAssets);
+            _skybox.LoadContent();
+            _skybox.Position = new Vector3((_level.Width * _level.BlockSizes.Width), 0, (_level.Depth * _level.BlockSizes.Depth));
+            Add(_skybox);
         }
 
         private void GenerateGrounds()

@@ -38,7 +38,6 @@
     <Compile Include="Graphics3D\Material\SkyboxMaterial.cs" />
     <Compile Include="Graphics3D\Renderer\DeviceState.cs" />
     <Compile Include="Graphics3D\Renderer\GraphicsDeviceExtensions.cs" />
-    <Compile Include="Graphics3D\Skybox.cs" />
     <Compile Include="Graphics3D\VR\NullVRService.cs" />
     <Compile Include="Graphics3D\VR\OpenVR\OpenVRController.cs" />
     <Compile Include="Graphics3D\VR\OpenVR\OpenVRExtensions.cs" />
@@ -159,7 +158,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Graphics\Component\Resources\gamepad_bg.png" />
     <EmbeddedResource Include="Graphics\Component\Resources\gamepad_fg.png" />
-    <EmbeddedResource Include="Graphics3D\Material\Resources\Skybox_dx11.mgfxo" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
