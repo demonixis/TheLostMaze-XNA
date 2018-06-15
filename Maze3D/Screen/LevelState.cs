@@ -19,15 +19,11 @@ namespace Maze3D.Screen
     {
         private YnTimer soundTimer;
         private long elapsedPartyTime;
-
         private MazeGameState gameState;
         private Score score;
-
         private BoundingSphere groundPlayerBoundingSphere;
-
         private MazeLevel _mazeLevel;
         private GameHUD _gameHUD;
-
         private MazeController _control;
         private VirtualPad _virtualPad;
 
@@ -68,12 +64,14 @@ namespace Maze3D.Screen
 
             _control = new MazeController(Camera);
 
-            SceneLight.AmbientIntensity = 0.85f;
+            SceneLight.AmbientIntensity = 1.0f;
+            SceneLight.AmbientColor = new Vector3(0.6f);
             SceneLight.DirectionalLights[0].Enabled = true;
-            SceneLight.DirectionalLights[0].Direction = new Vector3(-1, 0.75f, -1);
-            SceneLight.DirectionalLights[0].DiffuseColor = Color.WhiteSmoke.ToVector3();
-            SceneLight.DirectionalLights[0].DiffuseIntensity = 1.0f;
-            SceneLight.DirectionalLights[0].SpecularColor = new Vector3(233, 33, 33);
+            SceneLight.DirectionalLights[0].Direction = new Vector3(-1, 1, 0);
+            SceneLight.DirectionalLights[0].DiffuseColor = Color.Wheat.ToVector3();
+            SceneLight.DirectionalLights[0].SpecularColor = Color.Silver.ToVector3();
+
+            SetFog(true, Color.LightGray, 25, 250);
         }
 
         public override void LoadContent()
@@ -167,7 +165,7 @@ namespace Maze3D.Screen
 
                 groundPlayerBoundingSphere.Center = new Vector3(Camera.Position.X, 1, Camera.Position.Z);
 
-                foreach (YnMeshModel model in _mazeLevel.Items)
+                foreach (YnEntity3D model in _mazeLevel.Items)
                 {
                     if (model.Active)
                     {
@@ -192,9 +190,8 @@ namespace Maze3D.Screen
             {
                 gameState = MazeGameState.Terminated;
 
-                bool finishedGame = false;
-
-                int nextLevel = (_mazeLevel.Id + 1);
+                var finishedGame = false;
+                var nextLevel = (_mazeLevel.Id + 1);
 
                 if (nextLevel > GameSettings.LevelCount)
                 {

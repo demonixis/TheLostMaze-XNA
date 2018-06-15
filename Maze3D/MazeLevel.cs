@@ -3,9 +3,9 @@ using Microsoft.Xna.Framework;
 using System;
 using Yna.Engine.Content;
 using Yna.Engine.Graphics3D;
-using Yna.Engine.Graphics3D.Geometry;
+using Yna.Engine.Graphics3D.Geometries;
 using Yna.Engine.Graphics3D.Materials;
-using Yna.Engine.Graphics3D.Terrain;
+using Yna.Engine.Graphics3D.Terrains;
 
 namespace Maze3D
 {
@@ -130,6 +130,11 @@ namespace Maze3D
                 Add(top);
             }
 
+            var terrain = new Terrain(_level.GroundTexture, _level.Width * _level.BlockSizes.Width, _level.Depth * _level.BlockSizes.Depth, 4, 4);
+            terrain.Geometry.TextureRepeat = new Vector2(24);
+            terrain.Position = new Vector3((_level.Width * _level.BlockSizes.Width), 0, (_level.Depth * _level.BlockSizes.Depth)) * -1.0f;
+            Add(terrain);
+#if TEST
             var planG2 = new PlaneGeometry(new Vector3(_level.Width * _level.BlockSizes.Width, 0, _level.Depth * _level.BlockSizes.Depth));
             planG2.TextureRepeat = new Vector2(24);
 
@@ -137,6 +142,7 @@ namespace Maze3D
             ground.LoadContent();
             ground.Position = new Vector3((_level.Width * _level.BlockSizes.Width), 0, (_level.Depth * _level.BlockSizes.Depth));
             Add(ground);
+#endif
         }
 
         /// <summary>

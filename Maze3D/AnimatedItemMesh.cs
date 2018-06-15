@@ -10,29 +10,22 @@ namespace Maze3D
         FadeIn = 0, FadeOut
     }
 
-    public class AnimatedItemMesh : YnMeshModel
+    public class AnimatedItemMesh : YnModel
     {
         private float _minY;
         private float _maxY;
         private int _yDirection;
-        private int _points;
+        private BasicMaterial _basicMaterial;
 
-        public int Points
-        {
-            get { return _points; }
-            set { _points = value; }
-        }
+        public int Points { get; set; } = 15;
 
         public AnimatedItemMesh(string assetName)
             : base(assetName)
         {
-            _points = 15;
             _minY = 0.0f;
             _maxY = 2.5f;
             _yDirection = 1;
-
             _rotation.X = (float)-Math.PI / 2;
-
             Name = "ITEM";
         }
 
@@ -40,15 +33,14 @@ namespace Maze3D
         {
             base.LoadContent();
 
-            BasicMaterial material = (BasicMaterial)_material;
+            _basicMaterial = (BasicMaterial)_material;
 
-            if (_points == 15)
-                material.EmissiveColor = Color.Blue.ToVector3();
+            if (Points == 15)
+                _basicMaterial.EmissiveColor = Color.Blue.ToVector3();
             else
-                material.EmissiveColor = Color.Green.ToVector3();
+                _basicMaterial.EmissiveColor = Color.Green.ToVector3();
 
-            material.EmissiveIntensity = 1.3f;
-            material.AmbientIntensity = 1.2f;
+            _basicMaterial.EmissiveIntensity = 1.3f;
         }
 
         public override void Update(GameTime gameTime)

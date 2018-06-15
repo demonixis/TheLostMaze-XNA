@@ -17,13 +17,7 @@ namespace Yna.Engine.Graphics3D.Materials
         /// <summary>
         /// Create a basic material with a BasicEffect
         /// </summary>
-        public BasicMaterial()
-            : base()
-        {
-            _effectName = "BasicEffect";
-            _enableDefaultLighting = false;
-            _enableLighting = true;
-        }
+        public BasicMaterial() : base() { }
 
         /// <summary>
         /// Create a basic material with a BasicEffect and a texture
@@ -33,50 +27,46 @@ namespace Yna.Engine.Graphics3D.Materials
             : this()
         {
             _textureName = textureName;
-            _enableMainTexture = true;
         }
 
         public BasicMaterial(Texture2D texture)
             : this()
         {
             _texture = texture;
-            _textureLoaded = true;
-            _enableMainTexture = true;
         }
 
         public override void LoadContent()
         {
             base.LoadContent();
 
-            if (!_effectLoaded)
-            {
-                _effect = new BasicEffect(YnG.GraphicsDevice);
-                _effectLoaded = true;
-            }
+            if (_effect != null)
+                return;
+
+            _effect = new BasicEffect(YnG.GraphicsDevice);
         }
 
-        public override void Update(Cameras.Camera camera, ref Matrix world)
+        public override void Update(Camera camera, SceneLight light, ref Matrix world, ref FogData fog)
         {
             // Update matrices
-            base.Update(camera, ref world);
+            base.Update(camera, light, ref world, ref fog);
 
             BasicEffect basicEffect = (BasicEffect)_effect;
 
             // Texture
-            basicEffect.TextureEnabled = _enableMainTexture;
+            basicEffect.TextureEnabled = _texture != null;
             basicEffect.Texture = _texture;
 
             // Fog
-            UpdateFog(basicEffect);
+            UpdateFog(basicEffect, ref fog);
 
             // Lights
-            if (UpdateLights(basicEffect))
+            if (UpdateLights(basicEffect, light))
             {
-                basicEffect.PreferPerPixelLighting = _enablePerPixelLighting;
-                basicEffect.EmissiveColor = _emissiveColor;
-                basicEffect.DiffuseColor = _diffuseColor * _diffuseIntensity;
-                basicEffect.SpecularColor = _specularColor * _specularIntensity;
-                basicEffect.Alpha = _alphaColor;
+                basicEffect.PreferPerPixelLighting = PreferPerPixelLighting;
+                basicEffect.EmissiveColor = EmissiveColor;
+                basicEffect.DiffuseColor = DiffuseColor * DiffuseIntensity;
+                basicEffect.SpecularColor = SpecularColor * SpecularIntensity;
+                basicEffect.Alpha = AlphaColor;
             }
         }
     }

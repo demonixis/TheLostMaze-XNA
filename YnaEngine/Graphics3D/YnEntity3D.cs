@@ -4,7 +4,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using Yna.Engine.Graphics3D.Cameras;
 using Yna.Engine.Graphics3D.Lighting;
+using Yna.Engine.Graphics3D.Materials;
 
 namespace Yna.Engine.Graphics3D
 {
@@ -28,6 +30,7 @@ namespace Yna.Engine.Graphics3D
         protected float _depth;
         protected YnEntity3D _parent;
         protected Matrix _world = Matrix.Identity;
+        protected Material _material;
 
         #endregion
 
@@ -74,6 +77,18 @@ namespace Yna.Engine.Graphics3D
         {
             get { return _world; }
             set { _world = value; }
+        }
+
+        public Material Material
+        {
+            get => _material;
+            set
+            {
+                _material = value;
+
+                if (_initialized)
+                    _material.LoadContent();
+            }
         }
 
         #endregion
@@ -291,14 +306,6 @@ namespace Yna.Engine.Graphics3D
             _boundingSphere.Radius = Math.Max(Math.Max(Width, Height), Depth);
         }
 
-        /// <summary>
-        /// Update lights.
-        /// </summary>
-        /// <param name="light">Light to use.</param>
-        public virtual void UpdateLighting(SceneLight light)
-        {
-        }
-
         #endregion
 
         #region GameState pattern
@@ -317,9 +324,17 @@ namespace Yna.Engine.Graphics3D
             _lastPosition = _position;
         }
 
-        public virtual void Draw(GameTime gameTime, GraphicsDevice device, Cameras.Camera camera)
+        public virtual void PreDraw(Camera camera, SceneLight light, ref FogData data)
         {
+            UpdateMatrix();
+
+            if (!_static)
+                UpdateBoundingVolumes();
+
+            _material.Update(camera, light, ref _world, ref data);
         }
+
+        public virtual void Draw(GameTime gameTime, GraphicsDevice device, Camera camera, SceneLight light, ref FogData fog) { }
 
         #endregion
     }

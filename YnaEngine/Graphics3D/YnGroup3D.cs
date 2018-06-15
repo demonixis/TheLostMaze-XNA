@@ -78,16 +78,6 @@ namespace Yna.Engine.Graphics3D
             _boundingSphere.Radius = Math.Max(Math.Max(_width, _height), _depth) / 2;
         }
 
-        /// <summary>
-        /// Update lights.
-        /// </summary>
-        /// <param name="light">Light to use.</param>
-        public override void UpdateLighting(SceneLight light)
-        {
-            foreach (var entity3D in _members)
-                entity3D.UpdateLighting(light);
-        }
-
         #endregion
 
         #region GameState Pattern
@@ -153,17 +143,7 @@ namespace Yna.Engine.Graphics3D
         /// </summary>
         /// <param name="gameTime">GameTime object.</param>
         /// <param name="device">GraphicsDevice object</param>
-        public override void Draw(GameTime gameTime, GraphicsDevice device, Cameras.Camera camera)
-        {
-            if (!Visible)
-                return;
-
-            foreach (var member in _members)
-                if (member.Visible)
-                    member.Draw(gameTime, device, camera);
-        }
-
-        public void Draw(GameTime gameTime, GraphicsDevice device, Cameras.Camera camera, SceneLight light)
+        public override void Draw(GameTime gameTime, GraphicsDevice device, Camera camera, SceneLight light, ref FogData fog)
         {
             if (!Visible)
                 return;
@@ -173,10 +153,7 @@ namespace Yna.Engine.Graphics3D
                 if (!member.Visible)
                     continue;
 
-                if (light != null)
-                    member.UpdateLighting(light);
-
-                member.Draw(gameTime, device, camera);
+                member.Draw(gameTime, device, camera, light, ref fog);
             }
         }
 
