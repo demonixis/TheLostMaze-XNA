@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Yna.Engine.Graphics3D.Materials;
 using Yna.Engine.Graphics3D.Lighting;
+using System.Collections.Generic;
 
 namespace Yna.Engine.Graphics3D.Geometries
 {
@@ -22,7 +23,7 @@ namespace Yna.Engine.Graphics3D.Geometries
     ///     and call in first PreDraw() method. Do your stuff after that
     /// </summary>
     /// <typeparam name="T">Type of IVertexType</typeparam>
-    public abstract class Geometry
+    public class Geometry
     {
         #region Protected declarations
 
@@ -31,9 +32,9 @@ namespace Yna.Engine.Graphics3D.Geometries
         protected short[] _indices;
         protected VertexBuffer _vertexBuffer;
         protected IndexBuffer _indexBuffer;
-        protected Vector2 _UVOffset;
-        protected Vector3 _size;
-        protected Vector3 _origin;
+        protected Vector2 _UVOffset = Vector2.One;
+        protected Vector3 _size = Vector3.One;
+        protected Vector3 _origin = Vector3.Zero;
         protected Vector3 _position;
         protected bool _constructed;
         protected bool _invertFaces;
@@ -140,38 +141,6 @@ namespace Yna.Engine.Graphics3D.Geometries
 
         #endregion
 
-        #region Constructors
-
-        /// <summary>
-        /// Create a basic shape
-        /// </summary>
-        public Geometry()
-        {
-            _UVOffset = Vector2.One;
-            _position = Vector3.Zero;
-            _origin = Vector3.Zero;
-            _size = Vector3.One;
-            _constructed = false;
-            _invertFaces = false;
-            _doubleSided = false;
-            _newRasterizerState = new RasterizerState();
-            _oldRasterizerState = null;
-        }
-
-        /// <summary>
-        /// Create a new shape with a texture, a size and a position
-        /// </summary>
-        /// <param name="textureName">The texture name</param>
-        /// <param name="sizes">Desired size</param>
-        /// <param name="position">Position</param>
-        public Geometry(Vector3 sizes)
-            : this()
-        {
-            _size = sizes;
-        }
-
-        #endregion
-
         /// <summary>
         /// Generate the shape, update the shader and update bounding volumes
         /// </summary>
@@ -192,12 +161,12 @@ namespace Yna.Engine.Graphics3D.Geometries
         /// <summary>
         /// Create vertex array
         /// </summary>
-        protected abstract void CreateVertices();
+        protected virtual void CreateVertices() { }
 
         /// <summary>
         /// Create index array
         /// </summary>
-        protected abstract void CreateIndices();
+        protected virtual void CreateIndices() { }
 
         /// <summary>
         /// Create vertex buffer and index buffer
@@ -294,6 +263,59 @@ namespace Yna.Engine.Graphics3D.Geometries
             }
 
             PostDraw(device);
+        }
+
+        public static Geometry MergeMeshes(YnMeshGeometry[] meshes)
+        {
+            var vertices = new List<VertexPositionNormalTexture>();
+            var indices = new List<short>();
+            VertexPositionNormalTexture vertexPNT;
+            Geometry geo;
+
+            foreach (var mesh in meshes)
+            {
+                geo = mesh.Geometry;
+
+                foreach (var vertex in geo._vertices)
+                {
+                    vertexPNT = new VertexPositionNormalTexture()
+                    {
+                        Position = (vertex.Position + mesh.Position) * mesh.Scale,
+                        Normal = vertex.Normal,
+                        TextureCoordinate = vertex.TextureCoordinate
+                    };
+
+                    vertices.Add(vertexPNT);
+                }
+ 
+                indices.AddRange(geo._indices);
+            }
+
+            geo = new Geometry();
+            geo._vertices = vertices.ToArray();
+            geo._indices = indices.ToArray();
+            geo.Generate();
+
+            return geo;
+        }
+
+        public static Geometry MergeGeometries(Geometry[] list)
+        {
+            var vertices = new List<VertexPositionNormalTexture>();
+            var indices = new List<short>();
+
+            foreach (var geo in list)
+            {
+                vertices.AddRange(geo._vertices);
+                indices.AddRange(geo._indices);
+            }
+
+            var geometry = new Geometry();
+            geometry._vertices = vertices.ToArray();
+            geometry._indices = indices.ToArray();
+            geometry.Generate();
+
+            return geometry;
         }
     }
 }

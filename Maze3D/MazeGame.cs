@@ -52,6 +52,8 @@ namespace Maze3D
 
             _gameFinished = false;
             _playerManager = new Player();
+
+            YnG.AutoStartVirtualReality = true;
         }
 
         protected override void Initialize()

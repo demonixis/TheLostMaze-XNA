@@ -1,9 +1,13 @@
 ﻿using Maze3D.Data;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 using Yna.Engine.Content;
 using Yna.Engine.Graphics3D;
+using Yna.Engine.Graphics3D.Cameras;
 using Yna.Engine.Graphics3D.Geometries;
+using Yna.Engine.Graphics3D.Lighting;
 using Yna.Engine.Graphics3D.Materials;
 using Yna.Engine.Graphics3D.Terrains;
 
@@ -75,7 +79,7 @@ namespace Maze3D
         {
             base.LoadContent();
             InitializeLevel();
-            GenerateCubeWalls();
+            GenerateCubeWalls(true);
             GenerateBorderWalls();
             GenerateGrounds();
             GenerateSkyBox();
@@ -189,14 +193,15 @@ namespace Maze3D
         /// <summary>
         /// Génération des blocs du niveau.
         /// </summary>
-        private void GenerateCubeWalls()
+        private void GenerateCubeWalls(bool mergeWalls)
         {
             YnMeshGeometry wall = null;
             AnimatedItemMesh item = null;
 
-            string texture = _level.WallTexture;
-            Vector3 sizes = new Vector3(_level.BlockSizes.Width, _level.BlockSizes.Height, _level.BlockSizes.Depth);
-            Vector3 position = Vector3.Zero;
+            var sizes = new Vector3(_level.BlockSizes.Width, _level.BlockSizes.Height, _level.BlockSizes.Depth);
+            var position = Vector3.Zero;
+            var walls = new List<YnMeshGeometry>();
+            var wallMaterial = new BasicMaterial(_level.WallTexture);
 
             for (int y = 0; y < _level.Depth; y++)
             {
@@ -208,13 +213,15 @@ namespace Maze3D
 
                     if (_levelTiles[x, y] == 2)
                     {
-                        wall = new YnMeshGeometry(new CubeGeometry(sizes), texture);
+                        wall = new YnMeshGeometry(new CubeGeometry(sizes), wallMaterial);
                         wall.Position = position;
                         wall.Name = "WALL";
                         wall.LoadContent();
                         wall.Initialize();
                         _groupWalls.Add(wall);
                         wall.UpdateBoundingVolumes();
+                        wall.Visible = !mergeWalls;
+                        walls.Add(wall);
                     }
                     else if (_levelTiles[x, y] == 5 || _levelTiles[x, y] == 6)
                     {
@@ -244,6 +251,13 @@ namespace Maze3D
                         _startPosition.Y = 10;
                     }
                 }
+            }
+
+            if (mergeWalls)
+            {
+                var merged = Geometry.MergeMeshes(walls.ToArray());
+                wall = new YnMeshGeometry(merged, wallMaterial);
+                Add(wall);
             }
         }
     }

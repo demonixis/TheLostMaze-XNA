@@ -1,10 +1,6 @@
 ﻿// YnaEngine - Copyright (C) YnaEngine team
 // This file is subject to the terms and conditions defined in
 // file 'LICENSE', which is part of this source code package.
-#define USE_NULL_SERVICE_
-#if DEBUG && USE_NULL_SERVICE
-#define DEBUG_VR
-#endif
 using C3DE.VR;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -37,10 +33,6 @@ namespace Yna.Engine.Graphics3D
         private VRService _vrService;
         private bool _vrEnabled;
         private RenderTarget2D[] _sceneRenderTargets;
-
-#if DEBUG_VR
-        private NullVRService _NullVR;
-#endif
 
         /// <summary>
         /// Gets (protected sets) the collection of basic objects.
@@ -108,7 +100,7 @@ namespace Yna.Engine.Graphics3D
         /// Create a state with a 3D scene and a camera.
         /// </summary>
         /// <param name="camera">Camera to use on this scene.</param>
-        public YnState3D(Camera camera = null, bool tryInitializeVR = false)
+        public YnState3D(Camera camera = null, bool? tryInitializeVR = null)
             : base()
         {
             _camera = camera != null ? new Camera() : camera;
@@ -117,17 +109,14 @@ namespace Yna.Engine.Graphics3D
             _sceneLight = new SceneLight();
             _sceneLight.AmbientIntensity = 1f;
 
-            if (tryInitializeVR)
+            var initVR = tryInitializeVR.HasValue ? tryInitializeVR.Value : YnG.AutoStartVirtualReality;
+
+            if (initVR)
                 TryInitializeVR();
         }
 
         private void TryInitializeVR()
         {
-#if DEBUG_VR
-            _NullVR = new NullVRService(YnG.Game);
-            var driver = new VRDriver(_NullVR, true, 0);
-            VRManager.AvailableDrivers.Add(driver);
-#endif
             _vrService = VRManager.GetVRAvailableVRService(YnG.Game);
             _vrEnabled = _vrService != null;
 
@@ -222,13 +211,6 @@ namespace Yna.Engine.Graphics3D
             {
                 var oldRT = graphics.GetRenderTargets();
 
-#if DEBUG_VR
-                if (_NullVR.ViewMatrix == Matrix.Identity)
-                {
-                    _NullVR.ViewMatrix = _camera.View;
-                    _NullVR.ProjectionMatrix = _camera.Projection;
-                }
-#endif
                 using (graphics.GeometryState())
                 {
                     for (var i = 0; i < 2; i++)

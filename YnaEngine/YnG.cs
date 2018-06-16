@@ -194,6 +194,8 @@ namespace Yna.Engine
 
         #endregion
 
+        public static bool AutoStartVirtualReality { get; set; } = false;
+
         public static Platform Platform
         {
             get

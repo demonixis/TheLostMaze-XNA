@@ -165,7 +165,7 @@ namespace Yna.Engine.Graphics3D.Geometries
         /// Draw the plane shape
         /// </summary>
         /// <param name="device"></param>
-        public override void Draw(GraphicsDevice device, Materials.Material material)
+        public override void Draw(GraphicsDevice device, Material material)
         {
             DrawUserIndexedPrimitives(device, material);
         }

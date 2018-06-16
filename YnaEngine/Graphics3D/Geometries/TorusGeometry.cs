@@ -4,6 +4,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Yna.Engine.Graphics3D.Materials;
 
 namespace Yna.Engine.Graphics3D.Geometries
 {
@@ -121,7 +122,7 @@ namespace Yna.Engine.Graphics3D.Geometries
 
         protected override void CreateIndices() { }
 
-        public override void Draw(GraphicsDevice device, Materials.Material material)
+        public override void Draw(GraphicsDevice device, Material material)
         {
             DrawUserIndexedPrimitives(device, material);
         }
