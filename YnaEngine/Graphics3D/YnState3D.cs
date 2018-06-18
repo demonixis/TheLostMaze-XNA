@@ -213,13 +213,15 @@ namespace Yna.Engine.Graphics3D
 
                 using (graphics.GeometryState())
                 {
+                    var camera = _camera.View;
+
                     for (var i = 0; i < 2; i++)
                     {
                         graphics.SetRenderTarget(_sceneRenderTargets[i]);
                         graphics.Clear(Color.Black);
 
                         _camera.Projection = _vrService.GetProjectionMatrix(i);
-                        _camera.View = _vrService.GetViewMatrix(i, Matrix.Identity);
+                        _camera.View = _vrService.GetViewMatrix(i, camera);
                         _scene.Draw(gameTime, YnG.GraphicsDevice, _camera, _sceneLight, ref _fog);
                     }
                 }

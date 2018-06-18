@@ -123,7 +123,7 @@ namespace C3DE.VR
         public override Matrix GetViewMatrix(int eye, Matrix parent)
         {
             var matrixEyePos = m_System.GetEyeToHeadTransform((EVREye)eye).ToXNA();
-            return Matrix.Invert(parent) * (m_HMDPose * matrixEyePos);
+            return (parent) * (m_HMDPose * matrixEyePos);
         }
 
         public override float GetRenderTargetAspectRatio(int eye) => 1.0f;
